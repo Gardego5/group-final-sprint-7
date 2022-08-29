@@ -1,14 +1,11 @@
 package com.example.Sprint7Final.entities;
 
-import javax.persistence.Embedded;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+import java.util.List;
 
 @Table(name = "user_table")
 @Entity
@@ -31,12 +28,17 @@ public class User {
 	private boolean Admin;
 	
 	private String status;
+
+	private boolean deleted;
 	
 	@ManyToOne
 	private Team team;
 	
 	@ManyToOne
 	private Company company;
+
+	@OneToMany(mappedBy = "author")
+	private List<Announcement> userAnnouncements;
 	
 }
 

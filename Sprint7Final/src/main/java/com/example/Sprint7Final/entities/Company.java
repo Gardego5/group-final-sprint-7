@@ -29,9 +29,10 @@ public class Company {
 	@OneToMany(mappedBy = "company")
 	private List<User> usersInTheCompany;
 	
-	@OneToMany(mappedBy = "companyMakingAnnoucement")
+	@OneToMany(mappedBy = "companyMakingAnnouncement")
 	private List<Announcement> companyAnnouncements;
 	
 	@OneToMany(mappedBy = "teamCompany")
 	private List<Team> companyTeams;
+
 }
