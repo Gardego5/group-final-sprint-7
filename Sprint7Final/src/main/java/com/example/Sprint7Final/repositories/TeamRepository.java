@@ -6,4 +6,6 @@ import com.example.Sprint7Final.entities.Team;
 
 public interface TeamRepository extends JpaRepository<Team, Long> {
 
+	Team findByTeamName(String name);
+	
 }

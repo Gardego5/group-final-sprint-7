@@ -17,11 +17,13 @@ public class Project {
 	@GeneratedValue
 	private Long id;
 	
-	private String name;
+	private String projectName;
 	
 	private String projectDescription;
 
 	private boolean active;
+
+	private boolean deleted;
 	
 	@ManyToOne
 	private Team teamOnProject;

@@ -1,12 +1,13 @@
 package com.example.Sprint7Final.dtos;
 
-
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
 @NoArgsConstructor
-public class TeamRequestDto {
+@AllArgsConstructor
+public class ErrorDto {
 	
-	private TeamDto team;
+	private String message;
 }
