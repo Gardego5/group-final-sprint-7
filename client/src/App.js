@@ -1,10 +1,7 @@
-import logo from './logo.svg';
-import './App.css';
-
 function App() {
   return (
     <div className="App">
-      <Login/>
+      <h1>Company App</h1>
     </div>
   );
 }
