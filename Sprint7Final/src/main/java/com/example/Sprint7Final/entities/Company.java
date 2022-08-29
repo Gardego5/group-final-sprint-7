@@ -7,7 +7,6 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -33,6 +32,6 @@ public class Company {
 	@OneToMany(mappedBy = "companyMakingAnnoucement")
 	private List<Announcement> companyAnnouncements;
 	
-	@OneToOne
-	private Team team;
+	@OneToMany(mappedBy = "teamCompany")
+	private List<Team> companyTeams;
 }

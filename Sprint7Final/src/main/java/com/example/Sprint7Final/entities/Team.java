@@ -5,8 +5,8 @@ import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -23,8 +23,8 @@ public class Team {
 
 	private String teamDescription;
 
-	@OneToOne
-	private Company company;
+	@ManyToOne
+	private Company teamCompany;
 
 	@OneToMany(mappedBy = "team")
 	private List<User> usersOnTheTeam;
