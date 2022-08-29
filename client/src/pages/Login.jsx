@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import LogoImg from "../assets/logo.png"
 
 const LoginPageDiv = styled.div`
     display: flex;
@@ -13,7 +14,7 @@ const Title = styled.h1`
 `;
 
 const Subtitle = styled.h3`
-    color: blue;
+    color: #2d2d6b4a;
     margin-top: 1em;
     text-align: center;
 `;
@@ -38,7 +39,7 @@ const LoginField = styled.input`
 const Logo = styled.img`
     align-self: center;
     margin-top: 2vw;
-    height: 5vw;
+    height: 3vw;
     width: 5vw;
 `;
 
@@ -59,7 +60,7 @@ const Login = () => {
             <Title>Cook Systems</Title>
             <Subtitle>A FINAL APP</Subtitle>
             <LoginBox>
-                <Logo src="../assets/logo.png"/>
+                <Logo src={LogoImg}/>
                 <LoginField type="text" placeholder="username"/>
                 <LoginField type="text" placeholder="password"/>
                 <LoginButton>Login</LoginButton>
