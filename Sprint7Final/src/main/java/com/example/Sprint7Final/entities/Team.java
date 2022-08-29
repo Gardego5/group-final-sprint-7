@@ -16,19 +16,19 @@ import lombok.NoArgsConstructor;
 @Data
 public class Team {
 	@Id
-    @GeneratedValue
-    private Long id;
-	
+	@GeneratedValue
+	private Long id;
+
 	private String teamName;
-	
+
 	private String teamDescription;
-	
+
 	@OneToOne
 	private Company company;
-	
+
 	@OneToMany(mappedBy = "team")
 	private List<User> usersOnTheTeam;
-	
+
 	@OneToMany(mappedBy = "teamOnProject")
 	private List<Project> teamProjects;
 }
