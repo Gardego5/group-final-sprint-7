@@ -1,5 +1,8 @@
+
+import { StyledButton } from './NewAButton.module';
+
 const NewAButton = () => {
-  return <button className="new-button">New</button>;
+  return <StyledButton className="new-button">New</StyledButton>;
 };
 
 export default NewAButton;

@@ -12,6 +12,10 @@ const StyledNav = styled.nav`
   align-items: center;
   padding: 0.5rem;
   gap: 1rem;
+  border: 0.0625rem solid #deb992;
+  & > * {
+    z-index: 5;
+  }
   & img#logo {
     width: 3rem;
     border-radius: 50%;
@@ -35,9 +39,9 @@ const StyledNav = styled.nav`
   }
   & ul#links {
     position: absolute;
-    top: 4rem;
+    top: 4.375rem;
     left: 0rem;
-    display: ${({ showLinks }) => showLinks ? "flex" : "none"};
+    display: ${({ showLinks }) => (showLinks ? "flex" : "none")};
     flex-direction: column;
     width: 100%;
     padding: 0;
@@ -45,7 +49,7 @@ const StyledNav = styled.nav`
   }
   & ul#links li {
     margin: 0;
-    border-bottom: 2px solid #1ba098;
+    border-bottom: 0.125rem solid #1ba098;
   }
   & ul#links li:last-child {
     border: 0;
@@ -60,6 +64,15 @@ const StyledNav = styled.nav`
     font-size: 2rem;
     text-decoration: none;
   }
+  & div.overlay {
+    position: absolute;
+    top: 4.375rem;
+    right: 0;
+    width: 100vw;
+    height: calc(100vh - 4.5rem );
+    z-index: 4;
+    background-color: #0000;
+  }
 `;
 
 const NavBar = () => {
@@ -69,6 +82,7 @@ const NavBar = () => {
 
   return (
     <StyledNav showLinks={showing}>
+      {showing ? <div className="overlay" onClick={toggleShowing}></div> : ""}
       <NavLink to="/">
         <img src={LogoImg} alt="logo" id="logo" />
       </NavLink>
@@ -80,13 +94,21 @@ const NavBar = () => {
       </button>
 
       <ul id="links">
-        <li><NavLink to="/">Home</NavLink></li>
-        <li><NavLink to="/teams">Teams</NavLink></li>
-        <li><NavLink to="/users">Users</NavLink></li>
-        <li><NavLink to="/logout">Logout</NavLink></li>
+        <li onClick={toggleShowing}>
+          <NavLink to="/announcements">Home</NavLink>
+        </li>
+        <li onClick={toggleShowing}>
+          <NavLink to="/teams">Teams</NavLink>
+        </li>
+        <li onClick={toggleShowing}>
+          <NavLink to="/users">Users</NavLink>
+        </li>
+        <li onClick={toggleShowing}>
+          <NavLink to="/">Logout</NavLink>
+        </li>
       </ul>
     </StyledNav>
   );
-}
+};
 
 export default NavBar;

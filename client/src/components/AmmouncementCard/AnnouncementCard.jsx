@@ -1,21 +1,25 @@
-const AnnouncementCard = () => {
+import {
+  Card,
+  CardHeader,
+  PostDate,
+  UserTitle,
+  CardBody,
+  UserPost,
+} from "./AnnouncementCard.module";
+
+const AnnouncementCard = (props) => {
   return (
-    <div>
-      <div className="card">
-        <div className="card-header">
-          <h5 className="user">Chris, CEO</h5>
-          <span className="date-posted">November 17, 2022</span>
-        </div>
-        <div className="card-body">
-          <p className="announcement">
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Quaerat
-            natus dolore nemo, quo voluptates saepe, tempore in porro sed
-            officia nostrum autem. Dolorem itaque pariatur autem in, ipsum
-            excepturi harum?
-          </p>
-        </div>
-      </div>
-    </div>
+    <Card className="card">
+      <CardHeader className="card-header">
+        <UserTitle className="user">
+          {props.username}, {props.title}
+        </UserTitle>
+        <PostDate className="date-posted">{props.postDate}</PostDate>
+      </CardHeader>
+      <CardBody className="card-body">
+        <UserPost className="announcement">{props.userPost}</UserPost>
+      </CardBody>
+    </Card>
   );
 };
 
