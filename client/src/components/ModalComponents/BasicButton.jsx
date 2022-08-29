@@ -1,5 +1,5 @@
 
-import { styled } from 'styled-components';
+import styled from 'styled-components';
 
 const StyledButton = styled.button`
     width: ${({ w }) => w ? w : "80px"};
