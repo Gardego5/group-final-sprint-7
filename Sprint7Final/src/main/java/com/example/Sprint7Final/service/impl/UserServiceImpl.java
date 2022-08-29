@@ -24,8 +24,12 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public UserResponseDto getUser(String username) {
-        // TODO Auto-generated method stub
+    public UserResponseDto getUserById(Long id) {
+        return null;
+    }
+
+    @Override
+    public UserResponseDto getUserByUsername(String username) {
         return null;
     }
 
