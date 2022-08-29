@@ -4,10 +4,9 @@ const BasicButton = styled.button`
   width: ${({ w = "80px" }) => w};
   height: ${({ h = "30px" }) => h};
   background: ${({ bg = "#1ba098" }) => bg};
-  color: ${({c = "white"}) => c};
+  color: ${({ c = "white" }) => c};
   border-radius: 0.5rem;
   border: none;
-  background: #1ba098;
   padding: 0.5rem;
   cursor: pointer;
   box-shadow: 0 0.25rem 0.25rem #0006;
