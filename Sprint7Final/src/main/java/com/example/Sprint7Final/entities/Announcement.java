@@ -31,8 +31,8 @@ public class Announcement {
 	private String message;
 	
 	@ManyToOne
-	private Company companyMakingAnnoucement;
+	private Company companyMakingAnnouncement;
 	
-	@OneToOne
+	@ManyToOne
 	private User author;
 }
