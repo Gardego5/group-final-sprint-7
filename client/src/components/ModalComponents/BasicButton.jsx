@@ -1,18 +1,19 @@
+import styled from "styled-components";
 
-import { styled } from 'styled-components';
-
-const StyledButton = styled.button`
-    width: ${({ w }) => w ? w : "80px"};
-    height: ${({ h }) => h ? h : "30px"};
-    background: ${({ bg }) => bg ? bg : "rgb(27, 160, 152)"};
-`
-
-const BasicButton = () => {
-    return ( 
-        <StyledButton>
-
-        </StyledButton>
-     );
-}
+const BasicButton = styled.button`
+  width: ${({ w = "80px" }) => w};
+  height: ${({ h = "30px" }) => h};
+  background: ${({ bg = "#1ba098" }) => bg};
+  color: ${({ c = "white" }) => c};
+  border-radius: 0.5rem;
+  border: none;
+  padding: 0.5rem;
+  cursor: pointer;
+  box-shadow: 0 0.25rem 0.25rem #0006;
+  &:active {
+    transform: translateY(0.25rem);
+    box-shadow: none;
+  }
+`;
 
 export default BasicButton;
