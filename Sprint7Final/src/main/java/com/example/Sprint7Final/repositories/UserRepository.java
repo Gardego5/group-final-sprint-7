@@ -8,5 +8,4 @@ import com.example.Sprint7Final.entities.User;
 @Repository
 public interface UserRepository extends JpaRepository<User, Long> {
 
-	
 }
