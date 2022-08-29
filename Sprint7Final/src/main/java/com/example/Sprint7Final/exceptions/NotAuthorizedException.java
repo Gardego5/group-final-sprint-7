@@ -7,9 +7,9 @@ import lombok.Setter;
 @AllArgsConstructor
 @Getter
 @Setter
-public class BadRequestException extends RuntimeException {
+public class NotAuthorizedException extends RuntimeException{
 	
-	private static final long serialVersionUID = -8224071650964569461L;
+	private static final long serialVersionUID = 4090760080695095933L;
 	
 	private String message;
 }
