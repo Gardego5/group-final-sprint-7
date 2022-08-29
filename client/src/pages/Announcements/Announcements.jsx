@@ -1,14 +1,19 @@
 // imports
-import AnnouncementCard from "../../components/AmmouncementCard/AnnouncementCard"
+import AnnouncementCard from "../../components/AmmouncementCard/AnnouncementCard";
 import NewAButton from "../../components/AmmouncementCard/NewAButton";
+import { StyledTitle, ButtonDiv, AnnCardDiv, AnnsDiv } from "./Announcements.module";
 
 const Announcements = () => {
   return (
-    <div className="announcements">
-      <h2>Announcements</h2>
-      <NewAButton />
-      <AnnouncementCard />
-    </div>
+    <AnnsDiv>
+      <StyledTitle>Announcements</StyledTitle>
+      <ButtonDiv>
+        <NewAButton />
+      </ButtonDiv>
+      <AnnCardDiv>
+        <AnnouncementCard />
+      </AnnCardDiv>
+    </AnnsDiv>
   );
 };
 

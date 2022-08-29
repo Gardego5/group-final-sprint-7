@@ -14,7 +14,7 @@ const Title = styled.h1`
 `;
 
 const Subtitle = styled.h3`
-    color: blue;
+    color: #2d2d6b4a;
     margin-top: 1em;
     text-align: center;
 `;
