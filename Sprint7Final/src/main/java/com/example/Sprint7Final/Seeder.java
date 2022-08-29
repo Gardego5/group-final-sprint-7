@@ -16,9 +16,11 @@ import com.example.Sprint7Final.repositories.TeamRepository;
 import com.example.Sprint7Final.repositories.UserRepository;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
 @Component
 @RequiredArgsConstructor
+@Slf4j
 public class Seeder implements CommandLineRunner {
 
 	private final UserRepository userRepository;
@@ -39,6 +41,21 @@ public class Seeder implements CommandLineRunner {
 		company2.setName("Aperture Science Innovators");
 		company2.setDescription("The cake is not a lie...");
 		companyRepository.saveAndFlush(company2);
+		
+		// team creations
+		
+		Team team1 = new Team();
+		team1.setTeamName("Team 1!");
+		team1.setTeamCompany(company1);
+		team1.setTeamDescription("Team 1 rocks!");
+		
+		Team team2 = new Team();
+		team2.setTeamName("Team 2!");
+		team2.setTeamCompany(company2);
+		team2.setTeamDescription("Team 2 is better!");
+		
+		teamRepository.saveAndFlush(team1);
+		teamRepository.saveAndFlush(team2);
 
 		// --- User 1 ---
 		// Credentials
@@ -57,8 +74,10 @@ public class Seeder implements CommandLineRunner {
 		user1Pro.setPhone("123-456-7890");
 		user1.setProfile(user1Pro);
 		user1.setCompany(company1);
+		user1.setTeam(team1);
+		user1.setStatus("Default");
 
-		// Deleted
+		// Active
 		user1.setActive(true);
 
 		// --- User 2 ---
@@ -78,7 +97,9 @@ public class Seeder implements CommandLineRunner {
 		user2Pro.setPhone("234-567-8901");
 		user2.setProfile(user2Pro);
 		user2.setCompany(company2);
-		// Deleted
+		user2.setTeam(team1);
+		user2.setStatus("Default");
+		// Active
 		user2.setActive(false);
 
 		// --- User 3 ---
@@ -98,7 +119,9 @@ public class Seeder implements CommandLineRunner {
 		user3Pro.setPhone("234-567-1111");
 		user3.setProfile(user3Pro);
 		user3.setCompany(company2);
-		// Deleted
+		user3.setTeam(team2);
+		user3.setStatus("Default");
+		// Active
 		user3.setActive(true);
 
 		// --- User 4 ---
@@ -118,7 +141,9 @@ public class Seeder implements CommandLineRunner {
 		user4Pro.setPhone("234-555-8901");
 		user4.setProfile(user4Pro);
 		user4.setCompany(company1);
-		// Deleted
+		user4.setTeam(team2);
+		user4.setStatus("Default");
+		// Active
 		user4.setActive(true);
 
 		userRepository.saveAndFlush(user1);
@@ -132,22 +157,20 @@ public class Seeder implements CommandLineRunner {
 		team1Users.add(user1);
 		team1Users.add(user2);
 
-		Team team1 = new Team();
-		team1.setTeamName("Team 1!");
-		team1.setTeamCompany(company1);
-		team1.setTeamDescription("Team 1 rocks!");
-		team1.setUsersOnTheTeam(team1Users);
+		
+		Team team1FromRepo = teamRepository.findByTeamName(team1.getTeamName());
+		team1FromRepo.setUsersOnTheTeam(team1Users);
+		teamRepository.saveAndFlush(team1FromRepo);
+		
+		log.warn( "Team Id returned for team1 " + team1FromRepo.getId());
 		
 		// --Team 2 ---
 		List<User> team2Users = new ArrayList<>();
 		team2Users.add(user3);
 		team2Users.add(user4);
 	
-		Team team2 = new Team();
-		team2.setTeamName("Team 2!");
-		team2.setTeamCompany(company2);
-		team2.setTeamDescription("Team 2 is better!");
-		team2.setUsersOnTheTeam(team2Users);
+		
+		teamRepository.findByTeamName(team2.getTeamName()).setUsersOnTheTeam(team2Users);
 		
 		teamRepository.saveAndFlush(team1);
 		teamRepository.saveAndFlush(team2);
