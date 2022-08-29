@@ -4,8 +4,8 @@ import NewAButton from "../../components/AmmouncementCard/NewAButton";
 
 const Announcements = () => {
   return (
-    <div>
-      <title>Announcements</title>
+    <div className="announcements">
+      <h2>Announcements</h2>
       <NewAButton />
       <AnnouncementCard />
     </div>
