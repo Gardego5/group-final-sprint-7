@@ -12,6 +12,7 @@ const StyledNav = styled.nav`
   align-items: center;
   padding: 0.5rem;
   gap: 1rem;
+  border: 0.0625rem solid #deb992;
   & img#logo {
     width: 3rem;
     border-radius: 50%;
@@ -35,7 +36,7 @@ const StyledNav = styled.nav`
   }
   & ul#links {
     position: absolute;
-    top: 4rem;
+    top: 4.375rem;
     left: 0rem;
     display: ${({ showLinks }) => showLinks ? "flex" : "none"};
     flex-direction: column;
@@ -45,7 +46,7 @@ const StyledNav = styled.nav`
   }
   & ul#links li {
     margin: 0;
-    border-bottom: 2px solid #1ba098;
+    border-bottom: 0.125rem solid #1ba098;
   }
   & ul#links li:last-child {
     border: 0;
