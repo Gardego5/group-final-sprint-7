@@ -6,6 +6,7 @@ import ReactDOM from 'react-dom/client';
 
 import App from './App';
 import rootReducer from './reducers/rootReducer';
+import GlobalStyle from './GlobalStyle';
 
 const store = createStore(
   rootReducer,
@@ -15,6 +16,7 @@ const store = createStore(
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
+    <GlobalStyle />
     <BrowserRouter>
       <Provider store={store}>
         <App />
