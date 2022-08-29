@@ -13,5 +13,5 @@ const ModalContainer = () => {
         </StyledModal>
      );
 }
-  
+
 export default ModalContainer;

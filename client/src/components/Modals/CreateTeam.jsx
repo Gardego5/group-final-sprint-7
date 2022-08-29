@@ -33,6 +33,8 @@ const CreateTeam = () => {
       </form>
     </ModalContainer>
   );
-}; 
+
+};
+
 
 export default CreateTeam;

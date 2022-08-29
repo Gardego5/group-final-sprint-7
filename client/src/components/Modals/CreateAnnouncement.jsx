@@ -35,6 +35,7 @@ const CreateAnnouncement = () => {
       </form>
     </ModalContainer>
   );
-}; 
+};
+
 
 export default CreateAnnouncement;

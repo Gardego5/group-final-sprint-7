@@ -11,6 +11,5 @@ const CloseButton = () => {
             X
         </StyledClose>
      ); 
-}
  
 export default CloseButton;

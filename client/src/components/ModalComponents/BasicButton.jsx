@@ -13,6 +13,6 @@ const BasicButton = () => {
 
         </StyledButton>
      );
-} 
- 
+}
+
 export default BasicButton;
