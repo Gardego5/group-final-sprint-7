@@ -9,7 +9,11 @@ const StyledTeams = styled.div`
   flex-direction: column;
   align-items: center;
   & div#teams {
+    width: 80%;
     display: grid;
+    gap: 4rem;
+    grid-template-columns: repeat(auto-fit, minmax(18rem, 1fr));
+    margin-bottom: 4rem;
   }
 `;
 
