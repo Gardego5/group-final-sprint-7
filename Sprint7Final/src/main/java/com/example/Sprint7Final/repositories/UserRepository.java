@@ -8,4 +8,7 @@ import com.example.Sprint7Final.entities.User;
 @Repository
 public interface UserRepository extends JpaRepository<User, Long> {
 
+    List<User> findAllByDeletedFalse();
+
+    Optional<User> findByIdAndDeletedFalse(Long id);
 }
