@@ -23,5 +23,7 @@ public class UserRequestDto {
 	
 	private String status;
 
-	// TODO: Team and Company 
+	private TeamDto team;
+	
+	private CompanyDto company;
 }
