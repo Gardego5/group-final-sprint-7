@@ -1,7 +1,5 @@
 package com.example.Sprint7Final.dtos;
 
-import java.sql.Timestamp;
-
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -17,15 +15,13 @@ public class UserResponseDto {
 	
 	private String email;
 	
-	private String phoneNumber;
+	private String phone;
 	
-	private Boolean isActive;
+	private Boolean Active;
 	
-	private Boolean isAdmin;
+	private Boolean Admin;
 	
 	private String status;
-	
-	private Timestamp joined;
 	
 	private TeamDto team;
 	
