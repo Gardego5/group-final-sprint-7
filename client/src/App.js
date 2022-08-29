@@ -14,13 +14,13 @@ function App() {
     <Fragment>
       <Router>
         <Switch>
-          <Route path="/announcements" render={() => <Announcements />} />
-          <Route path="/projects" render={() => <Projects />} />
-          <Route path="/company" render={() => <SelectCompany />} />
-          <Route path="/teams" render={() => <Teams />} />
-          <Route path="/registry" render={() => <UserRegistry />} />
-          <Route path="/registration" render={() => <Registration />} />
-          <Route path="/" render={() => <Login />} />
+          <Route path="/registry" component={UserRegistry} />
+          <Route path="/registration" component={Registration} />
+          <Route path="/announcements" component={Announcements} />
+          <Route path="/projects" component={Projects} />
+          <Route path="/company" component={SelectCompany} />
+          <Route path="/teams" component={Teams} />
+          <Route path="/" component={Login} />
         </Switch>
       </Router>
     </Fragment>

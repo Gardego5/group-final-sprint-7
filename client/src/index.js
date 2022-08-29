@@ -1,5 +1,4 @@
-import React from 'react';
-import { BrowserRouter } from "react-router-dom";
+import React, { Fragment } from 'react';
 import { Provider } from 'react-redux';
 import { createStore } from "redux";
 import ReactDOM from 'react-dom/client';
@@ -15,12 +14,10 @@ const store = createStore(
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
-  <React.StrictMode>
+  <Fragment>
     <GlobalStyle />
-    <BrowserRouter>
-      <Provider store={store}>
-        <App />
-      </Provider>
-    </BrowserRouter>
-  </React.StrictMode>
+    <Provider store={store}>
+      <App />
+    </Provider>
+  </Fragment>
 );
