@@ -14,18 +14,19 @@ import lombok.RequiredArgsConstructor;
 @Service
 @RequiredArgsConstructor
 public class UserServiceImpl implements UserService {
-	
-	private final UserRepository userRepository;
-	
-	@Override
-	public List<UserResponseDto> getAllUsers() {
-		return null;
-	}
 
-	@Override
-	public UserResponseDto getUser(String username) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+    private final UserRepository userRepository;
+    private final UserMapper userMapper;
+
+    @Override
+    public List<UserResponseDto> getAllUsers() {
+        return userMapper.entitiesToDtos(userRepository.findAllByDeletedFalse());
+    }
+
+    @Override
+    public UserResponseDto getUser(String username) {
+        // TODO Auto-generated method stub
+        return null;
+    }
 
 }
