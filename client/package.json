@@ -19,7 +19,8 @@
     "redux-thunk": "^2.4.1",
     "save": "^2.5.0",
     "styled-components": "^5.3.5",
-    "web-vitals": "^2.1.4"
+    "web-vitals": "^2.1.4",
+    "bootstrap": "^5.2.0"
   },
   "scripts": {
     "start": "react-scripts start",
