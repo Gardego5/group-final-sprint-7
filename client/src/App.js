@@ -1,10 +1,10 @@
-import Announcements from "./pages/Announcements/Announcements";
+import Login from "./pages/Login";
 
 function App() {
   return (
     <div className="App">
       <h1>Company App</h1>
-      <Announcements />
+      <Login/>
     </div>
   );
 }
