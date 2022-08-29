@@ -19,13 +19,15 @@ public class UserResponseDto {
 	
 	private String phoneNumber;
 	
-	private boolean isActive;
+	private Boolean isActive;
 	
-	private boolean isAdmin;
+	private Boolean isAdmin;
 	
 	private String status;
 	
 	private Timestamp joined;
 	
-	// TODO: Team and Company 
+	private TeamDto team;
+	
+	private CompanyDto company;
 }
