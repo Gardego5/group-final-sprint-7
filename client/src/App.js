@@ -6,12 +6,16 @@ import Login from "./pages/Login";
 import Projects from "./pages/Projects";
 import Announcements from "./pages/Announcements/Announcements";
 import SelectCompany from "./pages/SelectCompany";
+import Registration from "./pages/Registration";
+import UserRegistry from "./pages/UserRegistry";
 
 function App() {
   return (
     <Fragment>
       <Router>
         <Switch>
+          <Route path="/registry" component={UserRegistry} />
+          <Route path="/registration" component={Registration} />
           <Route path="/announcements" component={Announcements} />
           <Route path="/projects" component={Projects} />
           <Route path="/company" component={SelectCompany} />
