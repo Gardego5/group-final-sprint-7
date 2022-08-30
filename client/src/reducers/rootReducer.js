@@ -2,13 +2,15 @@ const initialState = {
   credentials: {
     username: "",
     password: "",
-  }
+  },
+  user: "",
 }
 
 /* Action Types */
 const SET_CREDENTIALS = "SET_CREDENTIALS";
 const SET_USERNAME = "SET_USERNAME";
 const SET_PASSWORD = "SET_PASSWORD";
+const SET_USER = "SET_USER";
 
 /* Reducer Function */
 const rootReducer = (state = initialState, action) => {
@@ -25,6 +27,11 @@ const rootReducer = (state = initialState, action) => {
         ...state,
         credentials: { ...state.credentials, password: action.password },
       };
+    case SET_USER:
+      return {
+        ...state,
+        user: action.user,
+      }
     default:
       return state;
   }
@@ -45,6 +52,11 @@ export const setPassword = (password) => ({
   type: SET_PASSWORD,
   password,
 });
+
+export const setUser = (user) => ({
+  type: SET_USER,
+  user,
+})
 
 /* Selectors */
 export const getCredentials = ({ credentials }) => credentials;

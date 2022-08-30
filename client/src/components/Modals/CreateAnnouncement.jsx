@@ -40,7 +40,7 @@ const StyledField = styled(Field)`
 const StyledCloseButton = styled(Button)`
   background-image: url(CloseImg);
 `;
-const CreateAnnouncement = ({ posterName }) => {
+const CreateAnnouncement = (props) => {
   // useState hooks
   const [modalOpen, setModalOpen] = useState(false);
   const [announcement, setAnnouncement] = useState({});
