@@ -18,6 +18,8 @@ import com.example.Sprint7Final.services.UserService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -62,7 +64,12 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public UserResponseDto createUser(CredentialsDto credentialsDto, UserRequestDto userRequestDto) {
+
+		// check credentials are good and credentialsDto is an admin
 		User user = getUserByCredentials(credentialsDto);
+		if (!user.isAdmin()) {
+			throw new NotAuthorizedException("You are not allowed to perform this action. Please check your credentials");
+		}
 		User user2 = validateUserCredentialsMatchDatabase(credentialsDto);
 		if (user2.isAdmin() && user.isActive()) {
 
@@ -70,6 +77,19 @@ public class UserServiceImpl implements UserService {
 		User userToBeCreated = userMapper.dtoToEntity(userRequestDto);
 
 		return null;
+	}
+
+	@Override
+	public List<UserResponseDto> getUsersInCompany(CredentialsDto credentialsDto, Long companyId) {
+		log.warn("Number being passed in " + companyId);
+		List<User> users = userRepository.findAllByDeletedFalse();
+		List<User> tempUsers = new ArrayList<>();
+		for (User user : users) {
+			if (user.getCompany().getId().equals(companyId)) {
+				tempUsers.add(user);
+			}
+		}
+		return userMapper.entitiesToDtos(tempUsers);
 	}
 
 	@Override
@@ -83,7 +103,4 @@ public class UserServiceImpl implements UserService {
 		// TODO Auto-generated method stub
 		return null;
 	}
-
-
-
 }

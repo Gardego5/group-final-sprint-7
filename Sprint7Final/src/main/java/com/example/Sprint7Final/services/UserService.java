@@ -15,4 +15,6 @@ public interface UserService {
 	UserResponseDto getUser(CredentialsDto credentialsDto);
 
 	UserResponseDto createUser(CredentialsDto credentialsDto, UserRequestDto userRequestDto);
+
+	List<UserResponseDto> getUsersInCompany(CredentialsDto credentialsDto, Long companyId);
 }
