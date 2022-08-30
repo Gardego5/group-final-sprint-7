@@ -38,4 +38,9 @@ public class ProjectController {
 	public ProjectDto createProject(@RequestBody ProjectDto projectDto) {
 		return projectService.createProject(projectDto);
 	}
+	
+	@PostMapping("/{teamId}")
+	public ProjectDto createProjectWithTeamId(@RequestBody ProjectDto projectDto, @PathVariable Long teamId) {
+		return projectService.createProjectWithTeamId(projectDto, teamId);
+	}
 }
