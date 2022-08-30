@@ -7,8 +7,8 @@ import com.example.Sprint7Final.dtos.TeamResponseDto;
 
 public interface TeamService {
 
-	List<TeamResponseDto> getTeams();
+	List<TeamResponseDto> getAllTeams();
 	
-	TeamDto getTeamById(Long teamId);
+	TeamResponseDto getTeamById(Long teamId);
 
 }

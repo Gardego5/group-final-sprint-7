@@ -20,12 +20,12 @@ public class TeamServiceImpl implements TeamService {
 	TeamMapper teamMapper;
 
 	@Override
-	public List<TeamResponseDto> getTeams() {
+	public List<TeamResponseDto> getAllTeams() {
 		return teamMapper.entitiesToDtos(teamRepository.findAll());
 	}
 
 	@Override
-	public TeamDto getTeamById(Long teamId) {
+	public TeamResponseDto getTeamById(Long teamId) {
 		// TODO Auto-generated method stub
 		return null;
 	}
