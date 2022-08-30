@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useDispatch } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { Button, FormGroup, Label } from "reactstrap";
 import { Formik } from "formik";
 import {
@@ -11,22 +11,36 @@ import {
   StyledForm,
   StyledCloseButton,
 } from "./Modals.module";
+
+import { addUser } from "../../utils/requests";
+import { getCompany } from "../../reducers/rootReducer";
+
 const AddUser = ({}) => {
   const [modalOpen, setModalOpen] = useState(false);
 
   const dispatch = useDispatch();
   const toggle = () => setModalOpen(!modalOpen);
+  const setCompanyId = useSelector(getCompany);
+
   const handleSubmit = (values) => {
     const user = {
+      admin: values.admin === "true",
+      credentials: {
+        password: values.password,
+        username: values.username,
+      },
+      email: values.email,
       firstName: values.firstName,
       lastName: values.lastName,
-      email: values.email,
       phone: values.phone,
-      username: values.username,
-      password: values.password,
-      confirmPw: values.confirmPw,
-      admin: values.admin,
+      status: "PENDING",
+      company: {
+        id: setCompanyId.id,
+      },
+      // 'confirmPw': values.confirmPw,
     };
+    console.log(values);
+    addUser(user);
   };
   return (
     <>
@@ -53,6 +67,7 @@ const AddUser = ({}) => {
               username: "",
               password: "",
               confirmPw: "",
+              admin: "",
             }}
             onSubmit={handleSubmit}
           >
@@ -122,8 +137,9 @@ const AddUser = ({}) => {
               <FormGroup>
                 <Label htmlFor="admin"></Label>
                 <StyledField name="admin" as="select" className="form-control">
-                  <option value={true}>true</option>
-                  <option value={false}>false</option>
+                  <option value={null}>Pick an option</option>
+                  <option value={"true"}>true</option>
+                  <option value={"false"}>false</option>
                 </StyledField>
               </FormGroup>
               <StyledButton type="submit" color="primary">
