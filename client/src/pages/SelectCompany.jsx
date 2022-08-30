@@ -61,7 +61,7 @@ const SelectCompany = () => {
         setCompany(
           companies.filter(
             ({ id }) => id === Number.parseInt(event.target.value)
-          )
+          )[0]
         )
       );
       setRedirect(<Redirect to="/announcements" />);
