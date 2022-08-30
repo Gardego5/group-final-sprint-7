@@ -14,7 +14,7 @@ function App() {
     <Fragment>
       <Router>
         <Switch>
-          <Route path="/registry" component={UserRegistry} />
+          <Route path="/users" component={UserRegistry} />
           <Route path="/registration" component={Registration} />
           <Route path="/announcements" component={Announcements} />
           <Route path="/projects" component={Projects} />
