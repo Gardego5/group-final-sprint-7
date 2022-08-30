@@ -1,9 +1,11 @@
 import styled from "styled-components";
-import { NavLink } from "react-router-dom";
+import { NavLink, Redirect } from "react-router-dom";
 
 import HamburgerImg from "../assets/hamburger.svg";
 import LogoImg from "../assets/logo.png";
 import { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { eraseSession, getCompany, getCredentials, getUser, setCompany } from "../reducers/rootReducer";
 
 const StyledNav = styled.nav`
   position: sticky;
@@ -40,7 +42,7 @@ const StyledNav = styled.nav`
   }
   & ul#links {
     position: absolute;
-    top: 4.375rem;
+    top: 0;
     left: 0rem;
     display: ${({ showLinks }) => (showLinks ? "flex" : "none")};
     flex-direction: column;
@@ -67,21 +69,43 @@ const StyledNav = styled.nav`
   }
   & div.overlay {
     position: absolute;
-    top: 4.375rem;
+    top: 0;
     right: 0;
     width: 100vw;
-    height: calc(100vh - 4.5rem);
+    height: 99vh;
     z-index: 4;
     background-color: #0000;
   }
 `;
 
 const NavBar = () => {
+  const dispatch = useDispatch();
+  const credentials = useSelector(getCredentials);
+  const user = useSelector(getUser);
+  const company = useSelector(getCompany);
+
+  // Local State
   const [showing, updateShowing] = useState(false);
+  const [redirect, setRedirect] = useState("");
+
+  const logout = (event) => {
+    event?.preventDefault();
+    setRedirect(<Redirect to="" />);
+    dispatch(eraseSession());
+  };
+
+  const selectCompany = () => {
+    setRedirect(<Redirect to="/company" />);
+  }
+
+  if (!redirect && (!credentials || !user)) logout();
+  if (!redirect && !company) selectCompany();
 
   const toggleShowing = (event) => updateShowing(!showing);
 
-  return (
+  return redirect ? (
+    redirect
+  ) : (
     <StyledNav showLinks={showing}>
       {showing ? <div className="overlay" onClick={toggleShowing}></div> : ""}
       <NavLink to="/">
@@ -105,7 +129,9 @@ const NavBar = () => {
           <NavLink to="/users">Users</NavLink>
         </li>
         <li onClick={toggleShowing}>
-          <NavLink to="/">Logout</NavLink>
+          <NavLink to="/" onClick={logout}>
+            Logout
+          </NavLink>
         </li>
       </ul>
     </StyledNav>
