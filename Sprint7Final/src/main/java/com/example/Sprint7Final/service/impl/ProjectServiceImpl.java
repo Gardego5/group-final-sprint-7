@@ -1,6 +1,7 @@
 package com.example.Sprint7Final.service.impl;
 
 import com.example.Sprint7Final.dtos.ProjectDto;
+import com.example.Sprint7Final.entities.Project;
 import com.example.Sprint7Final.mappers.ProjectMapper;
 import com.example.Sprint7Final.repositories.ProjectRepository;
 import com.example.Sprint7Final.services.ProjectService;
@@ -25,4 +26,11 @@ public class ProjectServiceImpl implements ProjectService {
     public ProjectDto getProjectById(Long id) {
         return projectMapper.entityToDto(projectRepository.getReferenceById(id));
     }
+
+	@Override
+	public ProjectDto createProject(ProjectDto projectDto) {
+		// TODO: Possible reworking
+		Project projectToSave = projectRepository.save(projectMapper.dtoToEntity(projectDto));
+		return projectMapper.entityToDto(projectRepository.save(projectToSave));
+	}
 }
