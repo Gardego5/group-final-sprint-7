@@ -1,6 +1,5 @@
 // imports
 import AnnouncementCard from "../../components/AnnouncementCard/AnnouncementCard";
-import NewAButton from "../../components/AnnouncementCard/NewAButton";
 import {
   StyledTitle,
   ButtonDiv,
@@ -9,11 +8,12 @@ import {
 } from "./Announcements.module";
 import { useState } from "react";
 import NavBar from './../../components/NavBar';
+import CreateAnnouncement from './../../components/Modals/CreateAnnouncement';
 
 const defaultPost = [
   {
     postId: 1,
-    username: "Senor Garret",
+    username: "Homie Tamblin",
     title: "CEO",
     postDate: "August 29, 2022",
     userPost: "How do you go back a file?",
@@ -28,7 +28,27 @@ const defaultPost = [
 ];
 
 const Announcements = () => {
-  const [posts, setPost] = useState(defaultPost);
+  // hook for posts
+  const [posts, setPosts] = useState(defaultPost);
+  const [currentUser, setCurrentUser] = useState(getUser())
+
+  //---------- helper functions ----------------//
+
+  // useEffect hook to load all posts from datase
+  // API call get all posts inside
+
+  function getUser() {
+    // API call to get currentUser
+    // mock response
+    const currentUser = {
+      userId: 1,
+      firstName: "Jesus",
+      lastName: "Milan",
+      title: "Worker",
+    }
+    // set current user to response
+    return currentUser;
+  }
 
   return (
     <>
@@ -36,7 +56,7 @@ const Announcements = () => {
     <AnnsDiv>
       <StyledTitle>Announcements</StyledTitle>
       <ButtonDiv>
-        <NewAButton />
+        <CreateAnnouncement firstName={currentUser.firstName} lastName={currentUser.lastName} title={currentUser.title}/>
       </ButtonDiv>
       <AnnCardDiv>
         {posts.map(({ postId, username, title, postDate, userPost }) => (
