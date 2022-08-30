@@ -21,6 +21,8 @@ const AddUser = ({}) => {
       firstName: values.firstName,
       lastName: values.lastName,
       email: values.email,
+      phone: values.phone,
+      username: values.username,
       password: values.password,
       confirmPw: values.confirmPw,
       admin: values.admin,
@@ -47,6 +49,8 @@ const AddUser = ({}) => {
               firstName: "",
               lastName: "",
               email: "",
+              phone: "",
+              username: "",
               password: "",
               confirmPw: "",
             }}
@@ -74,6 +78,20 @@ const AddUser = ({}) => {
                 <StyledField
                   name="email"
                   placeholder="Email"
+                  className="form-control"
+                />
+                <Label htmlFor="phone"></Label>
+                <StyledField
+                  name="phone"
+                  placeholder="Phone Number"
+                  className="form-control"
+                />
+              </FormGroup>
+              <FormGroup>
+                <Label htmlFor="username"></Label>
+                <StyledField
+                  name="username"
+                  placeholder="Username"
                   className="form-control"
                 />
               </FormGroup>
