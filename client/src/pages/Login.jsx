@@ -89,17 +89,19 @@ const LoginButton = styled.button`
 `;
 
 const Login = () => {
-  const [redirect, setRedirect] = useState("");
-  const credentials = useSelector(getCredentials);
   const dispatch = useDispatch();
+  const credentials = useSelector(getCredentials);
+
+  // Local State
+  const [redirect, setRedirect] = useState("");
 
   const handleLogin = async () => {
     const user = await loginUser(credentials);
     if (user) {
-      dispatch(setUser(user))
-      setRedirect(<Redirect to="/announcements" />)
+      dispatch(setUser(user));
+      setRedirect(<Redirect to="/company" />);
     }
-  }
+  };
 
   return redirect ? (
     redirect
@@ -123,11 +125,7 @@ const Login = () => {
           value={credentials.password}
           onChange={(event) => dispatch(setPassword(event.target.value))}
         />
-        <LoginButton
-          onClick={handleLogin}
-        >
-          Login
-        </LoginButton>
+        <LoginButton onClick={handleLogin}>Login</LoginButton>
       </LoginBox>
     </LoginPageDiv>
   );
