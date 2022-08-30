@@ -1,15 +1,16 @@
 import { useState } from "react";
 import { useDispatch } from "react-redux";
+import { Button, FormGroup, Label } from "reactstrap";
+import { Formik } from "formik";
 import {
-  Button,
-  Modal,
-  ModalHeader,
-  ModalBody,
-  FormGroup,
-  Label,
-} from "reactstrap";
-import { Formik, Field, Form } from "formik";
-
+  StyledModal,
+  StyledModalHeader,
+  StyledModalBody,
+  StyledButton,
+  StyledField,
+  StyledForm,
+  StyledCloseButton,
+} from "./Modals.module";
 const AddUser = ({}) => {
   const [modalOpen, setModalOpen] = useState(false);
 
@@ -22,7 +23,7 @@ const AddUser = ({}) => {
       email: values.email,
       password: values.password,
       confirmPw: values.confirmPw,
-      admin: values.admin
+      admin: values.admin,
     };
   };
   return (
@@ -31,16 +32,16 @@ const AddUser = ({}) => {
         {" "}
         Add User
       </Button>
-      <Modal isOpen={modalOpen} toggle={toggle}>
+      <StyledModal isOpen={modalOpen} toggle={toggle}>
         {" "}
-        <ModalHeader>
+        <StyledModalHeader>
           {" "}
           Add User
-          <Button color="danger" onClick={() => setModalOpen(false)}>
+          <StyledCloseButton color="danger" onClick={() => setModalOpen(false)}>
             X
-          </Button>
-        </ModalHeader>
-        <ModalBody>
+          </StyledCloseButton>
+        </StyledModalHeader>
+        <StyledModalBody>
           <Formik
             initialValues={{
               firstName: "",
@@ -51,10 +52,10 @@ const AddUser = ({}) => {
             }}
             onSubmit={handleSubmit}
           >
-            <Form>
+            <StyledForm>
               <FormGroup>
                 <Label htmlFor="firstName"></Label>
-                <Field
+                <StyledField
                   name="firstName"
                   placeholder="First Name"
                   className="form-control"
@@ -62,7 +63,7 @@ const AddUser = ({}) => {
               </FormGroup>
               <FormGroup>
                 <Label htmlFor="lastName"></Label>
-                <Field
+                <StyledField
                   name="lastName"
                   placeholder="Last Name"
                   className="form-control"
@@ -70,7 +71,7 @@ const AddUser = ({}) => {
               </FormGroup>
               <FormGroup>
                 <Label htmlFor="email"></Label>
-                <Field
+                <StyledField
                   name="email"
                   placeholder="Email"
                   className="form-control"
@@ -78,7 +79,7 @@ const AddUser = ({}) => {
               </FormGroup>
               <FormGroup>
                 <Label htmlFor="password"></Label>
-                <Field
+                <StyledField
                   name="password"
                   placeholder="Password"
                   className="form-control"
@@ -86,27 +87,34 @@ const AddUser = ({}) => {
               </FormGroup>
               <FormGroup>
                 <Label htmlFor="confirmPw"></Label>
-                <Field
+                <StyledField
                   name="confirmPw"
                   placeholder="Confirm Password"
                   className="form-control"
                 />
               </FormGroup>
-              <h2>Make user an admin role?</h2>
+              <h2
+                style={{
+                  color: "rgb(222, 185, 146)",
+                  margin: "4rem 0rem 2rem 0rem",
+                }}
+              >
+                Make user an admin role?
+              </h2>
               <FormGroup>
                 <Label htmlFor="admin"></Label>
-                <Field name="admin" as="select" className="form-control">
+                <StyledField name="admin" as="select" className="form-control">
                   <option value={true}>true</option>
                   <option value={false}>false</option>
-                </Field>
+                </StyledField>
               </FormGroup>
-              <Button type="submit" color="primary">
+              <StyledButton type="submit" color="primary">
                 Submit
-              </Button>
-            </Form>
+              </StyledButton>
+            </StyledForm>
           </Formik>
-        </ModalBody>
-      </Modal>
+        </StyledModalBody>
+      </StyledModal>
     </>
   );
 };

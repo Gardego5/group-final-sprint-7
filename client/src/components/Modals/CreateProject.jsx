@@ -9,12 +9,20 @@ import {
   Label,
 } from "reactstrap";
 import { Formik, Field, Form } from "formik";
+import {
+  StyledModal,
+  StyledModalHeader,
+  StyledModalBody,
+  StyledButton,
+  StyledField,
+  StyledForm,
+  StyledCloseButton,
+} from "./Modals.module";
 
+const CreateProject = ({ teamId }) => {
+  const [modalOpen, setModalOpen] = useState(false);
 
-const CreateProject = ({teamId, }) => {
-  const [modalOpen, setModalOpen] = useState(false); 
-
-  const dispatch = useDispatch(); 
+  const dispatch = useDispatch();
   const toggle = () => setModalOpen(!modalOpen);
   const handleSubmit = (values) => {
     const project = {
@@ -29,14 +37,16 @@ const CreateProject = ({teamId, }) => {
         {" "}
         Create Project
       </Button>
-      <Modal isOpen={modalOpen} toggle={toggle}>
+      <StyledModal isOpen={modalOpen} toggle={toggle}>
         {" "}
-        <ModalHeader>
+        <StyledModalHeader>
           {" "}
           Create Project
-          <Button color="danger" onClick={() => setModalOpen(false)}>X</Button>
-        </ModalHeader>
-        <ModalBody>
+          <StyledCloseButton color="danger" onClick={() => setModalOpen(false)}>
+            X
+          </StyledCloseButton>
+        </StyledModalHeader>
+        <StyledModalBody>
           <Formik
             initialValues={{
               projectName: "",
@@ -44,31 +54,32 @@ const CreateProject = ({teamId, }) => {
             }}
             onSubmit={handleSubmit}
           >
-            <Form>
+            <StyledForm>
               <FormGroup>
                 <Label htmlFor="projectName"></Label>
-                <Field
+                <StyledField
                   name="projectName"
                   placeholder="Project Name"
                   className="form-control"
                 />
               </FormGroup>
               <FormGroup>
-                <Label htmlFor="description">Description</Label>
-                <Field
+                <Label htmlFor="description"></Label>
+                <StyledField
                   name="description"
                   as="textarea"
                   rows="5"
                   className="form-control"
+                  placeholder="Description"
                 />
               </FormGroup>
-              <Button type="submit" color="primary">
+              <StyledButton type="submit" color="primary">
                 Submit
-              </Button>
-            </Form>
+              </StyledButton>
+            </StyledForm>
           </Formik>
-        </ModalBody>
-      </Modal>
+        </StyledModalBody>
+      </StyledModal>
     </>
   );
 };
