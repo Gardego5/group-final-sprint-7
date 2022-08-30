@@ -26,9 +26,14 @@ public class UserController {
 		return userService.getUser(credentialsDto);
 	}
 
-	@PostMapping
-	public UserResponseDto createUser(@RequestBody CredentialsDto credentialsDto, UserRequestDto userRequestDto) {
-		return userService.createUser(credentialsDto, userRequestDto);
+	@PostMapping("/{companyId}")
+	public List<UserResponseDto> getUsersInCompany(@RequestBody CredentialsDto credentialsDto, @PathVariable Long companyId) {
+		return userService.getUsersInCompany(credentialsDto, companyId);
+	}
+
+	@PostMapping("/create")
+	public UserResponseDto createUser(@RequestBody UserRequestDto userRequestDto) {
+		return userService.createUser(userRequestDto);
 	}
 
 }

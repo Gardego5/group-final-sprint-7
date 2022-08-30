@@ -33,4 +33,10 @@ public class ProjectServiceImpl implements ProjectService {
 		Project projectToSave = projectRepository.save(projectMapper.dtoToEntity(projectDto));
 		return projectMapper.entityToDto(projectRepository.save(projectToSave));
 	}
+
+	@Override
+	public ProjectDto createProjectWithTeamId(ProjectDto projectDto, Long teamId) {
+		projectDto.setTeamId(teamId);
+		return createProject(projectDto);
+	}
 }
