@@ -1,6 +1,6 @@
 // imports
-import AnnouncementCard from "../../components/AmmouncementCard/AnnouncementCard";
-import NewAButton from "../../components/AmmouncementCard/NewAButton";
+import AnnouncementCard from "../../components/AnnouncementCard/AnnouncementCard";
+import NewAButton from "../../components/AnnouncementCard/NewAButton";
 import {
   StyledTitle,
   ButtonDiv,
@@ -8,6 +8,7 @@ import {
   AnnsDiv,
 } from "./Announcements.module";
 import { useState } from "react";
+import NavBar from './../../components/NavBar';
 
 const defaultPost = [
   {
@@ -30,6 +31,8 @@ const Announcements = () => {
   const [posts, setPost] = useState(defaultPost);
 
   return (
+    <>
+    <NavBar />
     <AnnsDiv>
       <StyledTitle>Announcements</StyledTitle>
       <ButtonDiv>
@@ -47,6 +50,7 @@ const Announcements = () => {
         ))}
       </AnnCardDiv>
     </AnnsDiv>
+    </>
   );
 };
 

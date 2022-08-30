@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useDispatch } from "react-redux";
-import "bootstrap/dist/css/bootstrap.min.css";
+import 'bootstrap/dist/css/bootstrap.min.css';
 import {
   Button,
   Modal,
@@ -11,46 +11,53 @@ import {
 } from "reactstrap";
 import { Formik, Field, Form } from "formik";
 
-const CreateAnnouncement = ({ posterName }) => {
-  const [modalOpen, setModalOpen] = useState(false);
 
-  const dispatch = useDispatch();
+const CreateProject = ({teamId, }) => {
+  const [modalOpen, setModalOpen] = useState(false); 
+
+  const dispatch = useDispatch(); 
   const toggle = () => setModalOpen(!modalOpen);
   const handleSubmit = (values) => {
-    const announcement = {
-      posterName: posterName,
-      postText: values.postText,
-      date: new Date(Date.now()).toISOString(), //create a new [Date] object and set it to the time the form was submitted
+    const project = {
+      teamId: parseInt(teamId),
+      projectName: values.projectName,
+      description: values.description,
     };
-
-    // dispatch(postAnnouncement(announcement)); // dispatch the action to update the state of the component
-    // setModalOpen(false); //when submitted the modal closes as the [modalOpen] is set to [false] by the [useState]/[setModalOpen]
   };
   return (
     <>
       <Button outline onClick={() => setModalOpen(true)}>
-        Add Announcement
+        {" "}
+        Create Project
       </Button>
       <Modal isOpen={modalOpen} toggle={toggle}>
+        {" "}
         <ModalHeader>
-          Add Announcement
-          <Button color="danger" onClick={() => setModalOpen(false)}>
-            X
-          </Button>
+          {" "}
+          Create Project
+          <Button color="danger" onClick={() => setModalOpen(false)}>X</Button>
         </ModalHeader>
         <ModalBody>
           <Formik
             initialValues={{
-              postText: "",
+              projectName: "",
+              description: "",
             }}
             onSubmit={handleSubmit}
-            // validate={validateForm}
           >
             <Form>
               <FormGroup>
-                <Label htmlFor="postText"></Label>
+                <Label htmlFor="projectName"></Label>
                 <Field
-                  name="postText"
+                  name="projectName"
+                  placeholder="Project Name"
+                  className="form-control"
+                />
+              </FormGroup>
+              <FormGroup>
+                <Label htmlFor="description">Description</Label>
+                <Field
+                  name="description"
                   as="textarea"
                   rows="5"
                   className="form-control"
@@ -67,4 +74,4 @@ const CreateAnnouncement = ({ posterName }) => {
   );
 };
 
-export default CreateAnnouncement;
+export default CreateProject;

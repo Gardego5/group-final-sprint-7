@@ -4,7 +4,8 @@ export const Card = styled.div`
     border: black solid 2px;
     border-radius: 8px;
     width: 50vw;
-    background: #1d2352;  
+    background: #1d2352;
+    margin-bottom: 15px;
 `
 
 export const CardHeader = styled.div`

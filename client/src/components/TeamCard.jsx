@@ -11,6 +11,7 @@ const StyledTeamCard = styled.div`
   border-radius: 1rem;
   text-align: center;
   box-shadow: 0 0.25rem 0.25rem #0006;
+  margin: auto;
   & > * {
     padding: 0 1rem;
     margin: 0;
