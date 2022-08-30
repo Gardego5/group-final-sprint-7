@@ -3,9 +3,9 @@ import styled from "styled-components";
 import NavBar from "../components/NavBar";
 import { useTable } from "react-table";
 
-import BasicButton from "../components/ModalComponents/BasicButton";
 import MOCK_DATA from "../components/UsersTable/MOCK_DATA.json";
 import { Columns } from "../components/UsersTable/columns";
+import AddUser from "../components/Modals/AddUser";
 
 const Container = styled.div`
   display: flex;
@@ -104,16 +104,13 @@ const UserRegistry = () => {
             })}
           </UserBody>
         </UserTable>
-        <BasicButton
-          w="160px"
-          h="45px"
+        <AddUser
           style={{
             position: "relative",
             right: "27.15%",
+            background: "#1ba098",
           }}
-        >
-          Add User
-        </BasicButton>
+        ></AddUser>
       </Container>
     </Fragment>
   );
