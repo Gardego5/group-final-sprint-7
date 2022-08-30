@@ -3,11 +3,7 @@ package com.example.Sprint7Final.controllers;
 import java.util.List;
 
 import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseStatus;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import com.example.Sprint7Final.dtos.TeamDto;
 import com.example.Sprint7Final.dtos.TeamResponseDto;
@@ -18,6 +14,7 @@ import lombok.RequiredArgsConstructor;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/team")
+@CrossOrigin
 public class TeamController {
 	
 	private final TeamService teamService;

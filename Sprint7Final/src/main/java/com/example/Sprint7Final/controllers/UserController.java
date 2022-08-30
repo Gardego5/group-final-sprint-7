@@ -16,13 +16,19 @@ import lombok.extern.slf4j.Slf4j;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/user")
+@CrossOrigin
 public class UserController {
 	
 	private final UserService userService;
 	
-	@GetMapping
+	@PostMapping("/validate")
 	public UserResponseDto getUser(@RequestBody CredentialsDto credentialsDto) {
 		return userService.getUser(credentialsDto);
+	}
+
+	@PostMapping
+	public UserResponseDto createUser(@RequestBody CredentialsDto credentialsDto, UserRequestDto userRequestDto) {
+		return userService.createUser(credentialsDto, userRequestDto);
 	}
 
 }
