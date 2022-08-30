@@ -19,11 +19,11 @@ import {
   StyledCloseButton,
 } from "./Modals.module";
 
-const CreateProject = ({ teamId }) => {
+const CreateProject = ({ teamId, buttonText, projName, projectDescription }) => {
   const [modalOpen, setModalOpen] = useState(false);
 
   const dispatch = useDispatch();
-  const toggle = () => setModalOpen(!modalOpen);
+  const toggle = () => {setModalOpen(!modalOpen)};
   const handleSubmit = (values) => {
     const project = {
       teamId: parseInt(teamId),
@@ -35,13 +35,13 @@ const CreateProject = ({ teamId }) => {
     <>
       <Button outline onClick={() => setModalOpen(true)}>
         {" "}
-        Create Project
+        {buttonText}
       </Button>
       <StyledModal isOpen={modalOpen} toggle={toggle}>
         {" "}
         <StyledModalHeader>
           {" "}
-          Create Project
+          Create or Edit Project
           <StyledCloseButton color="danger" onClick={() => setModalOpen(false)}>
             X
           </StyledCloseButton>
@@ -59,8 +59,11 @@ const CreateProject = ({ teamId }) => {
                 <Label htmlFor="projectName"></Label>
                 <StyledField
                   name="projectName"
+                  as="textarea"
+                  rows="1"
                   placeholder="Project Name"
                   className="form-control"
+                  defaultValue={projName}
                 />
               </FormGroup>
               <FormGroup>
@@ -71,6 +74,7 @@ const CreateProject = ({ teamId }) => {
                   rows="5"
                   className="form-control"
                   placeholder="Description"
+                  defaultValue={projectDescription}
                 />
               </FormGroup>
               <StyledButton type="submit" color="primary">
