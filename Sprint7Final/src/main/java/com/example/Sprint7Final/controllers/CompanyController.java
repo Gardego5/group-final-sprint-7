@@ -1,5 +1,4 @@
 package com.example.Sprint7Final.controllers;
 
-public class Controller {
-
+public class CompanyController {
 }
