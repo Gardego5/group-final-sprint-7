@@ -69,7 +69,7 @@ const StyledNav = styled.nav`
     top: 4.375rem;
     right: 0;
     width: 100vw;
-    height: calc(100vh - 4.5rem );
+    height: calc(100vh - 4.5rem);
     z-index: 4;
     background-color: #0000;
   }
@@ -101,7 +101,7 @@ const NavBar = () => {
           <NavLink to="/teams">Teams</NavLink>
         </li>
         <li onClick={toggleShowing}>
-          <NavLink to="/registry">Users</NavLink>
+          <NavLink to="/users">Users</NavLink>
         </li>
         <li onClick={toggleShowing}>
           <NavLink to="/">Logout</NavLink>
