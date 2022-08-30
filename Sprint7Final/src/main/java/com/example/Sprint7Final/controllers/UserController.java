@@ -31,9 +31,9 @@ public class UserController {
 		return userService.getUsersInCompany(credentialsDto, companyId);
 	}
 
-	@PostMapping
-	public UserResponseDto createUser(@RequestBody CredentialsDto credentialsDto, UserRequestDto userRequestDto) {
-		return userService.createUser(credentialsDto, userRequestDto);
+	@PostMapping("/create")
+	public UserResponseDto createUser(@RequestBody UserRequestDto userRequestDto) {
+		return userService.createUser(userRequestDto);
 	}
 
 }
