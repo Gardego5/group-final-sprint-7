@@ -3,10 +3,7 @@ package com.example.Sprint7Final.controllers;
 import java.util.List;
 
 import com.example.Sprint7Final.services.ProjectService;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import com.example.Sprint7Final.dtos.ProjectDto;
 
@@ -15,6 +12,7 @@ import lombok.RequiredArgsConstructor;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/project")
+@CrossOrigin
 public class ProjectController {
 	private final ProjectService projectService;
 	
