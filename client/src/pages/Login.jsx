@@ -1,7 +1,7 @@
 import { useSelector, useDispatch } from "react-redux";
 import styled from "styled-components";
 import LogoImg from "../assets/logo.png";
-import { setPassword, setUsername } from "../reducers/rootReducer";
+import { getCredentials, setPassword, setUsername } from "../reducers/rootReducer";
 
 const LoginPageDiv = styled.div`
   display: flex;
@@ -81,7 +81,7 @@ const LoginButton = styled.button`
 `;
 
 const Login = () => {
-  const credentials = useSelector(({ credentials }) => credentials);
+  const credentials = useSelector(getCredentials);
   const dispatch = useDispatch();
 
   return (
@@ -95,11 +95,13 @@ const Login = () => {
         <LoginField
           type="text"
           placeholder="username"
+          value={credentials.username}
           onChange={(event) => dispatch(setUsername(event.target.value))}
         />
         <LoginField
           type="text"
           placeholder="password"
+          value={credentials.password}
           onChange={(event) => dispatch(setPassword(event.target.value))}
         />
         <LoginButton>Login</LoginButton>

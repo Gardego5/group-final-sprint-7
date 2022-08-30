@@ -1,7 +1,7 @@
 const initialState = {
   credentials: {
-    username: null,
-    password: null,
+    username: "",
+    password: "",
   }
 }
 
@@ -45,5 +45,8 @@ export const setPassword = (password) => ({
   type: SET_PASSWORD,
   password,
 });
+
+/* Selectors */
+export const getCredentials = ({ credentials }) => credentials;
 
 export default rootReducer;
