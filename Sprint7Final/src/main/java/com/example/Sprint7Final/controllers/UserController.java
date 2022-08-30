@@ -11,6 +11,7 @@ import com.example.Sprint7Final.dtos.UserResponseDto;
 import com.example.Sprint7Final.services.UserService;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
 @RestController
 @RequiredArgsConstructor

@@ -10,8 +10,8 @@ public class TeamDto {
 	
 	private Long id;
 	
-	private String name;
+	private String teamName;
 	
-	private String description;
+	private String teamDescription;
 	
 }
