@@ -8,4 +8,6 @@ public interface AnnouncementService {
 
 	List<AnnouncementResponseDto> getAllAnnouncements();
 
+	List<AnnouncementResponseDto> getAllCompanyAnnouncements(Long companyId);
+
 }
