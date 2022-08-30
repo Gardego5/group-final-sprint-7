@@ -20,11 +20,11 @@ const AddUser = ({}) => {
 
   const dispatch = useDispatch();
   const toggle = () => setModalOpen(!modalOpen);
-  // const setCompanyId = useSelector(getCompany);
+  const setCompanyId = useSelector(getCompany);
+
   const handleSubmit = (values) => {
-    const setCompanyId = 1;
     const user = {
-      admin: true,
+      admin: values.admin === "true",
       credentials: {
         password: values.password,
         username: values.username,
@@ -35,11 +35,11 @@ const AddUser = ({}) => {
       phone: values.phone,
       status: "PENDING",
       company: {
-        id: 1,
+        id: setCompanyId.id,
       },
       // 'confirmPw': values.confirmPw,
     };
-
+    console.log(values);
     addUser(user);
   };
   return (
@@ -67,6 +67,7 @@ const AddUser = ({}) => {
               username: "",
               password: "",
               confirmPw: "",
+              admin: "",
             }}
             onSubmit={handleSubmit}
           >
@@ -136,8 +137,9 @@ const AddUser = ({}) => {
               <FormGroup>
                 <Label htmlFor="admin"></Label>
                 <StyledField name="admin" as="select" className="form-control">
-                  <option value={true}>false</option>
-                  <option value={false}>true</option>
+                  <option value={null}>Pick an option</option>
+                  <option value={"true"}>true</option>
+                  <option value={"false"}>false</option>
                 </StyledField>
               </FormGroup>
               <StyledButton type="submit" color="primary">
