@@ -24,7 +24,7 @@ public class CompanyServiceImpl implements CompanyService{
 	}
  
 	@Override
-	public CompanyDto getCompany(Long id) {
+	public CompanyDto getCompanyById(Long id) {
 		return companyMapper.entityToDto(companyRepository.getReferenceById(id));
 	}
 
