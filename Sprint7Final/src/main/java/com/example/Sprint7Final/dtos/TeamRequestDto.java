@@ -1,12 +1,18 @@
 package com.example.Sprint7Final.dtos;
 
 
+import com.example.Sprint7Final.entities.Company;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
 @NoArgsConstructor
 public class TeamRequestDto {
-	
-	private TeamDto team;
+
+	private String teamName;
+
+	private String teamDescription;
+
+	private Company teamCompany;
+
 }

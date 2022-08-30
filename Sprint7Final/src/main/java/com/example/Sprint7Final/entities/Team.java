@@ -23,6 +23,8 @@ public class Team {
 
 	private String teamDescription;
 
+	private boolean deleted;
+
 	@ManyToOne
 	private Company teamCompany;
 
