@@ -32,4 +32,5 @@ public class TeamController {
 	public TeamDto getTeamById(@PathVariable Long teamId) {
 		return teamService.getTeamById(teamId);
 	}
+
 }
