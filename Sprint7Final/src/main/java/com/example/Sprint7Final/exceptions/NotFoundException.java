@@ -2,6 +2,7 @@ package com.example.Sprint7Final.exceptions;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+
 import lombok.Setter;
 
 @AllArgsConstructor
