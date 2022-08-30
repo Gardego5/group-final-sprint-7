@@ -20,8 +20,8 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class TeamServiceImpl implements TeamService {
 	
-	TeamRepository teamRepository;
-	TeamMapper teamMapper;
+	private final TeamRepository teamRepository;
+	private final TeamMapper teamMapper;
 	
 	private Team findTeam(Long id) {
 		Optional<Team> optionalTeam = teamRepository.findById(id);
