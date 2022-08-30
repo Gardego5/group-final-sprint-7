@@ -2,10 +2,10 @@ package com.example.Sprint7Final.controllers;
 
 import java.util.List;
 
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import com.example.Sprint7Final.dtos.CredentialsDto;
+import com.example.Sprint7Final.dtos.UserRequestDto;
+import com.example.Sprint7Final.entities.Credentials;
+import org.springframework.web.bind.annotation.*;
 
 import com.example.Sprint7Final.dtos.UserResponseDto;
 import com.example.Sprint7Final.services.UserService;
@@ -21,12 +21,8 @@ public class UserController {
 	private final UserService userService;
 	
 	@GetMapping
-	public List<UserResponseDto> getAllUsers() {
-		return userService.getAllUsers();
+	public UserResponseDto getUser(@RequestBody CredentialsDto credentialsDto) {
+		return userService.getUser(credentialsDto);
 	}
-	
-	@GetMapping("/{username}")
-	public UserResponseDto getUser(@PathVariable String username) {
-		return userService.getUserByUsername(username);
-	}
+
 }

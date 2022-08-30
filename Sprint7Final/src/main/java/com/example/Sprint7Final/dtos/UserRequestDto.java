@@ -8,18 +8,20 @@ import lombok.NoArgsConstructor;
 public class UserRequestDto {
 	
 	private Long id;
-	
+
 	private String firstName;
 
 	private String lastName;
 	
 	private String email;
+
+	private CredentialsDto credentialsDto;
 	
 	private String phoneNumber;
 	
-	private Boolean isActive;
+	private Boolean Active;
 	
-	private Boolean isAdmin;
+	private Boolean Admin;
 	
 	private String status;
 
