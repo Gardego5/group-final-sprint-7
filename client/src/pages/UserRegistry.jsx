@@ -104,13 +104,7 @@ const UserRegistry = () => {
             })}
           </UserBody>
         </UserTable>
-        <AddUser
-          style={{
-            position: "relative",
-            right: "27.15%",
-            background: "#1ba098",
-          }}
-        ></AddUser>
+        <AddUser></AddUser>
       </Container>
     </Fragment>
   );
