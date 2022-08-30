@@ -19,3 +19,11 @@ export const loginUser = async (credentials) => {
     .then(handleData)
     .catch(handleError);
 };
+
+export const getCompanies = async () => {
+  return fetch(`${ROOT_URL}/company`, {
+    method: "GET",
+  })
+    .then(handleData)
+    .catch(handleError);
+};

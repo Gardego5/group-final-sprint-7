@@ -1,8 +1,9 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Redirect } from "react-router-dom";
 import styled from "styled-components";
 import { getUser, setCompany } from "../reducers/rootReducer";
+import { getCompanies } from "../utils/requests";
 
 const MainDiv = styled.div`
   display: flex;
@@ -36,6 +37,16 @@ const SelectCompany = () => {
 
   // Local State
   const [redirect, setRedirect] = useState("");
+  const [companies, setCompanies] = useState([]);
+
+  useEffect(() => {
+    (async () =>
+      await getCompanies().then((fetchedCompanies) =>
+        setCompanies(fetchedCompanies)
+      ))();
+  }, []);
+
+  console.log(companies);
 
   if (!user) return <Redirect to="" />;
 
@@ -46,7 +57,13 @@ const SelectCompany = () => {
 
   const selectCompany = (event) => {
     if (event.target.value) {
-      dispatch(setCompany(event.target.value));
+      dispatch(
+        setCompany(
+          companies.filter(
+            ({ id }) => id === Number.parseInt(event.target.value)
+          )
+        )
+      );
       setRedirect(<Redirect to="/announcements" />);
     }
   };
@@ -58,9 +75,13 @@ const SelectCompany = () => {
       <Title>Select Company</Title>
       <CompanySelector onChange={selectCompany}>
         <CompanyOption value={null}>Pick an Option</CompanyOption>
-        <CompanyOption value="FedEx">FedEx</CompanyOption>
-        <CompanyOption value="Cook Systems">Cook Systems</CompanyOption>
-        <CompanyOption value="Google">Google</CompanyOption>
+        {companies
+          ? companies.map((company, idx) => (
+              <CompanyOption value={company.id} key={idx}>
+                {company.name}
+              </CompanyOption>
+            ))
+          : ""}
       </CompanySelector>
     </MainDiv>
   );
