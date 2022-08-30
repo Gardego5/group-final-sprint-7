@@ -101,7 +101,7 @@ const NavBar = () => {
           <NavLink to="/teams">Teams</NavLink>
         </li>
         <li onClick={toggleShowing}>
-          <NavLink to="/users">Users</NavLink>
+          <NavLink to="/registry">Users</NavLink>
         </li>
         <li onClick={toggleShowing}>
           <NavLink to="/">Logout</NavLink>
