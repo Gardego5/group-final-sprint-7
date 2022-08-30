@@ -1,40 +1,66 @@
+import { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { Redirect } from "react-router-dom";
 import styled from "styled-components";
+import { getUser, setCompany } from "../reducers/rootReducer";
+
+const MainDiv = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  top: 300px;
+`;
+
+const Title = styled.h1`
+  color: blue;
+  margin-top: 1em;
+  text-align: center;
+  font-size: 50px;
+`;
+
+const CompanySelector = styled.select`
+  border-radius: 4px;
+  height: 40px;
+  width: 200px;
+  font-size: 20px;
+  text-align: center;
+`;
+
+const CompanyOption = styled.option``;
 
 const SelectCompany = () => {
-  const MainDiv = styled.div`
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    position: relative;
-    top: 300px;
-  `;
+  const dispatch = useDispatch();
+  const user = useSelector(getUser);
 
-  const Title = styled.h1`
-    color: blue;
-    margin-top: 1em;
-    text-align: center;
-    font-size: 50px;
-  `;
+  // Local State
+  const [redirect, setRedirect] = useState("");
 
-  const CompanySelector = styled.select`
-    border-radius: 4px;
-    height: 40px;
-    width: 200px;
-    font-size: 20px;
-    text-align: center;
-  `;
+  if (!user) return <Redirect to="" />;
 
-  const CompanyOption = styled.option``;
+  if (!user.admin) {
+    dispatch(setCompany(user?.company));
+    return <Redirect to="/announcements" />;
+  }
 
-  return (
+  const selectCompany = (event) => {
+    if (event.target.value) {
+      dispatch(setCompany(event.target.value));
+      setRedirect(<Redirect to="/announcements" />);
+    }
+  };
+
+  return redirect ? (
+    redirect
+  ) : (
     <MainDiv>
       <Title>Select Company</Title>
-      <CompanySelector>
-        <CompanyOption>Pick an Option</CompanyOption>
-        <CompanyOption>FedEx</CompanyOption>
-        <CompanyOption>Cook Systems</CompanyOption>
-        <CompanyOption>Google</CompanyOption>
+      <CompanySelector onChange={selectCompany}>
+        <CompanyOption value={null}>Pick an Option</CompanyOption>
+        <CompanyOption value="FedEx">FedEx</CompanyOption>
+        <CompanyOption value="Cook Systems">Cook Systems</CompanyOption>
+        <CompanyOption value="Google">Google</CompanyOption>
       </CompanySelector>
     </MainDiv>
   );
