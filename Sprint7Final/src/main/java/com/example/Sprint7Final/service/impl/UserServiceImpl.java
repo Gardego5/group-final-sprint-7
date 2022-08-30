@@ -25,23 +25,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public List<UserResponseDto> getAllUsers() {
     	List<User> users = userRepository.findAllByDeletedFalse();
-    	
-    	for (User user : users) {
-    		log.warn(user.getProfile().getFirstName());
-    		log.warn("Is admin " + user.isAdmin());
-    	}
-		
         return userMapper.entitiesToDtos(userRepository.findAllByDeletedFalse());
-    }
-
-    @Override
-    public UserResponseDto getUserById(Long id) {
-        return null;
-    }
-
-    @Override
-    public UserResponseDto getUserByUsername(String username) {
-        return null;
     }
 
 	@Override
@@ -55,5 +39,10 @@ public class UserServiceImpl implements UserService {
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+    @Override
+    public UserResponseDto getUser(String username) {
+        return null;
+    }
 
 }
