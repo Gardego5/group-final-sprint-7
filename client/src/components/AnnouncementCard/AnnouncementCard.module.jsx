@@ -6,6 +6,7 @@ export const Card = styled.div`
     width: 50vw;
     background: #1d2352;
     margin-bottom: 15px;
+    z-index: -1;
 `
 
 export const CardHeader = styled.div`

@@ -26,6 +26,7 @@ const StyledNav = styled.nav`
   & p#warning {
     text-transform: uppercase;
     color: #f24e1e;
+    margin: 0;
   }
   & button#menu-button {
     background: #0d3a59;
