@@ -3,6 +3,7 @@ package com.example.Sprint7Final.controllers;
 import java.util.List;
 
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -13,7 +14,7 @@ import lombok.RequiredArgsConstructor;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/company/annoucements")
+@RequestMapping("/announcements")
 public class AnnouncementController {
 	
 	private final AnnouncementService announcementService;
@@ -21,6 +22,11 @@ public class AnnouncementController {
 	@GetMapping
 	public List<AnnouncementResponseDto> getAllAnnouncements() {
 		return announcementService.getAllAnnouncements();
+	}
+	
+	@GetMapping("/{companyId}")
+	public List<AnnouncementResponseDto> getAllCompanyAnnouncements(@PathVariable Long companyId)  {
+		return announcementService.getAllCompanyAnnouncements(companyId);
 	}
 
 }
