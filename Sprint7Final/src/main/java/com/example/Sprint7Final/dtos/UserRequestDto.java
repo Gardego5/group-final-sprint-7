@@ -14,10 +14,8 @@ public class UserRequestDto {
 	private String lastName;
 	
 	private String email;
-
-	private CredentialsDto credentialsDto;
 	
-	private String phoneNumber;
+	private String phone;
 	
 	private Boolean Active;
 	
@@ -28,4 +26,7 @@ public class UserRequestDto {
 	private TeamDto team;
 	
 	private CompanyDto company;
+
+	private CredentialsDto credentials;
+
 }
