@@ -21,7 +21,7 @@ public class UserController {
 	
 	private final UserService userService;
 	
-	@PostMapping
+	@PostMapping("/validate")
 	public UserResponseDto getUser(@RequestBody CredentialsDto credentialsDto) {
 		return userService.getUser(credentialsDto);
 	}

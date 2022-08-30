@@ -3,7 +3,6 @@ package com.example.Sprint7Final.service.impl;
 
 import com.example.Sprint7Final.dtos.CredentialsDto;
 import com.example.Sprint7Final.dtos.UserRequestDto;
-import com.example.Sprint7Final.entities.Credentials;
 import com.example.Sprint7Final.exceptions.BadRequestException;
 import com.example.Sprint7Final.exceptions.NotAuthorizedException;
 import com.example.Sprint7Final.exceptions.NotFoundException;
@@ -52,7 +51,6 @@ public class UserServiceImpl implements UserService {
 		}
 		return optionalUser.get();
 	}
-
 
 	@Override
 	public UserResponseDto getUser(CredentialsDto credentialsDto) {
