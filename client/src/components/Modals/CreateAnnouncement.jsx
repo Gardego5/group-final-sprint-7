@@ -11,21 +11,50 @@ import {
 } from "reactstrap";
 import { Formik, Field, Form } from "formik";
 
-const CreateAnnouncement = (props) => {
+import styled from "styled-components";
+import CloseImg from "../../assets/close.png";
+
+const StyledModal = styled(Modal)`
+  background: rgb(11, 45, 69);
+  border-radius: 6px;
+`;
+const StyledModalHeader = styled(ModalHeader)`
+  background: rgb(11, 45, 69);
+  color: rgb(222, 185, 146);
+  border: none;
+`;
+const StyledModalBody = styled(ModalBody)`
+  background: rgb(11, 45, 69);
+`;
+const StyledButton = styled(Button)`
+  background: rgb(27, 160, 152);
+`;
+const StyledField = styled(Field)`
+  background: rgb(11, 45, 69);
+  border: none;
+  border-bottom: 1px solid rgb(222, 185, 146);
+  &::placeholder {
+    color: rgb(222, 185, 146);
+  }
+`;
+const StyledCloseButton = styled(Button)`
+  background-image: url(CloseImg);
+`;
+const CreateAnnouncement = ({ posterName }) => {
   // useState hooks
   const [modalOpen, setModalOpen] = useState(false);
   const [announcement, setAnnouncement] = useState({});
 
   // helper functions
   const toggle = () => setModalOpen(!modalOpen);
-  
+
   const handleSubmit = (values) => {
     // use value of input to set announcement body
     // API call to save new post to database
     const announcement = {
       firstName: props.firstName,
       lastName: props.lastName,
-      title: props.title,
+      title: values.title,
       postText: values.postText,
       date: new Date(Date.now()).toDateString(), //create a new [Date] object and set it to the time the form was submitted
     };
@@ -42,14 +71,14 @@ const CreateAnnouncement = (props) => {
       <BasicButton outline onClick={() => setModalOpen(true)}>
         New
       </BasicButton>
-      <Modal isOpen={modalOpen} toggle={toggle}>
-        <ModalHeader>
+      <StyledModal isOpen={modalOpen} toggle={toggle}>
+        <StyledModalHeader>
           Add Announcement
           <Button color="danger" onClick={() => setModalOpen(false)}>
             X
           </Button>
-        </ModalHeader>
-        <ModalBody>
+        </StyledModalHeader>
+        <StyledModalBody>
           <Formik
             initialValues={{
               postText: "",
@@ -59,21 +88,29 @@ const CreateAnnouncement = (props) => {
           >
             <Form>
               <FormGroup>
+                <Label htmlFor="postTitle"></Label>
+                <StyledField
+                  name="postTitle"
+                  className="form-control"
+                  placeholder="Title"
+                />
+              </FormGroup>
+              <FormGroup>
                 <Label htmlFor="postText"></Label>
-                <Field
+                <StyledField
                   name="postText"
                   as="textarea"
                   rows="5"
                   className="form-control"
                 />
               </FormGroup>
-              <Button type="submit" color="primary">
+              <StyledButton type="submit" color="primary">
                 Submit
-              </Button>
+              </StyledButton>
             </Form>
           </Formik>
-        </ModalBody>
-      </Modal>
+        </StyledModalBody>
+      </StyledModal>
     </>
   );
 };
