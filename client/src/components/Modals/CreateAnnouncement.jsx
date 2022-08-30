@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 import "bootstrap/dist/css/bootstrap.min.css";
+import BasicButton from "../ModalComponents/BasicButton";
 import {
   Button,
   Modal,
@@ -11,26 +12,37 @@ import {
 } from "reactstrap";
 import { Formik, Field, Form } from "formik";
 
-const CreateAnnouncement = ({ posterName }) => {
+const CreateAnnouncement = (props) => {
+  // useState hooks
   const [modalOpen, setModalOpen] = useState(false);
+  const [announcement, setAnnouncement] = useState({});
 
-  const dispatch = useDispatch();
+  // helper functions
   const toggle = () => setModalOpen(!modalOpen);
+  
   const handleSubmit = (values) => {
+    // use value of input to set announcement body
+    // API call to save new post to database
     const announcement = {
-      posterName: posterName,
+      firstName: props.firstName,
+      lastName: props.lastName,
+      title: props.title,
       postText: values.postText,
-      date: new Date(Date.now()).toISOString(), //create a new [Date] object and set it to the time the form was submitted
+      date: new Date(Date.now()).toDateString(), //create a new [Date] object and set it to the time the form was submitted
     };
 
+    setAnnouncement(announcement);
+
+    // const dispatch = useDispatch();
     // dispatch(postAnnouncement(announcement)); // dispatch the action to update the state of the component
     // setModalOpen(false); //when submitted the modal closes as the [modalOpen] is set to [false] by the [useState]/[setModalOpen]
   };
+  console.log(announcement);
   return (
     <>
-      <Button outline onClick={() => setModalOpen(true)}>
-        Add Announcement
-      </Button>
+      <BasicButton outline onClick={() => setModalOpen(true)}>
+        New
+      </BasicButton>
       <Modal isOpen={modalOpen} toggle={toggle}>
         <ModalHeader>
           Add Announcement
