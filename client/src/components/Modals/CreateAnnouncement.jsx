@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { useDispatch } from "react-redux";
-import "bootstrap/dist/css/bootstrap.min.css";
 import BasicButton from "../ModalComponents/BasicButton";
 import {
   Button,
@@ -37,7 +36,7 @@ const CreateAnnouncement = (props) => {
     // dispatch(postAnnouncement(announcement)); // dispatch the action to update the state of the component
     // setModalOpen(false); //when submitted the modal closes as the [modalOpen] is set to [false] by the [useState]/[setModalOpen]
   };
-  console.log(announcement);
+
   return (
     <>
       <BasicButton outline onClick={() => setModalOpen(true)}>

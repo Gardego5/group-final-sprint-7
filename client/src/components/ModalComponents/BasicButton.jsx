@@ -10,6 +10,8 @@ const BasicButton = styled.button`
   padding: 0.5rem;
   cursor: pointer;
   box-shadow: 0 0.25rem 0.25rem #0006;
+  display: grid;
+  place-content: center;
   &:active {
     transform: translateY(0.25rem);
     box-shadow: none;
