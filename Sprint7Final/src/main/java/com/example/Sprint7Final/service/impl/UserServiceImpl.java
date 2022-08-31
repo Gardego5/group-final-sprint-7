@@ -6,10 +6,9 @@ import com.example.Sprint7Final.dtos.UserRequestDto;
 import com.example.Sprint7Final.entities.Credentials;
 import com.example.Sprint7Final.entities.Profile;
 import com.example.Sprint7Final.exceptions.BadRequestException;
-import com.example.Sprint7Final.exceptions.NotAuthorizedException;
 import com.example.Sprint7Final.exceptions.NotFoundException;
+import com.example.Sprint7Final.exceptions.NotValidCredentialsException;
 import com.example.Sprint7Final.mappers.CredentialsMapper;
-import com.example.Sprint7Final.mappers.ProfileMapper;
 import org.springframework.stereotype.Service;
 
 import com.example.Sprint7Final.dtos.UserResponseDto;
@@ -19,7 +18,6 @@ import com.example.Sprint7Final.repositories.UserRepository;
 import com.example.Sprint7Final.services.UserService;
 
 import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,27 +25,27 @@ import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
-@Slf4j
 public class UserServiceImpl implements UserService {
 
 	private final UserRepository userRepository;
 	private final UserMapper userMapper;
 	private final CredentialsMapper credentialsMapper;
-	private final ProfileMapper profileMapper;
 
 	public User validateUserCredentialsMatchDatabase(CredentialsDto credentialsDto) {
 		User userInDB = getUserByCredentials(credentialsDto);
 		Credentials credentialsInDB = userInDB.getCredentials();
 		Credentials sentCredentials = credentialsMapper.dtoToEntity(credentialsDto);
 
-		if (credentialsInDB.equals(sentCredentials) && userInDB.isActive()) {
-			userInDB.setStatus("JOINED");
-			userRepository.saveAndFlush(userInDB);
+		if (!userInDB.isActive())
+			throw new NotValidCredentialsException("User Not Active");
 
-			return getUserByCredentials(credentialsDto);
-		}
+		if (!credentialsInDB.equals(sentCredentials))
+			throw new NotValidCredentialsException("Invalid Password");
 
-		throw new NotAuthorizedException("Please check your username or password");
+		userInDB.setStatus("JOINED");
+		userRepository.saveAndFlush(userInDB);
+
+		return getUserByCredentials(credentialsDto);
 	}
 
 	public boolean validateCredentialsForm(CredentialsDto credentialsDto) {
@@ -76,7 +74,7 @@ public class UserServiceImpl implements UserService {
 		if (validateCredentialsForm(credentialsDto)) {
 			return userMapper.entityToDto(validateUserCredentialsMatchDatabase(credentialsDto));
 		}
-		throw new BadRequestException("Bad request");
+		throw new NotValidCredentialsException("Invalid Username");
 	}
 
 	@Override
