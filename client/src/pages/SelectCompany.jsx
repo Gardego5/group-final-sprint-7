@@ -76,7 +76,7 @@ const SelectCompany = () => {
         {companies
           ? companies.map((company, idx) => (
               <CompanyOption value={company.id} key={idx}>
-                {company.name}
+                {company.companyName}
               </CompanyOption>
             ))
           : ""}
