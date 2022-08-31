@@ -4,7 +4,7 @@ import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import Teams from "./pages/Teams";
 import Login from "./pages/Login";
 import Projects from "./pages/Projects";
-import Announcements from "./pages/Announcements/Announcements";
+import Announcements from "./pages/Announcements";
 import SelectCompany from "./pages/SelectCompany";
 import Registration from "./pages/Registration";
 import UserRegistry from "./pages/UserRegistry";
