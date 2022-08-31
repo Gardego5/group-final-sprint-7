@@ -1,15 +1,13 @@
+/* -------------------------------------------------------------------------- */
+/*                             Import Dependencies                            */
+/* -------------------------------------------------------------------------- */
 import { useState } from "react";
-import { useDispatch } from "react-redux";
 import BasicButton from "../ModalComponents/BasicButton";
-import {
-  Button,
-  Modal,
-  ModalHeader,
-  ModalBody,
-  FormGroup,
-  Label,
-} from "reactstrap";
-import { Formik, Field, Form } from "formik";
+import { Formik } from "formik";
+import { createNewAnnouncement } from "../../utils/requests";
+
+// Styling Imports
+import { FormGroup, Label } from "reactstrap";
 import {
   StyledModal,
   StyledModalHeader,
@@ -21,26 +19,37 @@ import {
 } from "./Modals.module";
 
 const CreateAnnouncement = (props) => {
-  // useState hooks
+  /* ---------------------------------- State --------------------------------- */
   const [modalOpen, setModalOpen] = useState(false);
   const [announcement, setAnnouncement] = useState({});
-  // helper functions
+  const [title, setTitle] = useState("");
+  const [message, setMessage] = useState("");
+
+  /* ---------------------------- helper funcitions ------------------------------ */
+
+  // function opens and closes form window
   const toggle = () => setModalOpen(!modalOpen);
+
+  // function to create a new announcement
   const handleSubmit = (values) => {
-    // use value of input to set announcement body
-    // API call to save new post to database
-    const announcement = {
-      firstName: props.firstName,
-      lastName: props.lastName,
-      title: values.title,
-      postText: values.postText,
-      date: new Date(Date.now()).toDateString(), //create a new [Date] object and set it to the time the form was submitted
+    const newAnnouncement = {
+      author_id: props.userId,
+      company_making_announcement_id: props.companyId,
+      title: title,
+      message: message,
+      time_posted: new Date(Date.now()).toDateString(), //create a new [Date] object and set it to the time the form was submitted
     };
-    setAnnouncement(announcement);
-    // const dispatch = useDispatch();
-    // dispatch(postAnnouncement(announcement)); // dispatch the action to update the state of the component
-    // setModalOpen(false); //when submitted the modal closes as the [modalOpen] is set to [false] by the [useState]/[setModalOpen]
+    setAnnouncement(newAnnouncement);
+
+    // call to post a new announcement to database
+    createNewAnnouncement(newAnnouncement)
+      // after it succesfully saves return to home page
+      .then((res) => {
+        window.location = "/announcements";
+      })
+      .catch((err) => console.log(err));
   };
+console.log(announcement);
   return (
     <>
       <BasicButton outline onClick={() => setModalOpen(true)}>
@@ -56,7 +65,7 @@ const CreateAnnouncement = (props) => {
         <StyledModalBody>
           <Formik
             initialValues={{
-              postText: "",
+              message: "",
             }}
             onSubmit={handleSubmit}
             // validate={validateForm}
@@ -68,6 +77,8 @@ const CreateAnnouncement = (props) => {
                   name="postTitle"
                   className="form-control"
                   placeholder="Title"
+                  value={title}
+                  onChange={e => setTitle(e.target.value)}
                 />
               </FormGroup>
               <FormGroup>
@@ -77,6 +88,8 @@ const CreateAnnouncement = (props) => {
                   as="textarea"
                   rows="5"
                   className="form-control"
+                  value={message}
+                  onChange={e => setMessage(e.target.value)}
                 />
               </FormGroup>
               <StyledButton type="submit" color="primary">

@@ -5,7 +5,8 @@ import lombok.NoArgsConstructor;
 
 @Data
 @NoArgsConstructor
-public class CompanyRequestDto {
-	
-	private CompanyDto company;
+public class UserDto {
+
+    private Long id;
+
 }

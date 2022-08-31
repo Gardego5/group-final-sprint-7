@@ -45,6 +45,11 @@ public class UserServiceImpl implements UserService {
 		return credentialsDto.getPassword() != null && credentialsDto.getUsername() != null;
 	}
 
+	public boolean validateUserNameExistsInDatabase(User user) {
+		Optional<User> optionalUser = userRepository.findByCredentialsUsername(user.getCredentials().getUsername());
+		return optionalUser.isPresent() && !optionalUser.get().isDeleted();
+	}
+
 	public User getUserByCredentials(CredentialsDto credentialsDto) {
 		return getUserByUsernameReturnUserEntity(credentialsDto.getUsername());
 	}
@@ -66,8 +71,7 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public List<UserResponseDto> getUsersInCompany(CredentialsDto credentialsDto, Long companyId) {
-		//requires validation to view the information??
+	public List<UserResponseDto> getUsersInCompany(Long companyId) {
 		List<User> users = userRepository.findAllByDeletedFalse();
 		List<User> tempUsers = new ArrayList<>();
 		for (User user : users) {
@@ -80,19 +84,16 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public UserResponseDto createUser(UserRequestDto userRequestDto) {
-
-		// check credentials are good and credentialsDto is an admin
-
 		User userToBeCreated = userMapper.dtoToEntity(userRequestDto);
-
 		userToBeCreated.setCredentials(credentialsMapper.dtoToEntity(userRequestDto.getCredentials()));
-
+		if (validateUserNameExistsInDatabase(userToBeCreated)) {
+			throw new BadRequestException("User name already exists in the database");
+		}
 		Profile profile = new Profile();
 		profile.setFirstName(userRequestDto.getFirstName());
 		profile.setLastName(userRequestDto.getLastName());
 		profile.setPhone(userRequestDto.getPhone());
 		profile.setEmail(userRequestDto.getEmail());
-
 		userToBeCreated.setProfile(profile);
 
 		return userMapper.entityToDto(userRepository.saveAndFlush(userToBeCreated));

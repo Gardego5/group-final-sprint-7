@@ -20,6 +20,7 @@ export const loginUser = async (credentials) => {
     .catch(handleError);
 };
 
+
 export const getCompanies = async () => {
   return fetch(`${ROOT_URL}/company`, {
     method: "GET",
@@ -27,3 +28,49 @@ export const getCompanies = async () => {
     .then(handleData)
     .catch(handleError);
 };
+
+export const getCompanyAnnouncements = async (companyId) => {
+  return fetch(`${ROOT_URL}/announcements/${companyId}`, {
+    method: "GET",
+  })
+    .then(handleData)
+    .catch(handleError);
+};
+
+export const createNewAnnouncement = async (announcement) => {
+  return fetch(`${ROOT_URL}/announcements`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(announcement),
+  })
+    .then(handleData)
+    .catch(handleError);
+};
+
+export const retrieveUsers = async (companyId) => {
+  return fetch(`${ROOT_URL}/user/${companyId}`, {
+    method: "GET",
+    headers: {},
+  });
+};
+
+export const addUser = async (user) => {
+  return fetch(`${ROOT_URL}/user/create`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(user),
+  })
+    .then((response) => console.log(response))
+    .then(handleData)
+    .catch(handleError);
+};
+
+export const getAllUsersFromCompany = async (credentials, id) => {
+  return fetch(`${ROOT_URL}/user/${id}`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(credentials),
+  })
+  .then(handleData)
+  .catch(handleError);
+}
