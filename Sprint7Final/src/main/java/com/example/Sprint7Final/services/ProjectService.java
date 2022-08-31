@@ -14,4 +14,6 @@ public interface ProjectService {
 
 	ProjectDto createProjectWithTeamId(ProjectDto projectDto, Long teamId);
 
+	ProjectDto updateProjectById(ProjectDto projectDto, Long projectId);
+
 }
