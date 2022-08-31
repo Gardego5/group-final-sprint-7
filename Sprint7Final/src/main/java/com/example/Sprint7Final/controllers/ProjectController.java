@@ -39,7 +39,7 @@ public class ProjectController {
 	}
 
 	@GetMapping("/team/{teamId}")
-	public List<ProjectDto> getProjectByTeamId(@PathVariable Long teamId) {
+	public List<ProjectDto> getProjectsByTeamId(@PathVariable Long teamId) {
 		return projectService.getProjectsByTeamId(teamId);
 	}
 
