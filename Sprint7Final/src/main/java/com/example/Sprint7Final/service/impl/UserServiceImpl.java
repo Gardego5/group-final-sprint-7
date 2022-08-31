@@ -9,7 +9,6 @@ import com.example.Sprint7Final.exceptions.BadRequestException;
 import com.example.Sprint7Final.exceptions.NotAuthorizedException;
 import com.example.Sprint7Final.exceptions.NotFoundException;
 import com.example.Sprint7Final.mappers.CredentialsMapper;
-import com.example.Sprint7Final.mappers.ProfileMapper;
 import org.springframework.stereotype.Service;
 
 import com.example.Sprint7Final.dtos.UserResponseDto;
@@ -33,7 +32,6 @@ public class UserServiceImpl implements UserService {
 	private final UserRepository userRepository;
 	private final UserMapper userMapper;
 	private final CredentialsMapper credentialsMapper;
-	private final ProfileMapper profileMapper;
 
 	public User validateUserCredentialsMatchDatabase(CredentialsDto credentialsDto) {
 		User userInDB = getUserByCredentials(credentialsDto);
@@ -43,10 +41,8 @@ public class UserServiceImpl implements UserService {
 		if (credentialsInDB.equals(sentCredentials) && userInDB.isActive()) {
 			userInDB.setStatus("JOINED");
 			userRepository.saveAndFlush(userInDB);
-
 			return getUserByCredentials(credentialsDto);
 		}
-
 		throw new NotAuthorizedException("Please check your username or password");
 	}
 
@@ -96,7 +92,7 @@ public class UserServiceImpl implements UserService {
 		User userToBeCreated = userMapper.dtoToEntity(userRequestDto);
 		userToBeCreated.setCredentials(credentialsMapper.dtoToEntity(userRequestDto.getCredentials()));
 		if (validateUserNameExistsInDatabase(userToBeCreated)) {
-			throw new BadRequestException("User name already exists in the database");
+			throw new BadRequestException("User name already exists in the database.");
 		}
 		Profile profile = new Profile();
 		profile.setFirstName(userRequestDto.getFirstName());
@@ -104,7 +100,6 @@ public class UserServiceImpl implements UserService {
 		profile.setPhone(userRequestDto.getPhone());
 		profile.setEmail(userRequestDto.getEmail());
 		userToBeCreated.setProfile(profile);
-
 		return userMapper.entityToDto(userRepository.saveAndFlush(userToBeCreated));
 	}
 
