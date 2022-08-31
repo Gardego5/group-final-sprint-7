@@ -37,8 +37,6 @@ const CreateAnnouncement = (props) => {
     const newAnnouncement = {
       author_id: props.userId,
       company_making_announcement_id: props.companyId,
-      firstName: props.firstName,
-      lastName: props.lastName,
       title: values.title,
       message: values.message,
       time_posted: new Date(Date.now()).toDateString(), //create a new [Date] object and set it to the time the form was submitted

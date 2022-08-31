@@ -56,8 +56,6 @@ const Announcements = () => {
           <CreateAnnouncement
             userId={currentUser.id}
             companyId={company.id}
-            firstName={currentUser.firstName}
-            lastName={currentUser.lastName}
           />
         </ButtonDiv>
         <AnnCardDiv>
