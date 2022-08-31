@@ -6,14 +6,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.example.Sprint7Final.entities.*;
-import com.example.Sprint7Final.repositories.AnnouncementRepository;
+import com.example.Sprint7Final.repositories.*;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.autoconfigure.jms.artemis.ArtemisNoOpBindingRegistry;
 import org.springframework.stereotype.Component;
-
-import com.example.Sprint7Final.repositories.CompanyRepository;
-import com.example.Sprint7Final.repositories.TeamRepository;
-import com.example.Sprint7Final.repositories.UserRepository;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -27,6 +23,7 @@ public class Seeder implements CommandLineRunner {
 	private final CompanyRepository companyRepository;
 	private final TeamRepository teamRepository;
 	private final AnnouncementRepository announcementRepository;
+	private final ProjectRepository projectRepository;
 
 	@Override
 	public void run(String... args) throws Exception {
@@ -272,6 +269,13 @@ public class Seeder implements CommandLineRunner {
 		
 		teamRepository.saveAndFlush(team1);
 		teamRepository.saveAndFlush(team2);
+
+		//projects
+		Project project1 = new Project();
+		project1.setName("TEst1");
+		project1.setDescription("seederprojectest");
+		project1.setActive(true);
+		projectRepository.saveAndFlush(project1);
 
 		Announcement announcement1 = new Announcement();
 		announcement1.setAuthor(user1);
