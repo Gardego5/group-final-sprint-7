@@ -100,3 +100,12 @@ export const getAllTeams = async () => {
   .then(handleData)
   .catch(handleError)
 }
+
+export const getAllProjectsByTeamId = async (teamID) => {
+  return fetch (`${ROOT_URL}/project/team/${teamID}`, {
+    method: "GET",
+    headers: { "Content-Type": "application/json" },
+  })
+  .then(handleData)
+  .catch(handleError)
+}
