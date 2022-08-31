@@ -31,6 +31,8 @@ public class Project {
 	
 	private String description;
 
+	private boolean deleted;
+
 	private Boolean active;
 	
 	@ManyToOne
