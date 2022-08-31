@@ -9,13 +9,7 @@ public class UserResponseDto {
 	
 	private String username;
 	
-	private String firstName;
-	
-	private String lastName;
-	
-	private String email;
-	
-	private String phone;
+	private ProfileDto profile;
 	
 	private Boolean Active;
 	
