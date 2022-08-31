@@ -1,14 +1,16 @@
 package com.example.Sprint7Final.repositories;
 
+import com.example.Sprint7Final.entities.Team;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
+
 import java.util.List;
 
-import org.springframework.data.jpa.repository.JpaRepository;
-
-import com.example.Sprint7Final.entities.Team;
-
+@Repository
 public interface TeamRepository extends JpaRepository<Team, Long> {
 
 	Team findByTeamName(String name);
-	List<Team> findAll();
-	
+
+	List<Team> findAllByDeletedFalse();
+
 }

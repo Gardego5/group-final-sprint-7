@@ -20,12 +20,7 @@ public class CompanyServiceImpl implements CompanyService{
 
 	@Override
 	public List<CompanyDto> getAllCompanies() {
-		return companyMapper.entitiesToDtos(companyRepository.findAll());
-	}
- 
-	@Override
-	public CompanyDto getCompanyById(Long id) {
-		return companyMapper.entityToDto(companyRepository.getReferenceById(id));
+		return companyMapper.entitiesToDtos(companyRepository.findAllByDeletedFalse());
 	}
 
 }
