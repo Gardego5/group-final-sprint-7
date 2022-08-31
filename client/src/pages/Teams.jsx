@@ -81,7 +81,6 @@ const Teams = () => {
 
   return (
     <Fragment>
-      <button onClick={handleGetUsers}>Data</button>
       <NavBar />
       <StyledTeams>
         <h1>Teams</h1>
