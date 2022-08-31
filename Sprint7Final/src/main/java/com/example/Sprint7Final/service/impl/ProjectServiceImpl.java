@@ -21,9 +21,6 @@ public class ProjectServiceImpl implements ProjectService {
 	private final ProjectRepository projectRepository;
 	private final ProjectMapper projectMapper;
 	private final TeamRepository teamRepository;
-	
-	public void update(Project updateData, @MappingTarget Project projectToUpdate) {
-	}
 
 	@Override
 	public List<ProjectDto> getAllProjects() {
@@ -44,10 +41,8 @@ public class ProjectServiceImpl implements ProjectService {
 	@Override
 	public ProjectDto updateProjectById(ProjectDto projectDto, Long projectId) {
 		projectDto.setId(projectId);
-		Project projectToUpdate = projectRepository.getReferenceById(projectId);
 		Project updateData = projectMapper.dtoToEntity(projectDto);
-		update(updateData, projectToUpdate);
-		return projectMapper.entityToDto(projectRepository.save(projectToUpdate));
+		return projectMapper.entityToDto(projectRepository.save(updateData));
 	}
 
 	@Override
