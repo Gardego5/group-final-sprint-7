@@ -1,11 +1,4 @@
-const initialState = {
-  credentials: {
-    username: "",
-    password: "",
-  },
-  user: "",
-  company: "",
-};
+const REDUX_STATE = "redux-state";
 
 /* Action Types */
 const ERASE_SESSION = "ERASE_SESSION";
@@ -15,8 +8,38 @@ const SET_PASSWORD = "SET_PASSWORD";
 const SET_USER = "SET_USER";
 const SET_COMPANY = "SET_COMPANY";
 
+const initialState = {
+  credentials: {
+    username: "",
+    password: "",
+  },
+  user: "",
+  company: "",
+};
+
+const loadState = () => {
+  try {
+    const serializedState = localStorage.getItem(REDUX_STATE);
+    console.log(serializedState)
+    if (serializedState == null) return initialState;
+    return JSON.parse(serializedState);
+  } catch (err) {
+    return initialState;
+  }
+};
+
+export const saveState = (state) => {
+  try {
+    const serializedState = JSON.stringify(state);
+    console.log(serializedState)
+    localStorage.setItem(REDUX_STATE, serializedState);
+  } catch {
+    // ignore errors
+  }
+};
+
 /* Reducer Function */
-const rootReducer = (state = initialState, action) => {
+const rootReducer = (state = loadState(), action) => {
   switch (action.type) {
     case ERASE_SESSION:
       return initialState;
@@ -83,5 +106,7 @@ export const getCredentials = ({ credentials }) => credentials;
 export const getUser = ({ user }) => user;
 
 export const getCompany = ({ company }) => company;
+
+
 
 export default rootReducer;
