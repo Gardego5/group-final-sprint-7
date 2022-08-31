@@ -94,7 +94,7 @@ public class UserServiceImpl implements UserService {
 		User userToBeCreated = userMapper.dtoToEntity(userRequestDto);
 		userToBeCreated.setCredentials(credentialsMapper.dtoToEntity(userRequestDto.getCredentials()));
 		if (validateUserNameExistsInDatabase(userToBeCreated)) {
-			throw new BadRequestException("User name already exists in the database");
+			throw new BadRequestException("User name already exists in the database.");
 		}
 		Profile profile = new Profile();
 		profile.setFirstName(userRequestDto.getFirstName());
@@ -102,7 +102,6 @@ public class UserServiceImpl implements UserService {
 		profile.setPhone(userRequestDto.getPhone());
 		profile.setEmail(userRequestDto.getEmail());
 		userToBeCreated.setProfile(profile);
-
 		return userMapper.entityToDto(userRepository.saveAndFlush(userToBeCreated));
 	}
 

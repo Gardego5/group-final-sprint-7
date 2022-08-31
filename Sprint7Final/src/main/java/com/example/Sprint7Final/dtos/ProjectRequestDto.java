@@ -1,15 +1,13 @@
 package com.example.Sprint7Final.dtos;
 
-import com.example.Sprint7Final.entities.Team;
+
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
 @NoArgsConstructor
-public class ProjectDto {
-	
-	private Long id;
+public class ProjectRequestDto {
 	
 	private String name;
 	
@@ -17,5 +15,5 @@ public class ProjectDto {
 	
 	private Boolean active;
 	
-	private Long teamOnProject;
+	private Long teamId;
 }
