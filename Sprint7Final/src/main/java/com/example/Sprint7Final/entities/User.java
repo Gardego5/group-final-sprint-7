@@ -27,7 +27,7 @@ public class User {
 	
 	private boolean Admin;
 	
-	private String status;
+	private String status = "PENDING";
 
 	private boolean deleted;
 	

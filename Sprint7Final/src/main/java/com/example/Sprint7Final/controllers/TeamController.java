@@ -29,4 +29,9 @@ public class TeamController {
 		return teamService.createTeams(teamRequestDto);
 	}
 
+	@GetMapping("/{companyId}")
+	public List<TeamResponseDto> getTeamsByCompanyId(@PathVariable Long companyId) {
+		return teamService.getTeamsByCompanyId(companyId);
+	}
+
 }

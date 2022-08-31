@@ -34,3 +34,6 @@ build/
 
 ### Additional Items ###
 _config.yml
+
+### PostgreSQL ###
+application.properties
