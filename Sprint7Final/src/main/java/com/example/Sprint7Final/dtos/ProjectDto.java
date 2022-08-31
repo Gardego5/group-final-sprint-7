@@ -1,5 +1,7 @@
 package com.example.Sprint7Final.dtos;
 
+import com.example.Sprint7Final.entities.Team;
+
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -12,6 +14,8 @@ public class ProjectDto {
 	private String name;
 	
 	private String description;
+	
+	private Boolean isActive;
 	
 	private Long teamId;
 }
