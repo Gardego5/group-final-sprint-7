@@ -13,4 +13,5 @@ public interface TeamService {
 
 	TeamResponseDto createTeams(TeamRequestDto teamRequestDto);
 
+    List<TeamResponseDto> getTeamsByCompanyId(Long companyId);
 }

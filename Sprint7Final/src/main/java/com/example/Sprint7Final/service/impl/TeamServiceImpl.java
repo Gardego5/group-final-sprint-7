@@ -12,6 +12,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -45,4 +46,18 @@ public class TeamServiceImpl implements TeamService {
 		return teamMapper.entityToResponseDto(teamRepository.save(teamToSave));
 	}
 
+	@Override
+	public List<TeamResponseDto> getTeamsByCompanyId(Long companyId) {
+
+		List<Team> teamsToReturn = new ArrayList<>();
+		for (Team team : teamRepository.findAllByDeletedFalse()) {
+			if (team.getTeamCompany().getId().equals(companyId)) {
+				teamsToReturn.add(team);
+			}
+		}
+		if (teamsToReturn.size() < 1) {
+			throw new BadRequestException("Could not find teams with company id: " + companyId);
+		}
+		return teamMapper.entitiesToResponseDtos(teamsToReturn);
+	}
 }

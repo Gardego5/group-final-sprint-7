@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.Sprint7Final.dtos.ProjectDto;
+import com.example.Sprint7Final.dtos.ProjectRequestDto;
+import com.example.Sprint7Final.dtos.ProjectResponseDto;
 
 import lombok.RequiredArgsConstructor;
 
@@ -24,28 +26,33 @@ public class ProjectController {
 	private final ProjectService projectService;
 
 	@GetMapping
-	public List<ProjectDto> getAllProjects() {
+	public List<ProjectResponseDto> getAllProjects() {
 		return projectService.getAllProjects();
 	}
 
 	@GetMapping("/{id}")
-	public ProjectDto getProjectById(@PathVariable Long id) {
+	public ProjectResponseDto getProjectById(@PathVariable Long id) {
 		return projectService.getProjectById(id);
 	}
 
 	@PostMapping
-	public ProjectDto createProject(@RequestBody ProjectDto projectDto) {
-		return projectService.createProject(projectDto);
+	public ProjectResponseDto createProject(@RequestBody ProjectRequestDto projecRequesttDto) {
+		return projectService.createProject(projecRequesttDto);
 	}
 
 	@GetMapping("/team/{teamId}")
-	public List<ProjectDto> getProjectsByTeamId(@PathVariable Long teamId) {
+	public List<ProjectResponseDto> getProjectsByTeamId(@PathVariable Long teamId) {
 		return projectService.getProjectsByTeamId(teamId);
 	}
 
 	@PutMapping("/{projectId}")
-	public ProjectDto updateProjectById(@RequestBody ProjectDto projectDto, @PathVariable Long projectId) {
-		return projectService.updateProjectById(projectDto, projectId);
+	public ProjectResponseDto updateProjectById(@RequestBody ProjectRequestDto projecRequesttDto, @PathVariable Long projectId) {
+		return projectService.updateProjectById(projecRequesttDto, projectId);
+	}
+	
+	@GetMapping("/company/{companyId}")
+	public List<ProjectResponseDto> getProjectsByCompanyId(@PathVariable Long companyId) {
+		return projectService.getProjectsByCompanyId(companyId);
 	}
 
 }
