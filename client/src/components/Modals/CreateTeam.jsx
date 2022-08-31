@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
 import {
   Button,
@@ -18,7 +18,7 @@ import {
   StyledForm,
   StyledCloseButton,
 } from "./Modals.module";
-import styled from 'styled-components';
+import styled from "styled-components";
 
 const NewButton = styled(Button)`
   width: 19rem;
@@ -27,7 +27,7 @@ const NewButton = styled(Button)`
   &:hover {
     background: none;
   }
-  &:active{
+  &:active {
     background: none;
     border: none;
   }
@@ -35,7 +35,7 @@ const NewButton = styled(Button)`
     background: none;
     border: none;
   }
-`
+`;
 
 const StyledAddTeam = styled.div`
   position: relative;
@@ -62,8 +62,9 @@ const StyledText = styled.div`
   bottom: 10%;
 `;
 //Form for adding a announcement to the announcement page
-const CreateTeam = ({teamId}) => {
+const CreateTeam = ({ teamId, members }) => {
   const [modalOpen, setModalOpen] = useState(false); // modalOpen state is set to [false]
+  
 
   const dispatch = useDispatch(); //conventional way to use useDispatch is to create a new const called dispatch to make it more readable
   const toggle = () => setModalOpen(!modalOpen);
@@ -73,22 +74,28 @@ const CreateTeam = ({teamId}) => {
       teamId: parseInt(teamId),
       teamName: values.teamName,
       description: values.description,
-      members: values.members, 
+      members: values.members,
       // date: new Date(Date.now()).toISOString(), //create a new [Date] object and set it to the time the form was submitted
     };
 
-    // dispatch(postTeam(team)); // dispatch the action to update the state of the component 
+    // dispatch(postTeam(team)); // dispatch the action to update the state of the component
     // setModalOpen(false); //when submitted the modal closes as the [modalOpen] is set to [false] by the [useState]/[setModalOpen]
   };
+
+  useEffect(() => {
+
+    console.log(members);
+  });
+
   return (
     <>
       <NewButton outline onClick={() => setModalOpen(true)}>
         {" "}
         {/*onClick the [modalOpen] is set to [true] */}
-          <StyledAddTeam>
-            <StyledPlus>+</StyledPlus>
-            <StyledText>New Team</StyledText>
-          </StyledAddTeam>
+        <StyledAddTeam>
+          <StyledPlus>+</StyledPlus>
+          <StyledText>New Team</StyledText>
+        </StyledAddTeam>
       </NewButton>
       <StyledModal isOpen={modalOpen} toggle={toggle}>
         {" "}
@@ -96,7 +103,9 @@ const CreateTeam = ({teamId}) => {
         <StyledModalHeader>
           {" "}
           Create Team
-          <StyledCloseButton color="danger" onClick={() => setModalOpen(false)}>X</StyledCloseButton>
+          <StyledCloseButton color="danger" onClick={() => setModalOpen(false)}>
+            X
+          </StyledCloseButton>
           {/*will close the modal if you click the X toggle on the top right*/}
         </StyledModalHeader>
         <StyledModalBody>
@@ -129,13 +138,23 @@ const CreateTeam = ({teamId}) => {
                 />
               </FormGroup>
               <FormGroup>
-                <Label htmlFor="members" style={{color: "rgb(222, 185, 146)", marginTop: "3rem"}}>Members</Label>
-                <StyledField id="members" name="members" as="select" className="form-control">
-                  {/* {members.map((member) => (
-                    <option key={member} value={member}>
-                      {member}
+                <Label
+                  htmlFor="members"
+                  style={{ color: "rgb(222, 185, 146)", marginTop: "3rem" }}
+                >
+                  Members
+                </Label>
+                <StyledField
+                  id="members"
+                  name="members"
+                  as="select"
+                  className="form-control"
+                >
+                  {members.map((user) => (
+                    <option key={user.username} value={user.profile.firstName}>
+                      {user.profile.firstName}
                     </option>
-                  ))} */}
+                  ))}
                 </StyledField>
               </FormGroup>
               <StyledButton type="submit" color="primary">
