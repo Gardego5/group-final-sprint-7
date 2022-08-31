@@ -84,7 +84,7 @@ const UserRegistry = () => {
   console.log(userList);
 
   const columns = useMemo(() => Columns, []);
-  const data = useMemo(() => userList, []);
+  const data = useMemo(() => userList);
 
   console.log(MOCK_DATA);
 
