@@ -10,7 +10,7 @@ public interface UserService {
 
 	UserResponseDto getUser(CredentialsDto credentialsDto);
 
-	List<UserResponseDto> getUsersInCompany(CredentialsDto credentialsDto, Long companyId);
+	List<UserResponseDto> getUsersInCompany(Long companyId);
 
 	UserResponseDto createUser(UserRequestDto userRequestDto);
 }

@@ -26,9 +26,9 @@ public class UserController {
 		return userService.getUser(credentialsDto);
 	}
 
-	@PostMapping("/{companyId}")
-	public List<UserResponseDto> getUsersInCompany(@RequestBody CredentialsDto credentialsDto, @PathVariable Long companyId) {
-		return userService.getUsersInCompany(credentialsDto, companyId);
+	@GetMapping("/{companyId}")
+	public List<UserResponseDto> getUsersInCompany(@PathVariable Long companyId) {
+		return userService.getUsersInCompany(companyId);
 	}
 
 	@PostMapping("/create")

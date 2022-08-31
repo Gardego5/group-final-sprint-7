@@ -3,6 +3,7 @@ package com.example.Sprint7Final.service.impl;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.example.Sprint7Final.dtos.AnnouncementRequestDto;
 import com.example.Sprint7Final.entities.Announcement;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -31,8 +32,6 @@ public class AnnouncementServiceImpl implements AnnouncementService{
 	public List<AnnouncementResponseDto> getAllCompanyAnnouncements(Long companyId) {
 		List<Announcement> companyAnnouncements = announcementRepository.findAll();
 
-
-
 		List<Announcement> tempAnnouncements = new ArrayList<>();
 		for (Announcement announcement : companyAnnouncements) {
 			if (announcement.getCompanyMakingAnnouncement().getId().equals(companyId)){
@@ -43,5 +42,13 @@ public class AnnouncementServiceImpl implements AnnouncementService{
 		}
 		return announcementMapper.entitiesToDtos(tempAnnouncements);
 	}
+
+	@Override
+	public AnnouncementResponseDto createAnnouncement(AnnouncementRequestDto announcementRequestDto) {
+
+		Announcement announcementToCreate = announcementMapper.dtoToEntity(announcementRequestDto);
+		return announcementMapper.entityToDto(announcementRepository.saveAndFlush(announcementToCreate));
+	}
+
 
 }
