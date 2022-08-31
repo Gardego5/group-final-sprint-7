@@ -1,8 +1,10 @@
-import { Fragment, useState } from "react";
+import { Fragment, useEffect, useState } from "react";
 import styled from "styled-components";
-
 import NavBar from "../components/NavBar";
 import TeamCard from "../components/TeamCard";
+import { getAllUsersFromCompany } from "../utils/requests";
+import { useSelector } from 'react-redux';
+import { getCredentials } from './../reducers/rootReducer';
 
 const StyledTeams = styled.div`
   display: flex;
@@ -40,9 +42,20 @@ const defaultTeams = [
 
 const Teams = () => {
   const [teams, updateTeams] = useState(defaultTeams);
+  const credentials = useSelector(getCredentials);
 
+  useEffect(() => {
+    getAllUsersFromCompany(credentials, 1);
+    console.log(getAllUsersFromCompany(credentials, 1));
+  });
+  const handleGetUsers = async () => {
+  
+    const allUsers =  await getAllUsersFromCompany(credentials, 1)
+    console.log(allUsers);
+  };
   return (
     <Fragment>
+      <button onClick={handleGetUsers}>Data</button>
       <NavBar />
       <StyledTeams>
         <h1>Teams</h1>
