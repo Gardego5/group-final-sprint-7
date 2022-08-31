@@ -15,7 +15,7 @@ import styled from "styled-components";
 import { getCompany } from "./../../reducers/rootReducer";
 
 const NewButton = styled(Button)`
-  z-index: -1;
+  z-index: 1;
   margin: auto;
   width: 19rem;
   height: 21rem;
