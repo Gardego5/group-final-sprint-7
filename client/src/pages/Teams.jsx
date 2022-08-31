@@ -33,6 +33,7 @@ const Teams = () => {
   ];
   const [teams, updateTeams] = useState(defaultTeams);
   const [allNewUsers, updateAllNewUsers] = useState([]);
+  const [members, setMembers] = useState([])
   const credentials = useSelector(getCredentials);
   const company = useSelector(getCompany);
 
@@ -47,14 +48,10 @@ const Teams = () => {
 
   useEffect(() => {
     //map thru all the users.
-    const teamIds = allNewUsers.map((user) => user.team.id);
-    const teamNums = [...new Set(teamIds)];
-    const numberOfTeams = teamNums.length;
-    //make that the size of the list
     const filteredUsers = allNewUsers.filter(
-      (user) => user.company.id == company.id
+      (user) => user.team
     );
-
+    setMembers(filteredUsers)
     let reducedTeams = filteredUsers.reduce((fullList, currentUser) => {
       let index = fullList.length - 1;
       if (
@@ -93,7 +90,7 @@ const Teams = () => {
               key={idx}
             />
           ))}
-          <CreateTeam/>
+          <CreateTeam members={members}/>
     
         </div>
       </StyledTeams>

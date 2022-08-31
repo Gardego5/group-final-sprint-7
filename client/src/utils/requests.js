@@ -100,3 +100,16 @@ export const getAllTeams = async () => {
   .then(handleData)
   .catch(handleError)
 }
+
+export const updateProject = async (newProject, replacedId) => {
+  return fetch(`${ROOT_URL}/project/${replacedId}`, {
+    method: "PUT",
+    headers: { 
+      "Content-Type": "application/json" ,
+      "Access-Control-Allow-Origin": "no-cors"
+    },
+    body: JSON.stringify(newProject)
+  })
+  .then(handleData)
+  .catch(handleError)
+}

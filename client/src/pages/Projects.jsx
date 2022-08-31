@@ -21,14 +21,15 @@ const Projects = () => {
 
   const handleGetProjects = async () => {
     const DBprojects = await getAllProjects();
-    console.log(DBprojects)
+    console.log("Reloading projects")
     if (DBprojects.length > 0) {
       let tempArry = []
       for (let i of DBprojects) {
         tempArry[tempArry.length] = {
           name: i.name,
           editedDaysAgo: 0,
-          desc: i.description
+          desc: i.description,
+          id: i.id
         }
       }
       updateProjects(tempArry)
@@ -43,14 +44,16 @@ const Projects = () => {
       <NavBar />
       <StyledProjects>
         <h1>Projects</h1>
-        <CreateProject buttonColor="#1BA098" buttonText="Create Project"/>
+        <CreateProject updatePage={handleGetProjects} buttonColor="#1BA098" buttonText="Create Project"/>
         <Project/>
-        {projects.map(({ name, editedDaysAgo, desc }, idx) => (
+        {projects.map(({ name, editedDaysAgo, desc, id }, idx) => (
           <Project
+            ID={id}
             name={name}
             editedDaysAgo={editedDaysAgo}
             desc={desc}
             key={idx}
+            updatePage={handleGetProjects}
           />
         ))}
       </StyledProjects>
