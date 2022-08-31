@@ -19,6 +19,31 @@ const StyledTeams = styled.div`
   }
 `;
 
+const StyledAddTeam = styled.div`
+  position: relative;
+  width: 18rem;
+  height: 20rem;
+  border: 3px solid rgb(209, 175, 139);
+  border-radius: 25px;
+  display: flex;
+  flex-direction: column;
+  /* text-align: center; */
+  align-items: center;
+  justify-content: center;
+`;
+const StyledPlus = styled.div`
+  color: rgb(222, 185, 146);
+  position: absolute;
+  font-size: 20rem;
+  bottom: -10%;
+`;
+
+const StyledText = styled.div`
+font-size: 2rem;
+  color: rgb(222, 185, 146);
+  position: absolute;
+  bottom: 10%;
+`;
 const Teams = () => {
   const defaultTeams = [
     {
@@ -93,6 +118,10 @@ const Teams = () => {
               key={idx}
             />
           ))}
+          <StyledAddTeam>
+            <StyledPlus>+</StyledPlus>
+            <StyledText>New Team</StyledText>
+          </StyledAddTeam>
         </div>
       </StyledTeams>
     </>
