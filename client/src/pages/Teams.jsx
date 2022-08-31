@@ -1,4 +1,4 @@
-import { Fragment, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import styled from "styled-components";
 import NavBar from "../components/NavBar";
 import TeamCard from "../components/TeamCard";
@@ -80,7 +80,7 @@ const Teams = () => {
   }, [allNewUsers]);
 
   return (
-    <Fragment>
+    <>
       <NavBar />
       <StyledTeams>
         <h1>Teams</h1>
@@ -95,7 +95,7 @@ const Teams = () => {
           ))}
         </div>
       </StyledTeams>
-    </Fragment>
+    </>
   );
 };
 
