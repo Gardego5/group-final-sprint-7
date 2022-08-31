@@ -13,4 +13,6 @@ public interface UserService {
 	List<UserResponseDto> getUsersInCompany(Long companyId);
 
 	UserResponseDto createUser(UserRequestDto userRequestDto);
+
+    UserResponseDto deleteUser(Long userId);
 }
