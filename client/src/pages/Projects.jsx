@@ -1,9 +1,10 @@
-import { Fragment, useState } from "react";
+import { Fragment, useState, useEffect } from "react";
 import styled from "styled-components";
 
 import NavBar from "../components/NavBar";
 import Project from "../components/Project";
 import CreateProject from "../components/Modals/CreateProject";
+import { getAllProjects } from "../utils/requests";
 
 const StyledProjects = styled.div`
   display: flex;
@@ -15,23 +16,28 @@ const StyledProjects = styled.div`
   }
 `;
 
-const defaultProjects = [
-  {
-    name: "Project 1",
-    editedDaysAgo: 2,
-    desc: "Lorem ipsum this project is about stuff",
-  },
-  {
-    name: "Project 2",
-    editedDaysAgo: 1,
-    desc: "Lorem ipsum this project is about stuff",
-  },
-];
-
 const Projects = () => {
-  const [projects, updateProjects] = useState(defaultProjects);
+  const [projects, updateProjects] = useState([]);
 
-  const addNewProject = (event) => {};
+  const handleGetProjects = async () => {
+    const DBprojects = await getAllProjects();
+    console.log(DBprojects)
+    if (DBprojects.length > 0) {
+      let tempArry = []
+      for (let i of DBprojects) {
+        tempArry[tempArry.length] = {
+          name: i.name,
+          editedDaysAgo: 0,
+          desc: i.description
+        }
+      }
+      updateProjects(tempArry)
+    }
+  };
+  useEffect(() => {
+    handleGetProjects();
+    console.log(projects)
+  }, []);
 
   return (
     <Fragment>

@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useDispatch } from "react-redux";
+import { createProject } from "../../utils/requests";
 import {
   Button,
   Modal,
@@ -19,17 +20,22 @@ import {
   StyledCloseButton,
 } from "./Modals.module";
 
-const CreateProject = ({ teamId, buttonText, projName, projectDescription }) => {
+const CreateProject = ({ teamId, buttonText, projNameProp, projectDescription }) => {
   const [modalOpen, setModalOpen] = useState(false);
+  const [projName, setProjName] = useState(projNameProp);
+  const [projDescription, setProjDescription] = useState(projectDescription);
 
   const dispatch = useDispatch();
   const toggle = () => {setModalOpen(!modalOpen)};
   const handleSubmit = (values) => {
+    console.log("Name: " + projName + " & Desc: " + projDescription)
     const project = {
-      teamId: parseInt(teamId),
-      projectName: values.projectName,
-      description: values.description,
+      teamId: 1,
+      name: projName,
+      description: projDescription,
+      active: true
     };
+    createProject(project)
   };
   return (
     <>
@@ -50,7 +56,7 @@ const CreateProject = ({ teamId, buttonText, projName, projectDescription }) => 
           <Formik
             initialValues={{
               projectName: "",
-              description: "",
+              description: ""
             }}
             onSubmit={handleSubmit}
           >
@@ -59,11 +65,10 @@ const CreateProject = ({ teamId, buttonText, projName, projectDescription }) => 
                 <Label htmlFor="projectName"></Label>
                 <StyledField
                   name="projectName"
-                  as="textarea"
-                  rows="1"
                   placeholder="Project Name"
                   className="form-control"
-                  defaultValue={projName}
+                  value={projName}
+                  onChange={e => setProjName(e.target.value)}
                 />
               </FormGroup>
               <FormGroup>
@@ -74,7 +79,8 @@ const CreateProject = ({ teamId, buttonText, projName, projectDescription }) => 
                   rows="5"
                   className="form-control"
                   placeholder="Description"
-                  defaultValue={projectDescription}
+                  value={projDescription}
+                  onChange={e => setProjDescription(e.target.value)}
                 />
               </FormGroup>
               <StyledButton type="submit" color="primary">

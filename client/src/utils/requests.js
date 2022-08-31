@@ -74,3 +74,22 @@ export const getAllUsersFromCompany = async (credentials, id) => {
   .then(handleData)
   .catch(handleError);
 }
+
+export const createProject = async (newProject) => {
+  return fetch(`${ROOT_URL}/project`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(newProject)
+  })
+  .then((response) => console.log(response))
+  .then(handleData)
+  .catch(handleError)
+}
+
+export const getAllProjects = async () => {
+  return fetch (`${ROOT_URL}/project`, {
+    method: "GET"
+  })
+  .then(handleData)
+  .catch(handleError);
+}
