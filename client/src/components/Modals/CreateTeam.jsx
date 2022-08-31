@@ -20,7 +20,7 @@ import {
 } from "./Modals.module";
 
 //Form for adding a announcement to the announcement page
-const CreateTeamN = ({teamId}) => {
+const CreateTeam = ({teamId}) => {
   const [modalOpen, setModalOpen] = useState(false); // modalOpen state is set to [false]
 
   const dispatch = useDispatch(); //conventional way to use useDispatch is to create a new const called dispatch to make it more readable
@@ -104,4 +104,4 @@ const CreateTeamN = ({teamId}) => {
   );
 };
 
-export default CreateTeamN;
+export default CreateTeam;
