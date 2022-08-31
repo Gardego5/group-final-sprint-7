@@ -131,13 +131,13 @@ const NavBar = () => {
         <li onClick={toggleShowing}>
           <NavLink to="/teams">Teams</NavLink>
         </li>
-        <li onClick={toggleShowing}>
-          {user?.admin ? (
+        {user?.admin ? (
+          <li onClick={toggleShowing}>
             <NavLink to="/users">Users</NavLink>
-          ) : (
-            <NavLink to="#"></NavLink>
-          )}
-        </li>
+          </li>
+        ) : (
+          ""
+        )}
         <li onClick={toggleShowing}>
           <NavLink to="/projects">Projects</NavLink>
         </li>

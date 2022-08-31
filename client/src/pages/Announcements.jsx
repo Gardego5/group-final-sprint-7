@@ -71,13 +71,20 @@ const Announcements = () => {
       <NavBar />
       <AnnouncementsStyle>
         <h1>Announcements</h1>
-        <div className="add-announcement">
-          <CreateAnnouncement userId={currentUser.id} companyId={company.id} />
-        </div>
+        {user?.admin ? (
+          <div className="add-announcement">
+            <CreateAnnouncement
+              userId={currentUser.id}
+              companyId={company.id}
+            />
+          </div>
+        ) : (
+          ""
+        )}
         <div className="announcements">
-          {posts?.map(({ id, author, title, timePosted, message }) => (
+          {posts?.map(({ author, title, timePosted, message }, idx) => (
             <AnnouncementCard
-              key={id}
+              key={idx}
               firstName={author.profile.firstName}
               lastName={author.profile.lastName}
               title={title}
