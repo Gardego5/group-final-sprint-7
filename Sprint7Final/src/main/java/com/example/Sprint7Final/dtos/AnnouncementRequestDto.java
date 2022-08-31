@@ -19,8 +19,8 @@ public class AnnouncementRequestDto {
 
 	private String message;
 
-	private CompanyDto company;
+	private Long companyId;
 
-	private User user;
+	private Long userId;
 
 }
