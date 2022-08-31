@@ -17,10 +17,12 @@ public class Company {
 	private Long id;
 	
 	@Column(nullable = false)
-	private String name;
+	private String companyName;
 	
 	@Column
-	private String description;
+	private String companyDescription;
+
+	private boolean deleted;
 	
 	@OneToMany(mappedBy = "company", cascade = CascadeType.ALL)
 	private List<User> usersInTheCompany;

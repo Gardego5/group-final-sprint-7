@@ -13,6 +13,6 @@ public class TeamRequestDto {
 
 	private String teamDescription;
 
-	private CompanyDto teamCompany;
+	private Long companyID;
 
 }
