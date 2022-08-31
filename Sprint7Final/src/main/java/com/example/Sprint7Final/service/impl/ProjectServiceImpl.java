@@ -74,6 +74,15 @@ public class ProjectServiceImpl implements ProjectService {
 		if (projectRequestDto.getActive() != null) {
 			projectToUpdate.setActive(projectRequestDto.getActive());
 		}
+		if (projectRequestDto.getTeamId() != null) {
+
+			Optional<Team> optionalTeam = teamRepository.findByIdAndDeletedFalse(projectRequestDto.getTeamId());
+			if (optionalTeam.isEmpty()) {
+				throw new NotFoundException("Could not find team with id: " + projectRequestDto.getTeamId());
+			} else {
+				projectToUpdate.setTeamOnProject(optionalTeam.get());
+			}
+		}
 		return projectMapper.entityToResponseDto(projectRepository.save(projectToUpdate));
 	}
 
