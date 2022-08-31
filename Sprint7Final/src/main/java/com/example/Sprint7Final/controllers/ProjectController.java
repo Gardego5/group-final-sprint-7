@@ -47,5 +47,10 @@ public class ProjectController {
 	public ProjectDto updateProjectById(@RequestBody ProjectDto projectDto, @PathVariable Long projectId) {
 		return projectService.updateProjectById(projectDto, projectId);
 	}
+	
+	@GetMapping("/company/{companyId}")
+	public List<ProjectDto> getProjectsByCompanyId(@PathVariable Long companyId) {
+		return projectService.getProjectsByCompanyId(companyId);
+	}
 
 }
