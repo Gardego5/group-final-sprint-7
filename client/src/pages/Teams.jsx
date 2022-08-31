@@ -5,6 +5,7 @@ import TeamCard from "../components/TeamCard";
 import { getAllUsersFromCompany } from "../utils/requests";
 import { useSelector } from "react-redux";
 import { getCredentials, getCompany } from "./../reducers/rootReducer";
+import CreateTeam from "../components/Modals/CreateTeam";
 
 const StyledTeams = styled.div`
   display: flex;
@@ -17,31 +18,6 @@ const StyledTeams = styled.div`
     grid-template-columns: repeat(auto-fit, minmax(18rem, 1fr));
     margin-bottom: 4rem;
   }
-`;
-
-const StyledAddTeam = styled.div`
-  position: relative;
-  width: 18rem;
-  height: 20rem;
-  border: 3px solid rgb(209, 175, 139);
-  border-radius: 25px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-`;
-const StyledPlus = styled.div`
-  color: rgb(222, 185, 146);
-  position: absolute;
-  font-size: 20rem;
-  bottom: -10%;
-`;
-
-const StyledText = styled.div`
-font-size: 2rem;
-  color: rgb(222, 185, 146);
-  position: absolute;
-  bottom: 10%;
 `;
 const Teams = () => {
   const defaultTeams = [
@@ -117,10 +93,8 @@ const Teams = () => {
               key={idx}
             />
           ))}
-          <StyledAddTeam>
-            <StyledPlus>+</StyledPlus>
-            <StyledText>New Team</StyledText>
-          </StyledAddTeam>
+          <CreateTeam/>
+    
         </div>
       </StyledTeams>
     </>
