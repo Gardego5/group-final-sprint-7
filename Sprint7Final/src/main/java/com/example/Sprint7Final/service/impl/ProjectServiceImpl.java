@@ -46,14 +46,13 @@ public class ProjectServiceImpl implements ProjectService {
 		if (projectRequestDto.getTeamId() == null) {
 			log.warn("Attempt to create Project without a team assigned");
 		} else {
-			try {
-				Team teamInDatabase = teamRepository.getReferenceById(projectRequestDto.getTeamId());
-				projectToSave.setTeamOnProject(teamInDatabase);
-			} catch (Error e) {
+			Optional<Team> optionalTeam = teamRepository.findById(projectRequestDto.getTeamId());
+			if (optionalTeam.isEmpty()) {
 				throw new NotFoundException("Team with id: " + projectRequestDto.getTeamId() + " not found in database.");
 			}
-
+			projectToSave.setTeamOnProject(optionalTeam.get());
 		}
+
 		projectToSave.setActive(projectRequestDto.getActive());
 		return projectMapper.entityToResponseDto(projectRepository.saveAndFlush(projectToSave));
 	}
