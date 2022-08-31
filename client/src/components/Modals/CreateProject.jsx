@@ -20,7 +20,7 @@ import {
   StyledCloseButton,
 } from "./Modals.module";
 
-const CreateProject = ({ teamId, buttonText, projNameProp, projectDescription }) => {
+const CreateProject = ({ buttonText, projNameProp, projectDescription }) => {
   const [modalOpen, setModalOpen] = useState(false);
   const [projName, setProjName] = useState(projNameProp);
   const [projDescription, setProjDescription] = useState(projectDescription);
@@ -29,7 +29,7 @@ const CreateProject = ({ teamId, buttonText, projNameProp, projectDescription })
   const toggle = () => {setModalOpen(!modalOpen)};
   const handleSubmit = (values) => {
     const project = {
-      teamId: parseInt(teamId),
+      teamId: 3,
       name: projName,
       description: projDescription,
       active: true
