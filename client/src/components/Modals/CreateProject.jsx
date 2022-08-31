@@ -28,13 +28,13 @@ const CreateProject = ({ teamId, buttonText, projNameProp, projectDescription })
   const dispatch = useDispatch();
   const toggle = () => {setModalOpen(!modalOpen)};
   const handleSubmit = (values) => {
-    console.log("Name: " + projName + " & Desc: " + projDescription)
     const project = {
-      teamId: 1,
+      teamId: parseInt(teamId),
       name: projName,
       description: projDescription,
       active: true
     };
+    console.log(project)
     createProject(project)
   };
   return (

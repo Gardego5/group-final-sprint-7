@@ -272,8 +272,8 @@ public class Seeder implements CommandLineRunner {
 
 		//projects
 		Project project1 = new Project();
-		project1.setName("TEst1");
-		project1.setDescription("seederprojectest");
+		project1.setName("Project 1");
+		project1.setDescription("Seed project from the DB");
 		project1.setActive(true);
 		projectRepository.saveAndFlush(project1);
 

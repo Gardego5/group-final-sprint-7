@@ -22,7 +22,7 @@ const Project = ({ name, editedDaysAgo, desc, onEdit }) => {
     editedDaysAgo !== undefined &&
     desc !== undefined ? (
     <StyledProject>
-      <CreateProject projName={name} projectDescription={desc} buttonText="Edit"/>
+      <CreateProject projNameProp={name} projectDescription={desc} buttonText="Edit"/>
       <div className="project-row">
         <div className="project-title">
           <h2>{name}</h2>
