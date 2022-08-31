@@ -20,6 +20,7 @@ export const loginUser = async (credentials) => {
     .catch(handleError);
 };
 
+
 export const getCompanies = async () => {
   return fetch(`${ROOT_URL}/company`, {
     method: "GET",
@@ -45,3 +46,14 @@ export const addUser = async (user) => {
     .then(handleData)
     .catch(handleError);
 };
+
+export const getAllUsersFromCompany = async (credentials, id) => {
+  return fetch(`${ROOT_URL}/user/${id}`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(credentials),
+  })
+  .then(handleData)
+  .catch(handleError);
+}
+
