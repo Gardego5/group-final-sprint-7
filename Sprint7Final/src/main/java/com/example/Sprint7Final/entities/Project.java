@@ -8,6 +8,12 @@ import javax.persistence.ManyToOne;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.UpdateTimestamp;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedDate;
+
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
 
 @Entity
 @NoArgsConstructor
@@ -19,10 +25,15 @@ public class Project {
 	private Long id;
 	
 	private String name;
+
+	@UpdateTimestamp
+	private Timestamp timePosted;
 	
 	private String description;
 
-	private boolean isActive;
+	private boolean deleted;
+
+	private Boolean active;
 	
 	@ManyToOne
 	@JoinColumn

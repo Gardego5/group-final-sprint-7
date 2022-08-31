@@ -1,10 +1,11 @@
-import { Fragment, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import styled from "styled-components";
 import NavBar from "../components/NavBar";
 import TeamCard from "../components/TeamCard";
 import { getAllUsersFromCompany } from "../utils/requests";
 import { useSelector } from "react-redux";
 import { getCredentials, getCompany } from "./../reducers/rootReducer";
+import CreateTeam from "../components/Modals/CreateTeam";
 
 const StyledTeams = styled.div`
   display: flex;
@@ -18,7 +19,6 @@ const StyledTeams = styled.div`
     margin-bottom: 4rem;
   }
 `;
-
 const Teams = () => {
   const defaultTeams = [
     {
@@ -33,6 +33,7 @@ const Teams = () => {
   ];
   const [teams, updateTeams] = useState(defaultTeams);
   const [allNewUsers, updateAllNewUsers] = useState([]);
+  const [members, setMembers] = useState([])
   const credentials = useSelector(getCredentials);
   const company = useSelector(getCompany);
 
@@ -47,14 +48,10 @@ const Teams = () => {
 
   useEffect(() => {
     //map thru all the users.
-    const teamIds = allNewUsers.map((user) => user.team.id);
-    const teamNums = [...new Set(teamIds)];
-    const numberOfTeams = teamNums.length;
-    //make that the size of the list
     const filteredUsers = allNewUsers.filter(
-      (user) => user.company.id == company.id
+      (user) => user.team
     );
-
+    setMembers(filteredUsers)
     let reducedTeams = filteredUsers.reduce((fullList, currentUser) => {
       let index = fullList.length - 1;
       if (
@@ -80,7 +77,7 @@ const Teams = () => {
   }, [allNewUsers]);
 
   return (
-    <Fragment>
+    <>
       <NavBar />
       <StyledTeams>
         <h1>Teams</h1>
@@ -93,9 +90,11 @@ const Teams = () => {
               key={idx}
             />
           ))}
+          <CreateTeam members={members}/>
+    
         </div>
       </StyledTeams>
-    </Fragment>
+    </>
   );
 };
 
