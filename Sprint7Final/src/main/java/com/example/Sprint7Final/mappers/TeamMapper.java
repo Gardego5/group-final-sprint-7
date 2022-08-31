@@ -15,7 +15,7 @@ import com.example.Sprint7Final.entities.User;
 @Mapper(componentModel = "spring")
 
 public interface TeamMapper {
-	TeamResponseDto entityToDto (Team entity);
+	TeamDto entityToDto (Team entity);
 	
 	Team teamRequestDtoToEntity (TeamRequestDto teamRequestDto);
 	

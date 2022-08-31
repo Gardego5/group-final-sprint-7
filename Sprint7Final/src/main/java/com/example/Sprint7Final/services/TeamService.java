@@ -9,6 +9,6 @@ public interface TeamService {
 
 	List<TeamDto> getAllTeams();
 	
-	TeamResponseDto getTeamById(Long teamId);
+	TeamDto getTeamById(Long teamId);
 
 }

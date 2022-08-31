@@ -10,8 +10,8 @@ public class TeamResponseDto {
 	
 	private String teamName;
 	
-	private String description;
+	private String teamDescription;
 	
-	private CompanyDto company;
+	private CompanyDto teamCompany;
 	
 }
