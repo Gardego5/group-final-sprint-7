@@ -3,6 +3,7 @@ package com.example.Sprint7Final.service.impl;
 
 import com.example.Sprint7Final.dtos.CredentialsDto;
 import com.example.Sprint7Final.dtos.UserRequestDto;
+import com.example.Sprint7Final.entities.Credentials;
 import com.example.Sprint7Final.entities.Profile;
 import com.example.Sprint7Final.exceptions.BadRequestException;
 import com.example.Sprint7Final.exceptions.NotAuthorizedException;
@@ -29,15 +30,23 @@ import java.util.Optional;
 @Slf4j
 public class UserServiceImpl implements UserService {
 
-    private final UserRepository userRepository;
-    private final UserMapper userMapper;
+	private final UserRepository userRepository;
+	private final UserMapper userMapper;
 	private final CredentialsMapper credentialsMapper;
 	private final ProfileMapper profileMapper;
 
 	public User validateUserCredentialsMatchDatabase(CredentialsDto credentialsDto) {
-		if (getUserByCredentials(credentialsDto).getCredentials().equals(credentialsMapper.dtoToEntity(credentialsDto))) {
+		User userInDB = getUserByCredentials(credentialsDto);
+		Credentials credentialsInDB = userInDB.getCredentials();
+		Credentials sentCredentials = credentialsMapper.dtoToEntity(credentialsDto);
+
+		if (credentialsInDB.equals(sentCredentials) && userInDB.isActive()) {
+			userInDB.setStatus("JOINED");
+			userRepository.saveAndFlush(userInDB);
+
 			return getUserByCredentials(credentialsDto);
 		}
+
 		throw new NotAuthorizedException("Please check your username or password");
 	}
 

@@ -76,7 +76,7 @@ public class Seeder implements CommandLineRunner {
 		user1.setProfile(user1Pro);
 		user1.setCompany(company1);
 		user1.setTeam(team1);
-		user1.setStatus("Default");
+		user1.setStatus("PENDING");
 
 		// Active
 		user1.setActive(true);
@@ -99,7 +99,7 @@ public class Seeder implements CommandLineRunner {
 		user2.setProfile(user2Pro);
 		user2.setCompany(company2);
 		user2.setTeam(team1);
-		user2.setStatus("Default");
+		user2.setStatus("JOINED");
 		// Active
 		user2.setActive(false);
 
@@ -122,7 +122,7 @@ public class Seeder implements CommandLineRunner {
 		user3.setAdmin(true);
 		user3.setCompany(company2);
 		user3.setTeam(team2);
-		user3.setStatus("Default");
+		user3.setStatus("JOINED");
 		// Active
 		user3.setActive(true);
 
@@ -144,7 +144,7 @@ public class Seeder implements CommandLineRunner {
 		user4.setProfile(user4Pro);
 		user4.setCompany(company1);
 		user4.setTeam(team2);
-		user4.setStatus("Default");
+		user4.setStatus("PENDING");
 		// Active
 		user4.setActive(true);
 
@@ -166,7 +166,7 @@ public class Seeder implements CommandLineRunner {
 		user5.setProfile(user5Pro);
 		user5.setCompany(company1);
 		user5.setTeam(team2);
-		user5.setStatus("Default");
+		user5.setStatus("PENDING");
 		// Active
 		user5.setActive(true);
 
@@ -188,7 +188,7 @@ public class Seeder implements CommandLineRunner {
 		user6.setProfile(user6Pro);
 		user6.setCompany(company1);
 		user6.setTeam(team2);
-		user6.setStatus("Default");
+		user6.setStatus("JOINED");
 		// Active
 		user6.setActive(true);
 
@@ -210,7 +210,7 @@ public class Seeder implements CommandLineRunner {
 		user7.setProfile(user7Pro);
 		user7.setCompany(company1);
 		user7.setTeam(team2);
-		user7.setStatus("Default");
+		user7.setStatus("PENDING");
 		// Active
 		user7.setActive(true);
 
@@ -232,7 +232,7 @@ public class Seeder implements CommandLineRunner {
 		user8.setProfile(user8Pro);
 		user8.setCompany(company1);
 		user8.setTeam(team2);
-		user8.setStatus("Default");
+		user8.setStatus("PENDING");
 		// Active
 		user8.setActive(true);
 

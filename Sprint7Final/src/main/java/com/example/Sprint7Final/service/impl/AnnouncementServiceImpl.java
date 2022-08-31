@@ -42,7 +42,6 @@ public class AnnouncementServiceImpl implements AnnouncementService{
 		List<Announcement> tempAnnouncements = new ArrayList<>();
 		for (Announcement announcement : companyAnnouncements) {
 			if (announcement.getCompanyMakingAnnouncement().getId().equals(companyId)){
-				log.warn(announcement.getAuthor().getId() + " users id");
 				tempAnnouncements.add(announcement);
 			}
 		}
@@ -52,6 +51,9 @@ public class AnnouncementServiceImpl implements AnnouncementService{
 	@Override
 	public AnnouncementResponseDto createAnnouncement(AnnouncementRequestDto announcementRequestDto) {
 
+		//NEEDS LOGIC CHECK FOR IDS THAT DON'T EXIST
+		//NEEDS LOGIC CHECK FOR IDS THAT DON'T EXIST
+		//NEEDS LOGIC CHECK FOR IDS THAT DON'T EXIST
 		Announcement announcementToCreate = announcementMapper.dtoToEntity(announcementRequestDto);
 		Optional<User> userFromDatabase = userRepository.findById(announcementRequestDto.getUserId());
 		Optional<Company> companyFromDatabase = companyRepository.findById(announcementRequestDto.getCompanyId());
