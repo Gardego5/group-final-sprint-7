@@ -46,8 +46,6 @@ const SelectCompany = () => {
       ))();
   }, []);
 
-  console.log(companies);
-
   if (!user) return <Redirect to="" />;
 
   if (!user.admin) {

@@ -5,7 +5,13 @@ import HamburgerImg from "../assets/hamburger.svg";
 import LogoImg from "../assets/logo.png";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { eraseSession, getCompany, getCredentials, getUser, setCompany } from "../reducers/rootReducer";
+import {
+  eraseSession,
+  getCompany,
+  getCredentials,
+  getUser,
+  setCompany,
+} from "../reducers/rootReducer";
 
 const StyledNav = styled.nav`
   position: sticky;
@@ -96,7 +102,7 @@ const NavBar = () => {
 
   const selectCompany = () => {
     setRedirect(<Redirect to="/company" />);
-  }
+  };
 
   if (!redirect && (!credentials || !user)) logout();
   if (!redirect && !company) selectCompany();
@@ -112,7 +118,7 @@ const NavBar = () => {
         <img src={LogoImg} alt="logo" id="logo" />
       </NavLink>
 
-      <p id="warning">Acting as Admin</p>
+      {user?.admin ? <p id="warning">Acting as Admin</p> : ""}
 
       <button id="menu-button" onClick={toggleShowing}>
         <img src={HamburgerImg} alt="menu" />
@@ -126,7 +132,14 @@ const NavBar = () => {
           <NavLink to="/teams">Teams</NavLink>
         </li>
         <li onClick={toggleShowing}>
-          <NavLink to="/users">Users</NavLink>
+          {user?.admin ? (
+            <NavLink to="/users">Users</NavLink>
+          ) : (
+            <NavLink to="#"></NavLink>
+          )}
+        </li>
+        <li onClick={toggleShowing}>
+          <NavLink to="/projects">Projects</NavLink>
         </li>
         <li onClick={toggleShowing}>
           <NavLink to="/" onClick={logout}>
