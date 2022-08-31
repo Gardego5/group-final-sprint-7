@@ -34,5 +34,5 @@ public class Announcement {
 	private Company companyMakingAnnouncement;
 	
 	@ManyToOne
-	private User author;
+	private User Author;
 }
