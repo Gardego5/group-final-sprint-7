@@ -11,14 +11,14 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class AnnouncementResponseDto {
 	
-	private Timestamp date;
+	private Timestamp timePosted;
 
 	private String title;
 
 	private String message;
 
-	private CompanyDto company;
+	private CompanyDto companyMakingAnnouncement;
 
-	private User user;
+	private UserResponseDto Author;
 
 }

@@ -9,7 +9,7 @@ public class CompanyDto {
 	
 	private Long id;
 	
-	private String name;
+	private String companyName;
 	
-	private String description;
+	private String companyDescription;
 }
