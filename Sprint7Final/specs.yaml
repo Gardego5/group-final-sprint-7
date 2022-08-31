@@ -5,6 +5,7 @@ info:
 paths:
   /user/validate:
     post:
+      working: yes
       description: get a user
       operationId: getUser
       requestBody:
@@ -29,6 +30,7 @@ paths:
           message: "Internal Server Error"
   /user/create:
     post:
+      working: yes
       description: create a new user
       operationId: createUser
       requestBody:
@@ -60,6 +62,7 @@ paths:
           message: "Internal Server Error"
   /user/{companyId}:
     get:
+      working: yes
       description: get all users at a company
       operationId: getUsersInCompany
       parameters:
@@ -83,6 +86,7 @@ paths:
           message: "Internal Server Error"
   /team:
     post:
+      working: yes
       description: create a new team
       operationId: createTeam
       requestBody:
@@ -100,6 +104,7 @@ paths:
         500:
           message: "Internal Server Error"
     get:
+      working: yes
       description: get all teams
       operationId: getTeams
       responses:
@@ -116,6 +121,7 @@ paths:
           message: "Internal Server Error"
   /company:
     get:
+      working: yes
       description: get all companies
       operationId: getAllCompanies
       responses:
@@ -131,6 +137,7 @@ paths:
           message: "Internal Server Error"
   /project:
     post:
+      working: yes
       description: create a new project
       operationId: createProject
       parameters:
@@ -153,6 +160,7 @@ paths:
           message: "Internal Server Error"
   /project/{teamId}:
     get:
+      working: yes
       description: get all projects in a team
       operationId: getProjectsOfTeam
       parameters:
