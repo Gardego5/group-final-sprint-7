@@ -44,8 +44,7 @@ public class ProjectServiceImpl implements ProjectService {
 	}
 
 	@Override
-	public List<ProjectDto> getProjectByTeamId(Long teamId) {
-
+	public List<ProjectDto> getProjectsByTeamId(Long teamId) {
 		return projectMapper.entitiesToDtos(teamRepository.getReferenceById(teamId).getTeamProjects());
 	}
 }
