@@ -4,10 +4,9 @@ import { createStore } from "redux";
 import ReactDOM from "react-dom/client";
 
 import App from "./App";
-import rootReducer from "./reducers/rootReducer";
+import rootReducer, { saveState } from "./reducers/rootReducer";
 import GlobalStyle from "./GlobalStyle";
 import "bootstrap/dist/css/bootstrap.min.css";
-import { saveState } from "./reducers/rootReducer";
 
 const store = createStore(
   rootReducer,

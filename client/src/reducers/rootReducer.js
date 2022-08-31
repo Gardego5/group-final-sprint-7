@@ -20,7 +20,6 @@ const initialState = {
 const loadState = () => {
   try {
     const serializedState = localStorage.getItem(REDUX_STATE);
-    console.log(serializedState)
     if (serializedState == null) return initialState;
     return JSON.parse(serializedState);
   } catch (err) {
@@ -31,7 +30,6 @@ const loadState = () => {
 export const saveState = (state) => {
   try {
     const serializedState = JSON.stringify(state);
-    console.log(serializedState)
     localStorage.setItem(REDUX_STATE, serializedState);
   } catch {
     // ignore errors
@@ -106,7 +104,5 @@ export const getCredentials = ({ credentials }) => credentials;
 export const getUser = ({ user }) => user;
 
 export const getCompany = ({ company }) => company;
-
-
 
 export default rootReducer;
