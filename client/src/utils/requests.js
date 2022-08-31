@@ -27,3 +27,21 @@ export const getCompanies = async () => {
     .then(handleData)
     .catch(handleError);
 };
+
+export const getCompanyAnnouncements = async (companyId) => {
+  return fetch(`${ROOT_URL}/company/${companyId}/announcements`, {
+    method: "GET",
+  })
+    .then(handleData)
+    .catch(handleError);
+};
+
+export const createNewAnnouncement = async (companyId, announcement) => {
+  return fetch(`${ROOT_URL}/company/${companyId}/announcements`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(announcement),
+  })
+    .then(handleData)
+    .catch(handleError);
+};
