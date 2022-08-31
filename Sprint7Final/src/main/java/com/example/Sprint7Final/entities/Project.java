@@ -22,7 +22,7 @@ public class Project {
 	
 	private String description;
 
-	private boolean isActive;
+	private Boolean active;
 	
 	@ManyToOne
 	@JoinColumn

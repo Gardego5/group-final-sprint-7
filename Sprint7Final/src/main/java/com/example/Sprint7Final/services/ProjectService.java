@@ -3,19 +3,21 @@ package com.example.Sprint7Final.services;
 import java.util.List;
 
 import com.example.Sprint7Final.dtos.ProjectDto;
+import com.example.Sprint7Final.dtos.ProjectRequestDto;
+import com.example.Sprint7Final.dtos.ProjectResponseDto;
 
 public interface ProjectService {
 
-	List<ProjectDto> getAllProjects();
+	List<ProjectResponseDto> getAllProjects();
 
-	ProjectDto getProjectById(Long id);
+	ProjectResponseDto getProjectById(Long id);
 
-	ProjectDto createProject(ProjectDto projectDto);
+	ProjectResponseDto createProject(ProjectRequestDto projectRequestDto);
 
-	ProjectDto updateProjectById(ProjectDto projectDto, Long projectId);
+	ProjectResponseDto updateProjectById(ProjectRequestDto projectRequestDto, Long projectId);
 
-	List<ProjectDto> getProjectsByTeamId(Long teamId);
+	List<ProjectResponseDto> getProjectsByTeamId(Long teamId);
 
-	List<ProjectDto> getProjectsByCompanyId(Long companyId);
+	List<ProjectResponseDto> getProjectsByCompanyId(Long companyId);
 
 }
