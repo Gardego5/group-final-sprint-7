@@ -21,7 +21,7 @@ public interface TeamMapper {
 	
 	TeamRequestDto entityToRequestDto(Team team);
 	
-	List<TeamResponseDto> entitiesToDtos(List<Team> team);
+	List<TeamDto> entitiesToDtos(List<Team> team);
 
 
 }

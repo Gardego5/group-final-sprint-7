@@ -21,7 +21,7 @@ public class TeamController {
 	
 	@GetMapping
 	@ResponseStatus(HttpStatus.OK)
-	public List<TeamResponseDto> getAllTeams() {
+	public List<TeamDto> getAllTeams() {
 		return teamService.getAllTeams();
 	}
 	
