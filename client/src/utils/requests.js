@@ -29,6 +29,24 @@ export const getCompanies = async () => {
     .catch(handleError);
 };
 
+export const getCompanyAnnouncements = async (companyId) => {
+  return fetch(`${ROOT_URL}/announcements/${companyId}`, {
+    method: "GET",
+  })
+    .then(handleData)
+    .catch(handleError);
+};
+
+export const createNewAnnouncement = async (announcement) => {
+  return fetch(`${ROOT_URL}announcements`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(announcement),
+  })
+    .then(handleData)
+    .catch(handleError);
+};
+
 export const retrieveUsers = async (companyId) => {
   return fetch(`${ROOT_URL}/user/${companyId}`, {
     method: "GET",
@@ -56,4 +74,3 @@ export const getAllUsersFromCompany = async (credentials, id) => {
   .then(handleData)
   .catch(handleError);
 }
-
