@@ -61,7 +61,7 @@ const Teams = () => {
   const company = useSelector(getCompany);
 
   const handleGetUsers = async () => {
-    const allUsers = await getAllUsersFromCompany(credentials, 1);
+    const allUsers = await getAllUsersFromCompany(company.id);
     updateAllNewUsers(allUsers);
     console.log(allUsers);
   };
@@ -96,7 +96,7 @@ const Teams = () => {
       name: list[0].team.teamName,
       projectCount: 99,
       members: list.map((user) => ({
-        name: `${user.firstName} ${user.lastName[0]}`,
+        name: `${user.profile.firstName} ${user.profile.lastName[0]}`,
       })),
     }));
 
