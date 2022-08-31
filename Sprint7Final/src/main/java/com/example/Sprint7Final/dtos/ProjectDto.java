@@ -17,5 +17,5 @@ public class ProjectDto {
 	
 	private Boolean isActive;
 	
-	private Team teamId;
+	private Long teamId;
 }
