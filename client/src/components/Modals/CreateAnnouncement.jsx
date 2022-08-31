@@ -42,15 +42,12 @@ const CreateAnnouncement = (props) => {
     setAnnouncement(newAnnouncement);
 
     // call to post a new announcement to database
-    function postAnnouncement() {
-      createNewAnnouncement(newAnnouncement)
-        // after it succesfully saves return to home page
-        .then((res) => {
-          window.location = "/announcements";
-        })
-        .catch((err) => console.log(err));
-    }
-    postAnnouncement();
+    createNewAnnouncement(newAnnouncement)
+      // after it succesfully saves return to home page
+      .then((res) => {
+        window.location = "/announcements";
+      })
+      .catch((err) => console.log(err));
   };
   console.log(announcement);
   return (
