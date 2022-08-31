@@ -91,5 +91,13 @@ export const getAllProjects = async () => {
     method: "GET"
   })
   .then(handleData)
-  .catch(handleError);
+  .catch(handleError)
+}
+
+export const getAllTeams = async () => {
+  return fetch(`${ROOT_URL}/team`, {
+    method: "GET"
+  })
+  .then(handleData)
+  .catch(handleError)
 }

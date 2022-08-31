@@ -36,7 +36,6 @@ const Projects = () => {
   };
   useEffect(() => {
     handleGetProjects();
-    console.log(projects)
   }, []);
 
   return (

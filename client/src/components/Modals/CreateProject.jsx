@@ -1,6 +1,7 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { createProject } from "../../utils/requests";
+import { getAllTeams } from "../../utils/requests";
 import {
   Button,
   Modal,
@@ -24,12 +25,14 @@ const CreateProject = ({ buttonText, projNameProp, projectDescription }) => {
   const [modalOpen, setModalOpen] = useState(false);
   const [projName, setProjName] = useState(projNameProp);
   const [projDescription, setProjDescription] = useState(projectDescription);
+  const [teams, setTeams] = useState([]);
+  const [team, setTeam] = useState(0);
 
   const dispatch = useDispatch();
   const toggle = () => {setModalOpen(!modalOpen)};
   const handleSubmit = (values) => {
     const project = {
-      teamId: 3,
+      teamId: team,
       name: projName,
       description: projDescription,
       active: true
@@ -37,6 +40,17 @@ const CreateProject = ({ buttonText, projNameProp, projectDescription }) => {
     console.log(project)
     createProject(project)
   };
+
+  const handleGetTeams = async () => {
+    const DBTeams = await getAllTeams()
+    setTeams(DBTeams)
+    console.log(DBTeams)
+  }
+  useEffect(() => {
+    handleGetTeams();
+  }, []);
+
+
   return (
     <>
       <Button outline onClick={() => setModalOpen(true)}>
@@ -84,6 +98,15 @@ const CreateProject = ({ buttonText, projNameProp, projectDescription }) => {
                   value={projDescription}
                   onChange={e => setProjDescription(e.target.value)}
                 />
+              </FormGroup>
+              <FormGroup>
+                <Label htmlFor="team">
+                  <select onChange={e => setTeam(e.target.value)} name="team">
+                  {teams.map(({ teamName, id }) => (
+                    <option key={id} value={id}>{teamName}</option>
+                  ))}
+                  </select>
+                </Label>
               </FormGroup>
               <StyledButton type="submit" color="primary">
                 Submit
