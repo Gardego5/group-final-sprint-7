@@ -13,19 +13,19 @@ import java.util.List;
 @Service
 @RequiredArgsConstructor
 public class ProjectServiceImpl implements ProjectService {
-	
+
 	private final ProjectRepository projectRepository;
 	private final ProjectMapper projectMapper;
-	
-    @Override
-    public List<ProjectDto> getAllProjects() {
-        return projectMapper.entitiesToDto(projectRepository.findAll());
-    }
 
-    @Override
-    public ProjectDto getProjectById(Long id) {
-        return projectMapper.entityToDto(projectRepository.getReferenceById(id));
-    }
+	@Override
+	public List<ProjectDto> getAllProjects() {
+		return projectMapper.entitiesToDto(projectRepository.findAll());
+	}
+
+	@Override
+	public ProjectDto getProjectById(Long id) {
+		return projectMapper.entityToDto(projectRepository.getReferenceById(id));
+	}
 
 	@Override
 	public ProjectDto createProject(ProjectDto projectDto) {
@@ -37,5 +37,12 @@ public class ProjectServiceImpl implements ProjectService {
 	public ProjectDto createProjectWithTeamId(ProjectDto projectDto, Long teamId) {
 		projectDto.setTeamId(teamId);
 		return createProject(projectDto);
+	}
+
+	@Override
+	public ProjectDto updateProjectById(ProjectDto projectDto, Long projectId) {
+		projectDto.setId(projectId);
+		Project projectToUpdate = projectRepository.getReferenceById(projectId);
+		return projectMapper.entityToDto(projectRepository.save(projectToUpdate));
 	}
 }
