@@ -44,6 +44,7 @@ const CreateProject = ({ buttonText, projNameProp, projectDescription }) => {
   const handleGetTeams = async () => {
     const DBTeams = await getAllTeams()
     setTeams(DBTeams)
+    setTeam(DBTeams[0].id)
     console.log(DBTeams)
   }
   useEffect(() => {
