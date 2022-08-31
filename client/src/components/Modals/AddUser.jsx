@@ -17,14 +17,19 @@ import { getCompany } from "../../reducers/rootReducer";
 
 const AddUser = ({}) => {
   const [modalOpen, setModalOpen] = useState(false);
+  const [adminVal, setAdminVal] = useState(null);
 
   const dispatch = useDispatch();
   const toggle = () => setModalOpen(!modalOpen);
   const setCompanyId = useSelector(getCompany);
 
+  const handleAdmin = (e) => {
+    setAdminVal(e.target.value);
+  };
+
   const handleSubmit = (values) => {
     const user = {
-      admin: values.admin === "true",
+      admin: adminVal,
       credentials: {
         password: values.password,
         username: values.username,
@@ -42,6 +47,7 @@ const AddUser = ({}) => {
     console.log(values);
     addUser(user);
   };
+
   return (
     <>
       <Button outline onClick={() => setModalOpen(true)}>
@@ -67,7 +73,6 @@ const AddUser = ({}) => {
               username: "",
               password: "",
               confirmPw: "",
-              admin: "",
             }}
             onSubmit={handleSubmit}
           >
@@ -134,15 +139,22 @@ const AddUser = ({}) => {
               >
                 Make user an admin role?
               </h2>
-              <FormGroup>
-                <Label htmlFor="admin"></Label>
-                <StyledField name="admin" as="select" className="form-control">
-                  <option value={null}>Pick an option</option>
-                  <option value={"true"}>true</option>
-                  <option value={"false"}>false</option>
-                </StyledField>
-              </FormGroup>
-              <StyledButton type="submit" color="primary">
+              <Label htmlFor="admin"></Label>
+              <select
+                name="admin"
+                className="form-control"
+                value={adminVal}
+                onChange={handleAdmin}
+              >
+                <option value={null}>Pick an option</option>
+                <option value={true}>true</option>
+                <option value={false}>false</option>
+              </select>
+              <StyledButton
+                type="submit"
+                color="primary"
+                disabled={adminVal === null}
+              >
                 Submit
               </StyledButton>
             </StyledForm>
