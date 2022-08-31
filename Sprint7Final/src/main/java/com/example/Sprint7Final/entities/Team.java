@@ -2,8 +2,6 @@ package com.example.Sprint7Final.entities;
 
 import java.util.List;
 
-import javax.persistence.*;
-
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -14,9 +12,11 @@ public class Team {
 	@Id
 	@GeneratedValue
 	private Long id;
-
+	
+	@Column(nullable = false)
 	private String teamName;
-
+	
+	@Column(nullable = false)
 	private String teamDescription;
 
 	private boolean deleted;

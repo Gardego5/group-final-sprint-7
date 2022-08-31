@@ -10,4 +10,10 @@ public interface ProjectService {
 
 	ProjectDto getProjectById(Long id);
 
+	ProjectDto createProject(ProjectDto projectDto);
+
+	ProjectDto createProjectWithTeamId(ProjectDto projectDto, Long teamId);
+
+	ProjectDto updateProjectById(ProjectDto projectDto, Long projectId);
+
 }

@@ -16,5 +16,5 @@ public class TeamResponseDto {
 	private String teamDescription;
 
 	private CompanyDto teamCompany;
-
+	
 }

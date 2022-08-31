@@ -23,5 +23,5 @@ public class CompanyController {
 	public List<CompanyDto> getAllCompanies() {
 		return companyService.getAllCompanies();
 	}
-	
+
 }

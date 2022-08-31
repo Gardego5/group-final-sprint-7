@@ -2,6 +2,7 @@ package com.example.Sprint7Final.mappers;
 
 import java.util.List;
 
+import com.example.Sprint7Final.dtos.UserRequestDto;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 
@@ -25,4 +26,5 @@ public interface UserMapper {
 	@Mapping(target = "phone", source = "profile.phone")
 	List<UserResponseDto> entitiesToDtos(List<User> users);
 
+	User dtoToEntity(UserRequestDto userRequestDto);
 }

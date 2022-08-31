@@ -118,6 +118,7 @@ public class Seeder implements CommandLineRunner {
 		user3Pro.setEmail("theCakeIsALie@email.com");
 		user3Pro.setPhone("234-567-1111");
 		user3.setProfile(user3Pro);
+		user3.setAdmin(true);
 		user3.setCompany(company2);
 		user3.setTeam(team2);
 		user3.setStatus("Default");
@@ -146,11 +147,103 @@ public class Seeder implements CommandLineRunner {
 		// Active
 		user4.setActive(true);
 
+		// --- User 5 ---
+		// Credentials
+		Credentials user5Cred = new Credentials();
+		user5Cred.setUsername("Steve2PointOH");
+		user5Cred.setPassword("minecraft");
+
+		User user5 = new User();
+		user5.setCredentials(user5Cred);
+
+		// Profile
+		Profile user5Pro = new Profile();
+		user5Pro.setFirstName("Carl");
+		user5Pro.setLastName("That");
+		user5Pro.setEmail("killspeople@email.com");
+		user5Pro.setPhone("234-555-8901");
+		user5.setProfile(user5Pro);
+		user5.setCompany(company1);
+		user5.setTeam(team2);
+		user5.setStatus("Default");
+		// Active
+		user5.setActive(true);
+
+		// --- User 6 ---
+		// Credentials
+		Credentials user6Cred = new Credentials();
+		user6Cred.setUsername("James");
+		user6Cred.setPassword("lovesPeaches");
+
+		User user6 = new User();
+		user6.setCredentials(user6Cred);
+
+		// Profile
+		Profile user6Pro = new Profile();
+		user6Pro.setFirstName("Francis");
+		user6Pro.setLastName("Popeman");
+		user6Pro.setEmail("vatican@email.com");
+		user6Pro.setPhone("234-555-6978");
+		user6.setProfile(user6Pro);
+		user6.setCompany(company1);
+		user6.setTeam(team2);
+		user6.setStatus("Default");
+		// Active
+		user6.setActive(true);
+
+		// --- User 7 ---
+		// Credentials
+		Credentials user7Cred = new Credentials();
+		user7Cred.setUsername("Alex");
+		user7Cred.setPassword("minecraft");
+
+		User user7 = new User();
+		user7.setCredentials(user7Cred);
+
+		// Profile
+		Profile user7Pro = new Profile();
+		user7Pro.setFirstName("Alex");
+		user7Pro.setLastName("Steve");
+		user7Pro.setEmail("mojang2@email.com");
+		user7Pro.setPhone("211-551-8901");
+		user7.setProfile(user7Pro);
+		user7.setCompany(company1);
+		user7.setTeam(team2);
+		user7.setStatus("Default");
+		// Active
+		user7.setActive(true);
+
+		// --- User 8 ---
+		// Credentials
+		Credentials user8Cred = new Credentials();
+		user8Cred.setUsername("DonkeyKong");
+		user8Cred.setPassword("bananas");
+
+		User user8 = new User();
+		user8.setCredentials(user8Cred);
+
+		// Profile
+		Profile user8Pro = new Profile();
+		user8Pro.setFirstName("Donkey");
+		user8Pro.setLastName("Kong");
+		user8Pro.setEmail("nintendo@email.com");
+		user8Pro.setPhone("234-555-8999");
+		user8.setProfile(user8Pro);
+		user8.setCompany(company1);
+		user8.setTeam(team2);
+		user8.setStatus("Default");
+		// Active
+		user8.setActive(true);
+
 		userRepository.saveAndFlush(user1);
 		userRepository.saveAndFlush(user2);
 		userRepository.saveAndFlush(user3);
 		userRepository.saveAndFlush(user4);
-
+		userRepository.saveAndFlush(user4);
+		userRepository.saveAndFlush(user5);
+		userRepository.saveAndFlush(user6);
+		userRepository.saveAndFlush(user7);
+		userRepository.saveAndFlush(user8);
 		
 		// --Team 1 ---
 		List<User> team1Users = new ArrayList<>();
@@ -168,6 +261,10 @@ public class Seeder implements CommandLineRunner {
 		List<User> team2Users = new ArrayList<>();
 		team2Users.add(user3);
 		team2Users.add(user4);
+		team2Users.add(user5);
+		team2Users.add(user6);
+		team2Users.add(user7);
+		team2Users.add(user8);
 	
 		
 		teamRepository.findByTeamName(team2.getTeamName()).setUsersOnTheTeam(team2Users);
