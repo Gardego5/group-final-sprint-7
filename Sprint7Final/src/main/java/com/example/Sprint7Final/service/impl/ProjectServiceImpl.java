@@ -14,6 +14,7 @@ import com.example.Sprint7Final.repositories.TeamRepository;
 import com.example.Sprint7Final.services.ProjectService;
 import lombok.RequiredArgsConstructor;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -22,6 +23,7 @@ import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
+@Slf4j
 public class ProjectServiceImpl implements ProjectService {
 
 	private final ProjectRepository projectRepository;
@@ -41,8 +43,17 @@ public class ProjectServiceImpl implements ProjectService {
 	@Override
 	public ProjectResponseDto createProject(ProjectRequestDto projectRequestDto) {
 		Project projectToSave = projectMapper.requestDtoToEntity(projectRequestDto);
-		Team teamInDatabase = teamRepository.getReferenceById(projectRequestDto.getTeamId());
-		projectToSave.setTeamOnProject(teamInDatabase);
+		if (projectRequestDto.getTeamId() == null) {
+			log.warn("Attempt to create Project without a team assigned");
+		} else {
+			try {
+				Team teamInDatabase = teamRepository.getReferenceById(projectRequestDto.getTeamId());
+				projectToSave.setTeamOnProject(teamInDatabase);
+			} catch (Error e) {
+				throw new NotFoundException("Team with id: " + projectRequestDto.getTeamId() + " not found in database.");
+			}
+
+		}
 		projectToSave.setActive(projectRequestDto.getActive());
 		return projectMapper.entityToResponseDto(projectRepository.saveAndFlush(projectToSave));
 	}
