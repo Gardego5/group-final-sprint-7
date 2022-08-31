@@ -65,6 +65,8 @@ const CreateProject = ({ teamId, buttonText, projNameProp, projectDescription })
                 <Label htmlFor="projectName"></Label>
                 <StyledField
                   name="projectName"
+                  as="textarea"
+                  rows="1"
                   placeholder="Project Name"
                   className="form-control"
                   value={projName}
