@@ -1,7 +1,10 @@
 package com.example.Sprint7Final.service.impl;
 
+import java.util.ArrayList;
 import java.util.List;
 
+import com.example.Sprint7Final.entities.Announcement;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import com.example.Sprint7Final.dtos.AnnouncementResponseDto;
@@ -13,6 +16,7 @@ import lombok.RequiredArgsConstructor;
 
 @Service
 @RequiredArgsConstructor
+@Slf4j
 public class AnnouncementServiceImpl implements AnnouncementService{
 
 	private final AnnouncementRepository announcementRepository;
@@ -25,7 +29,19 @@ public class AnnouncementServiceImpl implements AnnouncementService{
 
 	@Override
 	public List<AnnouncementResponseDto> getAllCompanyAnnouncements(Long companyId) {
-		return null;
+		List<Announcement> companyAnnouncements = announcementRepository.findAll();
+
+
+
+		List<Announcement> tempAnnouncements = new ArrayList<>();
+		for (Announcement announcement : companyAnnouncements) {
+			if (announcement.getCompanyMakingAnnouncement().getId().equals(companyId)){
+				log.warn(announcement.getAuthor().getId() + " users id");
+				tempAnnouncements.add(announcement);
+
+			}
+		}
+		return announcementMapper.entitiesToDtos(tempAnnouncements);
 	}
 
 }

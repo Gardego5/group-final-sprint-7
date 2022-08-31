@@ -45,6 +45,11 @@ public class UserServiceImpl implements UserService {
 		return credentialsDto.getPassword() != null && credentialsDto.getUsername() != null;
 	}
 
+	public boolean validateUserNameExistsInDatabase(User user) {
+		Optional<User> optionalUser = userRepository.findByCredentialsUsername(user.getCredentials().getUsername());
+		return optionalUser.isPresent() && !optionalUser.get().isDeleted();
+	}
+
 	public User getUserByCredentials(CredentialsDto credentialsDto) {
 		return getUserByUsernameReturnUserEntity(credentialsDto.getUsername());
 	}
@@ -82,10 +87,14 @@ public class UserServiceImpl implements UserService {
 	public UserResponseDto createUser(UserRequestDto userRequestDto) {
 
 		// check credentials are good and credentialsDto is an admin
-
 		User userToBeCreated = userMapper.dtoToEntity(userRequestDto);
-
 		userToBeCreated.setCredentials(credentialsMapper.dtoToEntity(userRequestDto.getCredentials()));
+		if (validateUserNameExistsInDatabase(userToBeCreated)) {
+			throw new BadRequestException("User name already exists in the database");
+		}
+		log.warn("Credentials from userRequestDto" + userRequestDto.getCredentials().getUsername() + " " + userRequestDto.getCredentials().getPassword());
+
+
 
 		Profile profile = new Profile();
 		profile.setFirstName(userRequestDto.getFirstName());
