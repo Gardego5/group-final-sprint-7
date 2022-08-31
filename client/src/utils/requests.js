@@ -65,11 +65,10 @@ export const addUser = async (user) => {
     .catch(handleError);
 };
 
-export const getAllUsersFromCompany = async (credentials, id) => {
-  return fetch(`${ROOT_URL}/user/${id}`, {
-    method: "POST",
+export const getAllUsersFromCompany = async (companyId) => {
+  return fetch(`${ROOT_URL}/user/${companyId}`, {
+    method: "GET",
     headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(credentials),
   })
   .then(handleData)
   .catch(handleError);
