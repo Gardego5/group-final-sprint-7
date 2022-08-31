@@ -60,7 +60,7 @@ public class ProjectServiceImpl implements ProjectService {
 	@Override
 	public ProjectResponseDto updateProjectById(ProjectRequestDto projectRequestDto, Long projectId) {
 		
-		Optional<Project> optionalProject = projectRepository.findById(projectId);
+		Optional<Project> optionalProject = projectRepository.findByIdAndDeletedFalse(projectId);
 		if (optionalProject.isEmpty()) {
 			throw new NotFoundException("Project not found with id: " + projectId);
 		}
@@ -73,6 +73,15 @@ public class ProjectServiceImpl implements ProjectService {
 		}
 		if (projectRequestDto.getActive() != null) {
 			projectToUpdate.setActive(projectRequestDto.getActive());
+		}
+		if (projectRequestDto.getTeamId() != null) {
+
+			Optional<Team> optionalTeam = teamRepository.findByIdAndDeletedFalse(projectRequestDto.getTeamId());
+			if (optionalTeam.isEmpty()) {
+				throw new NotFoundException("Could not find team with id: " + projectRequestDto.getTeamId());
+			} else {
+				projectToUpdate.setTeamOnProject(optionalTeam.get());
+			}
 		}
 		return projectMapper.entityToResponseDto(projectRepository.save(projectToUpdate));
 	}
