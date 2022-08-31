@@ -49,18 +49,15 @@ public class TeamServiceImpl implements TeamService {
 	@Override
 	public List<TeamResponseDto> getTeamsByCompanyId(Long companyId) {
 
-		List<Team> teamsInRepo = teamRepository.findAllByDeletedFalse();
-
 		List<Team> teamsToReturn = new ArrayList<>();
-
-		for (Team team : teamsInRepo) {
+		for (Team team : teamRepository.findAllByDeletedFalse()) {
 			if (team.getTeamCompany().getId().equals(companyId)) {
 				teamsToReturn.add(team);
 			}
 		}
-
+		if (teamsToReturn.size() < 1) {
+			throw new BadRequestException("Could not find teams with company id: " + companyId);
+		}
 		return teamMapper.entitiesToResponseDtos(teamsToReturn);
 	}
-
-
 }
