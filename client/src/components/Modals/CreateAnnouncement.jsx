@@ -29,8 +29,6 @@ const CreateAnnouncement = (props) => {
 
   // function opens and closes form window
   const toggle = () => setModalOpen(!modalOpen);
-  // get companyId from store
-  const company = useSelector(getCompany);
 
   // function to create a new announcement
   const handleSubmit = (values) => {
@@ -45,7 +43,7 @@ const CreateAnnouncement = (props) => {
 
     // call to post a new announcement to database
     function postAnnouncement() {
-      createNewAnnouncement(company.id, newAnnouncement)
+      createNewAnnouncement(newAnnouncement)
         // after it succesfully saves return to home page
         .then((res) => {
           window.location = "/announcements";

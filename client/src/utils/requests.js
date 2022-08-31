@@ -30,15 +30,15 @@ export const getCompanies = async () => {
 };
 
 export const getCompanyAnnouncements = async (companyId) => {
-  return fetch(`${ROOT_URL}/company/${companyId}/announcements`, {
+  return fetch(`${ROOT_URL}/announcements/${companyId}`, {
     method: "GET",
   })
     .then(handleData)
     .catch(handleError);
 };
 
-export const createNewAnnouncement = async (companyId, announcement) => {
-  return fetch(`${ROOT_URL}/company/${companyId}/announcements`, {
+export const createNewAnnouncement = async (announcement) => {
+  return fetch(`${ROOT_URL}announcements`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(announcement),
