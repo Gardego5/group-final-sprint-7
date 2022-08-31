@@ -1,16 +1,16 @@
 package com.example.Sprint7Final;
 
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.example.Sprint7Final.entities.*;
+import com.example.Sprint7Final.repositories.AnnouncementRepository;
 import org.springframework.boot.CommandLineRunner;
+import org.springframework.boot.autoconfigure.jms.artemis.ArtemisNoOpBindingRegistry;
 import org.springframework.stereotype.Component;
 
-import com.example.Sprint7Final.entities.Company;
-import com.example.Sprint7Final.entities.Credentials;
-import com.example.Sprint7Final.entities.Profile;
-import com.example.Sprint7Final.entities.Team;
-import com.example.Sprint7Final.entities.User;
 import com.example.Sprint7Final.repositories.CompanyRepository;
 import com.example.Sprint7Final.repositories.TeamRepository;
 import com.example.Sprint7Final.repositories.UserRepository;
@@ -26,20 +26,21 @@ public class Seeder implements CommandLineRunner {
 	private final UserRepository userRepository;
 	private final CompanyRepository companyRepository;
 	private final TeamRepository teamRepository;
+	private final AnnouncementRepository announcementRepository;
 
 	@Override
 	public void run(String... args) throws Exception {
 		// --Company 1 ---
 		Company company1 = new Company();
-		company1.setName("Umbrella Corp");
-		company1.setDescription("Making the world a better place - RnD");
+		company1.setCompanyName("Umbrella Corp");
+		company1.setCompanyDescription("Making the world a better place - RnD");
 
 		companyRepository.saveAndFlush(company1);
 
 		// --Company 2 ---
 		Company company2 = new Company();
-		company2.setName("Aperture Science Innovators");
-		company2.setDescription("The cake is not a lie...");
+		company2.setCompanyName("Aperture Science Innovators");
+		company2.setCompanyDescription("The cake is not a lie...");
 		companyRepository.saveAndFlush(company2);
 		
 		// team creations
@@ -271,6 +272,32 @@ public class Seeder implements CommandLineRunner {
 		
 		teamRepository.saveAndFlush(team1);
 		teamRepository.saveAndFlush(team2);
+
+		Announcement announcement1 = new Announcement();
+		announcement1.setAuthor(user1);
+		announcement1.setCompanyMakingAnnouncement(company1);
+		announcement1.setTitle("THis is the title");
+		announcement1.setMessage("anD THIS IS THE MESSAGE, SORRY I HAVE A TIME LIMIT");
+		announcement1.setTimePosted(Timestamp.valueOf(LocalDateTime.now()));
+
+		Announcement announcement2 = new Announcement();
+		announcement2.setAuthor(user1);
+		announcement2.setCompanyMakingAnnouncement(company1);
+		announcement2.setTitle("THis is another title");
+		announcement2.setMessage("anD THIS IS THE MESSAGE, Sasd fsadfORRY I HAVE A TIME LIMIT");
+		announcement2.setTimePosted(Timestamp.valueOf(LocalDateTime.now()));
+
+		Announcement announcement3 = new Announcement();
+		announcement3.setAuthor(user1);
+		announcement3.setCompanyMakingAnnouncement(company1);
+		announcement3.setTitle("THis is another another title");
+		announcement3.setMessage("anD THIS IS THE MESSAGE, SORRY I HAVE A TIME LIMITa sdf asfdas df");
+		announcement3.setTimePosted(Timestamp.valueOf(LocalDateTime.now()));
+
+		announcementRepository.saveAndFlush(announcement1);
+		announcementRepository.saveAndFlush(announcement2);
+		announcementRepository.saveAndFlush(announcement3);
+
 	}
 
 }

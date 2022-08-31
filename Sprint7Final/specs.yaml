@@ -2,22 +2,15 @@ info:
   title: Spring 7 Final Project Specifications
   description: collection of endpoints for Spring 7 Final Project
   version: 0.0.1
-tags:
-  - name: User
-    description: collection of endpoints accessible to any user
-  - name: Admin
-    description: collection of endpoints accessible to Admin
 paths:
-  /user:
-    get:
+  /user/validate:
+    post:
+      working: yes
       description: get a user
       operationId: getUser
-      tags:
-        - User
       requestBody:
-        credentials:
-          username: String
-          password: String
+        username: String
+        password: String
       response:
         200:
           id: long
@@ -35,25 +28,21 @@ paths:
           message: "Unauthorized"
         500:
           message: "Internal Server Error"
+  /user/create:
     post:
+      working: yes
       description: create a new user
       operationId: createUser
-      tags:
-        - Admin
       requestBody:
-        credentials:
-          username: String
-          password: String
-        user:
-          username: String
-          firstName: String
-          lastName: String
-          email: String
-          phone: String
-          password: String
-          status: String
-          active: boolean
-          admin: boolean
+        username: String
+        firstName: String
+        lastName: String
+        email: String
+        phone: String
+        password: String
+        status: String
+        active: boolean
+        admin: boolean
       responses:
         200:
           id: long
@@ -67,24 +56,17 @@ paths:
           status: String
         400:
           message: "Bad Request"
-        401:
-          message: "Unauthorized"
         409:
           message: "Username taken"
         500:
           message: "Internal Server Error"
   /user/{companyId}:
     get:
+      working: yes
       description: get all users at a company
-      operationId: getAllUsersFromCompany
-      tags:
-        - Admin
+      operationId: getUsersInCompany
       parameters:
         companyId: long
-      requestBody:
-        credentials:
-          username: String
-          password: String
       responses:
         200:
           users: array of users
@@ -100,44 +82,31 @@ paths:
               status: String
         400:
           message: "Bad Request"
-        401:
-          message: "Unauthorized"
         500:
           message: "Internal Server Error"
   /team:
     post:
+      working: yes
       description: create a new team
       operationId: createTeam
-      tags:
-        - Admin
       requestBody:
-        credentials:
-          username: String
-          password: String
-        team:
-          name: String
-          description: String
-          company: String
+        name: String
+        description: String
+        company: String
       responses:
         200:
+          id: long
           name: String
           description: String
           company: String
         400:
           message: "Bad Request"
-        401:
-          message: "Unauthorized"
         500:
           message: "Internal Server Error"
     get:
+      working: yes
       description: get all teams
-      operationId: getAllTeams
-      tags:
-        - User
-      requestBody:
-        credentials:
-          username: String
-          password: String
+      operationId: getTeams
       responses:
         200:
           teams:
@@ -148,20 +117,13 @@ paths:
               company: long
         400:
           message: "Bad Request"
-        401:
-          message: "Unauthorized"
         500:
           message: "Internal Server Error"
   /company:
     get:
+      working: yes
       description: get all companies
       operationId: getAllCompanies
-      tags:
-        - User
-      requestBody:
-        credentials:
-          username: String
-          password: String
       responses:
         200:
           companies: Array of Companies
@@ -171,132 +133,98 @@ paths:
               description: String
         400:
           message: "Bad Request"
-        401:
-          message: "Unauthorized"
         500:
           message: "Internal Server Error"
   /project:
     post:
+      working: yes
       description: create a new project
       operationId: createProject
-      tags:
-        - Admin
       parameters:
         projectName: String
       requestBody:
-        credentials:
-          username: String
-          password: String
-        project:
-          name: String
-          description: String
-          active: boolean
-          team: long
+        name: String
+        description: String
+        active: boolean
+        team: long
       responses:
         200:
+          id: long
           name: String
           description: String
           active: boolean
           team: long
         400:
           message: "Bad Request"
-        401:
-          message: "Unauthorized"
         500:
           message: "Internal Server Error"
   /project/{teamId}:
     get:
+      working: yes
       description: get all projects in a team
       operationId: getProjectsOfTeam
-      tags:
-        - User
       parameters:
         teamId: long
-      requestBody:
-        credentials:
-          username: String
-          password: String
       responses:
         200:
           projects: array of projects
             project:
+              id: long
               name: String
               description: String
               active: boolean
               team: long
         400:
           message: "Bad Request"
-        401:
-          message: "Unauthorized"
         500:
           message: "Internal Server Error"
   /projects/{companyId}:
     get:
       description: get all projects in a company
       operationId: getProjectsOfCompany
-    tags:
-      - User
     parameters:
       companyId: long
-    requestBody:
-      credentials:
-        username: String
-        password: String
     responses:
       200:
         projects: array of projects
           project:
+            id: long
             name: String
             description: String
             active: boolean
             team: long
       400:
         message: "Bad Request"
-      401:
-        message: "Unauthorized"
       500:
         message: "Internal Server Error"
   /projects/{projectId}:
     put:
       description: edit a project
-      operationId: editProject
-    tags:
-      - Admin
+      operationId: updateProject
     parameters:
       projectId: long
     requestBody:
-      credentials:
-        username: String
-        password: String
-      project:
-        name: String
-        description: String
-        active: boolean
-        team: long
+      name: String
+      description: String
+      active: boolean
+      team: long
     responses:
       200:
+        id: long
         name: String
         description: String
         active: boolean
         team: long
       400:
         message: "Bad Request"
-      401:
-        message: "Unauthorized"
       500:
         message: "Internal Server Error"
   /announcement/{companyId}:
     get:
       description: get all announcements from a company
       operationId: getAllCompanyAnnouncements
-      tags:
-        - User
       parameters:
         companyId: long
-      requestBody:
-        credentials:
-          username: String
-          password: String
       responses:
         200:
           announcements: array of announcements
@@ -309,26 +237,18 @@ paths:
               user: long
         400:
           message: "Bad Request"
-        401:
-          message: "Unauthorized"
         500:
           message: "Internal Server Error"
   /announcement:
     post:
       description: create a new announcement
       operationId: createAnnouncement
-      tags:
-        - Admin
       requestBody:
-        credentials:
-          username: String
-          password: String
-        announcement:
-          date: timestamp
-          title: String
-          message: String
-          company: long
-          user: long
+        date: timestamp
+        title: String
+        message: String
+        company: long
+        user: long
       responses:
         200:
           id: long
@@ -339,7 +259,5 @@ paths:
           user: long
         400:
           message: "Bad Request"
-        401:
-          message: "Unauthorized"
         500:
           message: "Internal Server Error"
