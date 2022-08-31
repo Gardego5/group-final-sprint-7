@@ -27,7 +27,6 @@ const StyledAddTeam = styled.div`
   border-radius: 25px;
   display: flex;
   flex-direction: column;
-  /* text-align: center; */
   align-items: center;
   justify-content: center;
 `;
