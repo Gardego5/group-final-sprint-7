@@ -21,7 +21,8 @@ const Projects = () => {
 
   const handleGetProjects = async () => {
     const DBprojects = await getAllProjects();
-    console.log("Reloading projects")
+    console.log("Reloading projects: ")
+    console.log(DBprojects)
     if (DBprojects.length > 0) {
       let tempArry = []
       for (let i of DBprojects) {
@@ -29,7 +30,8 @@ const Projects = () => {
           name: i.name,
           editedDaysAgo: 0,
           desc: i.description,
-          id: i.id
+          id: i.id,
+          teamID: i.teamOnProject.id
         }
       }
       updateProjects(tempArry)
@@ -46,7 +48,7 @@ const Projects = () => {
         <h1>Projects</h1>
         <CreateProject updatePage={handleGetProjects} buttonColor="#1BA098" buttonText="Create Project"/>
         <Project/>
-        {projects.map(({ name, editedDaysAgo, desc, id }, idx) => (
+        {projects.map(({ name, editedDaysAgo, desc, id, teamID }, idx) => (
           <Project
             ID={id}
             name={name}
@@ -54,6 +56,7 @@ const Projects = () => {
             desc={desc}
             key={idx}
             updatePage={handleGetProjects}
+            teamID={teamID}
           />
         ))}
       </StyledProjects>

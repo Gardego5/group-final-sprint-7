@@ -22,7 +22,7 @@ import {
   StyledCloseButton,
 } from "./Modals.module";
 
-const CreateProject = ({ updatePage, buttonText, projNameProp, projectDescription, projectID }) => {
+const CreateProject = ({ updatePage, buttonText, projNameProp, projectDescription, projectID, teamID }) => {
   const [modalOpen, setModalOpen] = useState(false);
   const [projName, setProjName] = useState(projNameProp);
   const [projDescription, setProjDescription] = useState(projectDescription);
@@ -44,13 +44,25 @@ const CreateProject = ({ updatePage, buttonText, projNameProp, projectDescriptio
       await createProject(project)
     }
     updatePage();
+    setModalOpen(false);
   };
 
   const handleGetTeams = async () => {
-    const DBTeams = await getAllTeams()
-    setTeams(DBTeams)
-    setTeam(DBTeams[0].id)
-    console.log(DBTeams)
+    let DBTeams = await getAllTeams()
+    if (teamID != undefined) {
+      //sets id for team
+      setTeam(teamID)
+      //sorts DBTeams so correct team populates first
+      let temp = DBTeams[0];
+      let index = DBTeams.indexOf(DBTeams.find(i => i.id === teamID))
+      DBTeams[0] = DBTeams[index];
+      DBTeams[index] = temp;
+      //sets teams
+      setTeams(DBTeams)
+    } else {
+      setTeams(DBTeams)
+      setTeam(DBTeams[0].id)
+    }
   }
   useEffect(() => {
     handleGetTeams();
