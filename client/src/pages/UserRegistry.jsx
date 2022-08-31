@@ -24,8 +24,8 @@ const Title = styled.h1`
 `;
 
 const UserTable = styled.table`
-  height: 500px;
-  width: 1200px;
+  //height: 500px;
+  width: min(90%, 1200px);
   /* display: flex;
   flex-direction: row; */
   border: 3px solid #deb992;
@@ -40,7 +40,7 @@ const UserRow = styled.tr`
   border-top: 1px solid #deb992;
   border-bottom: 1px solid #deb992;
   border-radius: 10px;
-  /* padding: 0px; */
+  /* padding: 10px; */
 `;
 
 const UserVars = styled.th`
@@ -59,6 +59,7 @@ const UserBody = styled.tbody`
 const UserCell = styled.td`
   text-align: center;
   color: #deb992;
+  padding: 10px;
 `;
 
 const UserRegistry = () => {
