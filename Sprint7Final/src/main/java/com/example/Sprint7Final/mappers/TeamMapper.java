@@ -15,13 +15,13 @@ import com.example.Sprint7Final.entities.User;
 @Mapper(componentModel = "spring")
 
 public interface TeamMapper {
-	TeamResponseDto entityToDto (Team entity);
+	TeamDto entityToDto (Team entity);
 	
 	Team teamRequestDtoToEntity (TeamRequestDto teamRequestDto);
 	
 	TeamRequestDto entityToRequestDto(Team team);
 	
-	List<TeamResponseDto> entitiesToDtos(List<Team> team);
+	List<TeamDto> entitiesToDtos(List<Team> team);
 
 
 }

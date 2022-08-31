@@ -33,12 +33,12 @@ public class TeamServiceImpl implements TeamService {
 	}
 
 	@Override
-	public List<TeamResponseDto> getAllTeams() {
+	public List<TeamDto> getAllTeams() {
 		return teamMapper.entitiesToDtos(teamRepository.findAll());
 	}
 
 	@Override
-	public TeamResponseDto getTeamById(Long teamId) {
+	public TeamDto getTeamById(Long teamId) {
 		Team team = findTeam(teamId);
 		return teamMapper.entityToDto(team);
 	}

@@ -21,12 +21,12 @@ public class TeamController {
 	
 	@GetMapping
 	@ResponseStatus(HttpStatus.OK)
-	public List<TeamResponseDto> getAllTeams() {
+	public List<TeamDto> getAllTeams() {
 		return teamService.getAllTeams();
 	}
 	
 	@GetMapping("/{teamId}")
-	public TeamResponseDto getTeamById(@PathVariable Long teamId) {
+	public TeamDto getTeamById(@PathVariable Long teamId) {
 		return teamService.getTeamById(teamId);
 	}
 
