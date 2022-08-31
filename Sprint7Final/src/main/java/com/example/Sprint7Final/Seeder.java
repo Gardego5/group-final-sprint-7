@@ -75,8 +75,7 @@ public class Seeder implements CommandLineRunner {
 		user1.setTeam(team1);
 		user1.setStatus("PENDING");
 
-		// Active
-		user1.setActive(true);
+
 
 		// --- User 2 ---
 		// Credentials
@@ -120,8 +119,8 @@ public class Seeder implements CommandLineRunner {
 		user3.setCompany(company2);
 		user3.setTeam(team2);
 		user3.setStatus("JOINED");
-		// Active
-		user3.setActive(true);
+
+
 
 		// --- User 4 ---
 		// Credentials
@@ -142,8 +141,7 @@ public class Seeder implements CommandLineRunner {
 		user4.setCompany(company1);
 		user4.setTeam(team2);
 		user4.setStatus("PENDING");
-		// Active
-		user4.setActive(true);
+
 
 		// --- User 5 ---
 		// Credentials
@@ -164,8 +162,8 @@ public class Seeder implements CommandLineRunner {
 		user5.setCompany(company1);
 		user5.setTeam(team2);
 		user5.setStatus("PENDING");
-		// Active
-		user5.setActive(true);
+
+
 
 		// --- User 6 ---
 		// Credentials
@@ -186,8 +184,8 @@ public class Seeder implements CommandLineRunner {
 		user6.setCompany(company1);
 		user6.setTeam(team2);
 		user6.setStatus("JOINED");
-		// Active
-		user6.setActive(true);
+
+
 
 		// --- User 7 ---
 		// Credentials
@@ -208,8 +206,8 @@ public class Seeder implements CommandLineRunner {
 		user7.setCompany(company1);
 		user7.setTeam(team2);
 		user7.setStatus("PENDING");
-		// Active
-		user7.setActive(true);
+
+
 
 		// --- User 8 ---
 		// Credentials
@@ -230,8 +228,8 @@ public class Seeder implements CommandLineRunner {
 		user8.setCompany(company1);
 		user8.setTeam(team2);
 		user8.setStatus("PENDING");
-		// Active
-		user8.setActive(true);
+
+
 
 		userRepository.saveAndFlush(user1);
 		userRepository.saveAndFlush(user2);
@@ -275,6 +273,7 @@ public class Seeder implements CommandLineRunner {
 		project1.setName("Project 1");
 		project1.setDescription("Seed project from the DB");
 		project1.setActive(true);
+		project1.setTeamOnProject(team1);
 		projectRepository.saveAndFlush(project1);
 
 		Announcement announcement1 = new Announcement();

@@ -11,81 +11,77 @@ import {
 } from "../reducers/rootReducer";
 import { loginUser } from "../utils/requests";
 
-const LoginPageDiv = styled.div`
+const StyledLogin = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
-`;
-
-const Title = styled.h1`
-  color: #1ba098;
-  margin-top: 1em;
-  text-align: center;
-`;
-
-const Subtitle = styled.h3`
-  color: #1ba098;
-  margin-top: 1em;
-  text-align: center;
-`;
-
-const LoginBox = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  border: 5px solid #deb992;
-  border-radius: 8px;
-  box-shadow: 4px 4px 10px 5px #cbcbcb7d;
-  width: 40vw;
-  align-self: center;
-  margin-bottom: 5vw;
-`;
-
-const LoginField = styled.input`
-  width: 16vw;
-  align-self: center;
-  margin-top: 4vw;
-  border: none;
-  background-color: inherit;
-  color: #1ba098;
-  ::placeholder,
-  ::-webkit-input-placeholder {
+  gap: 4rem;
+  padding-block: 4rem;
+  align-items: center;
+  & * {
     color: #1ba098;
+    text-align: center;
   }
-  :-ms-input-placeholder {
+  & h1 {
+    font-size: 3rem;
+  }
+  & h2 {
+    font-size: 2rem;
+  }
+  & form {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    border: 3px solid #deb992;
+    border-radius: 0.75rem;
+    box-shadow: 4px 4px 10px 3px #cbcbcb7d;
+    width: 30rem;
+    gap: 3rem;
+    padding-block: 4rem;
+  }
+  & img.logo {
+    align-self: center;
+    width: 10rem;
+    aspect-ratio: 1 / 1;
+    object-fit: contain;
+    padding: 1rem;
+    border-radius: 50%;
+    background-color: #0d3a59;
+    background-size: auto;
+  }
+  & input {
+    align-self: center;
+    width: 20rem;
+    background-color: inherit;
     color: #1ba098;
+    border: none;
+    border-radius: 0;
+    border-bottom: 3px solid white;
+    :focus,
+    :active {
+      border-bottom: 3px solid #1ba098;
+      outline: none;
+    }
+    ::placeholder,
+    ::-webkit-input-placeholder,
+    :-ms-input-placeholder {
+      color: #1ba098;
+    }
   }
-`;
-
-const Logo = styled.img`
-  align-self: center;
-  height: 4vw;
-  width: 5vw;
-  background-color: #0d3a59;
-  background-size: auto;
-`;
-
-const LogoBackground = styled.div`
-  margin-top: 2vw;
-  display: flex;
-  justify-content: center;
-  align-self: center;
-  background-color: #0d3a59;
-  height: 7vw;
-  width: 7vw;
-  border-radius: 50%;
-`;
-
-const LoginButton = styled.button`
-  width: 7vw;
-  height: 2.5vw;
-  color: white;
-  background-color: inherit;
-  align-self: center;
-  border: 2px solid #1ba098;
-  border-radius: 50px;
-  margin-top: 10vw;
-  margin-bottom: 2vw;
+  & input[type="submit"] {
+    border: 2px solid #1ba098;
+    width: auto;
+    padding: 0.5rem 2rem;
+    border-radius: 100rem;
+    color: white;
+    text-transform: uppercase;
+    font-size: 0.8rem;
+  }
+  & p.error {
+    color: red;
+    height: 0;
+    margin: 0;
+  }
 `;
 
 const Login = () => {
@@ -94,40 +90,53 @@ const Login = () => {
 
   // Local State
   const [redirect, setRedirect] = useState("");
+  const [error, setError] = useState("");
 
-  const handleLogin = async () => {
+  const handleChange = (actionCreator) => (event) => {
+    dispatch(actionCreator(event.target.value));
+    setError("");
+  };
+
+  const handleLogin = async (event) => {
+    event.preventDefault();
     const user = await loginUser(credentials);
+
     if (user) {
       dispatch(setUser(user));
       setRedirect(<Redirect to="/company" />);
+    } else {
+      setError("Invalid Username or Password.")
     }
   };
 
   return redirect ? (
     redirect
   ) : (
-    <LoginPageDiv>
-      <Title>Cook Systems</Title>
-      <Subtitle>A FINAL APP</Subtitle>
-      <LoginBox>
-        <LogoBackground>
-          <Logo src={LogoImg} />
-        </LogoBackground>
-        <LoginField
+    <StyledLogin>
+      <div>
+        <h1>COOK SYSTEMS</h1>
+        <h2>A FINAL APP</h2>
+      </div>
+      <form onSubmit={handleLogin}>
+        <img src={LogoImg} alt="App Logo" className="logo" />
+        <input
           type="text"
           placeholder="username"
           value={credentials.username}
-          onChange={(event) => dispatch(setUsername(event.target.value))}
+          onChange={handleChange(setUsername)}
         />
-        <LoginField
+        <input
           type="text"
           placeholder="password"
           value={credentials.password}
-          onChange={(event) => dispatch(setPassword(event.target.value))}
+          onChange={handleChange(setPassword)}
         />
-        <LoginButton onClick={handleLogin}>Login</LoginButton>
-      </LoginBox>
-    </LoginPageDiv>
+        <div>
+          <input type="submit" value="Login" />
+          <p className="error">{error}</p>
+        </div>
+      </form>
+    </StyledLogin>
   );
 };
 

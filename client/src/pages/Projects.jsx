@@ -21,14 +21,20 @@ const Projects = () => {
 
   const handleGetProjects = async () => {
     const DBprojects = await getAllProjects();
+    console.log("Reloading projects: ")
     console.log(DBprojects)
     if (DBprojects.length > 0) {
       let tempArry = []
       for (let i of DBprojects) {
         tempArry[tempArry.length] = {
           name: i.name,
-          editedDaysAgo: 0,
-          desc: i.description
+          editedDaysAgo: Math.round(
+            (new Date().getTime() - new Date(i.timePosted).getTime()) /
+              (1000 * 60 * 60 * 24)
+          ),
+          desc: i.description,
+          id: i.id,
+          teamID: i.teamOnProject.id
         }
       }
       updateProjects(tempArry)
@@ -43,14 +49,17 @@ const Projects = () => {
       <NavBar />
       <StyledProjects>
         <h1>Projects</h1>
-        <CreateProject buttonColor="#1BA098" buttonText="Create Project"/>
+        <CreateProject updatePage={handleGetProjects} buttonColor="#1BA098" buttonText="Create Project"/>
         <Project/>
-        {projects.map(({ name, editedDaysAgo, desc }, idx) => (
+        {projects.map(({ name, editedDaysAgo, desc, id, teamID }, idx) => (
           <Project
+            ID={id}
             name={name}
             editedDaysAgo={editedDaysAgo}
             desc={desc}
             key={idx}
+            updatePage={handleGetProjects}
+            teamID={teamID}
           />
         ))}
       </StyledProjects>

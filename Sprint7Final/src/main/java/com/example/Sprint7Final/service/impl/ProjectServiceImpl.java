@@ -14,6 +14,7 @@ import com.example.Sprint7Final.repositories.TeamRepository;
 import com.example.Sprint7Final.services.ProjectService;
 import lombok.RequiredArgsConstructor;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -22,6 +23,7 @@ import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
+@Slf4j
 public class ProjectServiceImpl implements ProjectService {
 
 	private final ProjectRepository projectRepository;
@@ -41,8 +43,16 @@ public class ProjectServiceImpl implements ProjectService {
 	@Override
 	public ProjectResponseDto createProject(ProjectRequestDto projectRequestDto) {
 		Project projectToSave = projectMapper.requestDtoToEntity(projectRequestDto);
-		Team teamInDatabase = teamRepository.getReferenceById(projectRequestDto.getTeamId());
-		projectToSave.setTeamOnProject(teamInDatabase);
+		if (projectRequestDto.getTeamId() == null) {
+			log.warn("Attempt to create Project without a team assigned");
+		} else {
+			Optional<Team> optionalTeam = teamRepository.findById(projectRequestDto.getTeamId());
+			if (optionalTeam.isEmpty()) {
+				throw new NotFoundException("Team with id: " + projectRequestDto.getTeamId() + " not found in database.");
+			}
+			projectToSave.setTeamOnProject(optionalTeam.get());
+		}
+
 		projectToSave.setActive(projectRequestDto.getActive());
 		return projectMapper.entityToResponseDto(projectRepository.saveAndFlush(projectToSave));
 	}
@@ -50,7 +60,7 @@ public class ProjectServiceImpl implements ProjectService {
 	@Override
 	public ProjectResponseDto updateProjectById(ProjectRequestDto projectRequestDto, Long projectId) {
 		
-		Optional<Project> optionalProject = projectRepository.findById(projectId);
+		Optional<Project> optionalProject = projectRepository.findByIdAndDeletedFalse(projectId);
 		if (optionalProject.isEmpty()) {
 			throw new NotFoundException("Project not found with id: " + projectId);
 		}
@@ -63,6 +73,15 @@ public class ProjectServiceImpl implements ProjectService {
 		}
 		if (projectRequestDto.getActive() != null) {
 			projectToUpdate.setActive(projectRequestDto.getActive());
+		}
+		if (projectRequestDto.getTeamId() != null) {
+
+			Optional<Team> optionalTeam = teamRepository.findByIdAndDeletedFalse(projectRequestDto.getTeamId());
+			if (optionalTeam.isEmpty()) {
+				throw new NotFoundException("Could not find team with id: " + projectRequestDto.getTeamId());
+			} else {
+				projectToUpdate.setTeamOnProject(optionalTeam.get());
+			}
 		}
 		return projectMapper.entityToResponseDto(projectRepository.save(projectToUpdate));
 	}

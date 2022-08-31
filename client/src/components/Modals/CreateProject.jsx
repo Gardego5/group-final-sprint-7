@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { createProject } from "../../utils/requests";
 import { getAllTeams } from "../../utils/requests";
+import { updateProject } from "../../utils/requests";
 import {
   Button,
   Modal,
@@ -21,7 +22,7 @@ import {
   StyledCloseButton,
 } from "./Modals.module";
 
-const CreateProject = ({ buttonText, projNameProp, projectDescription }) => {
+const CreateProject = ({ updatePage, buttonText, projNameProp, projectDescription, projectID, teamID }) => {
   const [modalOpen, setModalOpen] = useState(false);
   const [projName, setProjName] = useState(projNameProp);
   const [projDescription, setProjDescription] = useState(projectDescription);
@@ -30,21 +31,38 @@ const CreateProject = ({ buttonText, projNameProp, projectDescription }) => {
 
   const dispatch = useDispatch();
   const toggle = () => {setModalOpen(!modalOpen)};
-  const handleSubmit = (values) => {
+  const handleSubmit = async (values) => {
     const project = {
       teamId: team,
       name: projName,
       description: projDescription,
       active: true
     };
-    console.log(project)
-    createProject(project)
+    if (projectID != undefined || projectID != null) {
+      await updateProject(project, projectID)
+    } else {
+      await createProject(project)
+    }
+    updatePage();
+    setModalOpen(false);
   };
 
   const handleGetTeams = async () => {
-    const DBTeams = await getAllTeams()
-    setTeams(DBTeams)
-    console.log(DBTeams)
+    let DBTeams = await getAllTeams()
+    if (teamID != undefined) {
+      //sets id for team
+      setTeam(teamID)
+      //sorts DBTeams so correct team populates first
+      let temp = DBTeams[0];
+      let index = DBTeams.indexOf(DBTeams.find(i => i.id === teamID))
+      DBTeams[0] = DBTeams[index];
+      DBTeams[index] = temp;
+      //sets teams
+      setTeams(DBTeams)
+    } else {
+      setTeams(DBTeams)
+      setTeam(DBTeams[0].id)
+    }
   }
   useEffect(() => {
     handleGetTeams();
