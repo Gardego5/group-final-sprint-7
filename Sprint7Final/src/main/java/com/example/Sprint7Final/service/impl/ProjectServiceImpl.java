@@ -8,6 +8,8 @@ import com.example.Sprint7Final.repositories.ProjectRepository;
 import com.example.Sprint7Final.repositories.TeamRepository;
 import com.example.Sprint7Final.services.ProjectService;
 import lombok.RequiredArgsConstructor;
+
+import org.mapstruct.MappingTarget;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -19,6 +21,9 @@ public class ProjectServiceImpl implements ProjectService {
 	private final ProjectRepository projectRepository;
 	private final ProjectMapper projectMapper;
 	private final TeamRepository teamRepository;
+	
+	public void update(Project updateData, @MappingTarget Project projectToUpdate) {
+	}
 
 	@Override
 	public List<ProjectDto> getAllProjects() {
@@ -40,6 +45,8 @@ public class ProjectServiceImpl implements ProjectService {
 	public ProjectDto updateProjectById(ProjectDto projectDto, Long projectId) {
 		projectDto.setId(projectId);
 		Project projectToUpdate = projectRepository.getReferenceById(projectId);
+		Project updateData = projectMapper.dtoToEntity(projectDto);
+		update(updateData, projectToUpdate);
 		return projectMapper.entityToDto(projectRepository.save(projectToUpdate));
 	}
 
