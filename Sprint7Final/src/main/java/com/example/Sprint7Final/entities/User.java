@@ -23,7 +23,7 @@ public class User {
 	@Embedded
 	private Profile profile;
 	
-	private boolean Active;
+	private boolean Active = true;
 	
 	private boolean Admin;
 	

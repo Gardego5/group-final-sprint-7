@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.example.Sprint7Final.dtos.ProjectDto;
 import com.example.Sprint7Final.dtos.ProjectRequestDto;
 import com.example.Sprint7Final.dtos.ProjectResponseDto;
 
