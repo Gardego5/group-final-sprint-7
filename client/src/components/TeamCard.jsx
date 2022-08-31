@@ -2,6 +2,7 @@ import styled from "styled-components";
 
 const StyledTeamCard = styled.div`
   width: 18rem;
+  height: 20rem;
   background: #0b2d45;
   color: white;
   padding: 0.5rem 0;
