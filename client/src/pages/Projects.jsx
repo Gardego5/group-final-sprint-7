@@ -27,7 +27,10 @@ const Projects = () => {
       for (let i of DBprojects) {
         tempArry[tempArry.length] = {
           name: i.name,
-          editedDaysAgo: 0,
+          editedDaysAgo: Math.round(
+            (new Date().getTime() - new Date(i.timePosted).getTime()) /
+              (1000 * 60 * 60 * 24)
+          ),
           desc: i.description,
           id: i.id
         }
