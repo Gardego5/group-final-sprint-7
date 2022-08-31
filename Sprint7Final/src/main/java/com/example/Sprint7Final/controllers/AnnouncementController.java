@@ -14,6 +14,7 @@ import lombok.RequiredArgsConstructor;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/announcements")
+@CrossOrigin
 public class AnnouncementController {
 	
 	private final AnnouncementService announcementService;
