@@ -20,10 +20,10 @@ store.subscribe(() => {
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
-  <Fragment>
-    <GlobalStyle />
-    <Provider store={store}>
+  <Provider store={store}>
+    <React.StrictMode>
+      <GlobalStyle />
       <App />
-    </Provider>
-  </Fragment>
+    </React.StrictMode>
+  </Provider>
 );
