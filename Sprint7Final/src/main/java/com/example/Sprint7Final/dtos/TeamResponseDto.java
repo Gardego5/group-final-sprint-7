@@ -15,6 +15,6 @@ public class TeamResponseDto {
 
 	private String teamDescription;
 
-	private Company teamCompany;
+	private CompanyDto teamCompany;
 
 }

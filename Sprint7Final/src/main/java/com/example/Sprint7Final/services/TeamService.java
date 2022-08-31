@@ -9,8 +9,8 @@ import org.springframework.stereotype.Repository;
 
 public interface TeamService {
 
-	List<TeamResponseDto> getTeams(Credentials credentials);
+	List<TeamResponseDto> getTeams();
 
-	TeamResponseDto createTeams(Credentials credentials, TeamRequestDto teamRequestDto);
+	TeamResponseDto createTeams(TeamRequestDto teamRequestDto);
 
 }

@@ -2,11 +2,7 @@ package com.example.Sprint7Final.entities;
 
 import java.util.List;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.*;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -26,13 +22,13 @@ public class Company {
 	@Column
 	private String description;
 	
-	@OneToMany(mappedBy = "company")
+	@OneToMany(mappedBy = "company", cascade = CascadeType.ALL)
 	private List<User> usersInTheCompany;
 	
-	@OneToMany(mappedBy = "companyMakingAnnouncement")
+	@OneToMany(mappedBy = "companyMakingAnnouncement", cascade = CascadeType.ALL)
 	private List<Announcement> companyAnnouncements;
 	
-	@OneToMany(mappedBy = "teamCompany")
+	@OneToMany(mappedBy = "teamCompany", cascade = CascadeType.ALL)
 	private List<Team> companyTeams;
 
 }
