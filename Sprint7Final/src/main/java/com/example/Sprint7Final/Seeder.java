@@ -32,15 +32,15 @@ public class Seeder implements CommandLineRunner {
 	public void run(String... args) throws Exception {
 		// --Company 1 ---
 		Company company1 = new Company();
-		company1.setName("Umbrella Corp");
-		company1.setDescription("Making the world a better place - RnD");
+		company1.setCompanyName("Umbrella Corp");
+		company1.setCompanyDescription("Making the world a better place - RnD");
 
 		companyRepository.saveAndFlush(company1);
 
 		// --Company 2 ---
 		Company company2 = new Company();
-		company2.setName("Aperture Science Innovators");
-		company2.setDescription("The cake is not a lie...");
+		company2.setCompanyName("Aperture Science Innovators");
+		company2.setCompanyDescription("The cake is not a lie...");
 		companyRepository.saveAndFlush(company2);
 		
 		// team creations
