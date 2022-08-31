@@ -2,13 +2,6 @@ package com.example.Sprint7Final.entities;
 
 import java.util.List;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
-
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -26,12 +19,14 @@ public class Team {
 	@Column(nullable = false)
 	private String teamDescription;
 
+	private boolean deleted;
+
 	@ManyToOne
 	private Company teamCompany;
 
-	@OneToMany(mappedBy = "team")
+	@OneToMany(mappedBy = "team", cascade = CascadeType.ALL)
 	private List<User> usersOnTheTeam;
 
-	@OneToMany(mappedBy = "teamOnProject")
+	@OneToMany(mappedBy = "teamOnProject", cascade = CascadeType.ALL)
 	private List<Project> teamProjects;
 }
