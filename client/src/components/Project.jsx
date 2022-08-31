@@ -17,12 +17,12 @@ const StyledProject = styled.div`
   padding-bottom: 2rem;
 `;
 
-const Project = ({ name, editedDaysAgo, desc, onEdit }) => {
+const Project = ({ updatePage, name, editedDaysAgo, desc, onEdit, ID }) => {
   return name !== undefined &&
     editedDaysAgo !== undefined &&
     desc !== undefined ? (
     <StyledProject>
-      <CreateProject projNameProp={name} projectDescription={desc} buttonText="Edit"/>
+      <CreateProject updatePage={updatePage} projNameProp={name} projectDescription={desc} projectID={ID} buttonText="Edit"/>
       <div className="project-row">
         <div className="project-title">
           <h2>{name}</h2>
