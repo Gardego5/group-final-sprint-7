@@ -4,8 +4,6 @@
 import { useState } from "react";
 import BasicButton from "../ModalComponents/BasicButton";
 import { Formik } from "formik";
-import { useSelector } from "react-redux";
-import { getCompany } from "../../reducers/rootReducer";
 import { createNewAnnouncement } from "../../utils/requests";
 
 // Styling Imports
