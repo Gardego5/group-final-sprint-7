@@ -1,10 +1,6 @@
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  Button,
-  FormGroup,
-  Label,
-} from "reactstrap";
+import { Button, FormGroup, Label } from "reactstrap";
 import { Formik } from "formik";
 import {
   StyledModal,
@@ -16,9 +12,10 @@ import {
   StyledCloseButton,
 } from "./Modals.module";
 import styled from "styled-components";
-import { getCompany } from './../../reducers/rootReducer';
+import { getCompany } from "./../../reducers/rootReducer";
 
 const NewButton = styled(Button)`
+  z-index: -1;
   margin: auto;
   width: 19rem;
   height: 21rem;
