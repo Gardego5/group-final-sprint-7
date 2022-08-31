@@ -1,60 +1,85 @@
 import { useState } from "react";
-import { useDispatch } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import { Button, FormGroup, Label } from "reactstrap";
+import { Formik } from "formik";
 import {
-  Button,
-  Modal,
-  ModalHeader,
-  ModalBody,
-  FormGroup,
-  Label,
-} from "reactstrap";
-import { Formik, Field, Form } from "formik";
+  StyledModal,
+  StyledModalHeader,
+  StyledModalBody,
+  StyledButton,
+  StyledField,
+  StyledForm,
+  StyledCloseButton,
+} from "./Modals.module";
+
+import { addUser } from "../../utils/requests";
+import { getCompany } from "../../reducers/rootReducer";
 
 const AddUser = ({}) => {
   const [modalOpen, setModalOpen] = useState(false);
+  const [adminVal, setAdminVal] = useState(null);
 
   const dispatch = useDispatch();
   const toggle = () => setModalOpen(!modalOpen);
+  const setCompanyId = useSelector(getCompany);
+
+  const handleAdmin = (e) => {
+    setAdminVal(e.target.value);
+  };
+
   const handleSubmit = (values) => {
     const user = {
+      admin: adminVal,
+      credentials: {
+        password: values.password,
+        username: values.username,
+      },
+      email: values.email,
       firstName: values.firstName,
       lastName: values.lastName,
-      email: values.email,
-      password: values.password,
-      confirmPw: values.confirmPw,
-      admin: values.admin
+      phone: values.phone,
+      status: "PENDING",
+      company: {
+        id: setCompanyId.id,
+      },
+      // 'confirmPw': values.confirmPw,
     };
+    console.log(values);
+    addUser(user);
   };
+
   return (
     <>
       <Button outline onClick={() => setModalOpen(true)}>
         {" "}
         Add User
       </Button>
-      <Modal isOpen={modalOpen} toggle={toggle}>
+      <StyledModal isOpen={modalOpen} toggle={toggle}>
         {" "}
-        <ModalHeader>
+        <StyledModalHeader>
           {" "}
           Add User
-          <Button color="danger" onClick={() => setModalOpen(false)}>
+          <StyledCloseButton color="danger" onClick={() => setModalOpen(false)}>
             X
-          </Button>
-        </ModalHeader>
-        <ModalBody>
+          </StyledCloseButton>
+        </StyledModalHeader>
+        <StyledModalBody>
           <Formik
             initialValues={{
               firstName: "",
               lastName: "",
               email: "",
+              phone: "",
+              username: "",
               password: "",
               confirmPw: "",
             }}
             onSubmit={handleSubmit}
           >
-            <Form>
+            <StyledForm>
               <FormGroup>
                 <Label htmlFor="firstName"></Label>
-                <Field
+                <StyledField
                   name="firstName"
                   placeholder="First Name"
                   className="form-control"
@@ -62,7 +87,7 @@ const AddUser = ({}) => {
               </FormGroup>
               <FormGroup>
                 <Label htmlFor="lastName"></Label>
-                <Field
+                <StyledField
                   name="lastName"
                   placeholder="Last Name"
                   className="form-control"
@@ -70,15 +95,29 @@ const AddUser = ({}) => {
               </FormGroup>
               <FormGroup>
                 <Label htmlFor="email"></Label>
-                <Field
+                <StyledField
                   name="email"
                   placeholder="Email"
+                  className="form-control"
+                />
+                <Label htmlFor="phone"></Label>
+                <StyledField
+                  name="phone"
+                  placeholder="Phone Number"
+                  className="form-control"
+                />
+              </FormGroup>
+              <FormGroup>
+                <Label htmlFor="username"></Label>
+                <StyledField
+                  name="username"
+                  placeholder="Username"
                   className="form-control"
                 />
               </FormGroup>
               <FormGroup>
                 <Label htmlFor="password"></Label>
-                <Field
+                <StyledField
                   name="password"
                   placeholder="Password"
                   className="form-control"
@@ -86,27 +125,42 @@ const AddUser = ({}) => {
               </FormGroup>
               <FormGroup>
                 <Label htmlFor="confirmPw"></Label>
-                <Field
+                <StyledField
                   name="confirmPw"
                   placeholder="Confirm Password"
                   className="form-control"
                 />
               </FormGroup>
-              <h2>Make user an admin role?</h2>
-              <FormGroup>
-                <Label htmlFor="admin"></Label>
-                <Field name="admin" as="select" className="form-control">
-                  <option value={true}>true</option>
-                  <option value={false}>false</option>
-                </Field>
-              </FormGroup>
-              <Button type="submit" color="primary">
+              <h2
+                style={{
+                  color: "rgb(222, 185, 146)",
+                  margin: "4rem 0rem 2rem 0rem",
+                }}
+              >
+                Make user an admin role?
+              </h2>
+              <Label htmlFor="admin"></Label>
+              <select
+                name="admin"
+                className="form-control"
+                value={adminVal}
+                onChange={handleAdmin}
+              >
+                <option value={null}>Pick an option</option>
+                <option value={true}>true</option>
+                <option value={false}>false</option>
+              </select>
+              <StyledButton
+                type="submit"
+                color="primary"
+                disabled={adminVal === null}
+              >
                 Submit
-              </Button>
-            </Form>
+              </StyledButton>
+            </StyledForm>
           </Formik>
-        </ModalBody>
-      </Modal>
+        </StyledModalBody>
+      </StyledModal>
     </>
   );
 };

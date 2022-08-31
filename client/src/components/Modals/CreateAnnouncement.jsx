@@ -1,81 +1,105 @@
+/* -------------------------------------------------------------------------- */
+/*                             Import Dependencies                            */
+/* -------------------------------------------------------------------------- */
 import { useState } from "react";
-import { useDispatch } from "react-redux";
 import BasicButton from "../ModalComponents/BasicButton";
+import { Formik } from "formik";
+import { createNewAnnouncement } from "../../utils/requests";
+
+// Styling Imports
+import { FormGroup, Label } from "reactstrap";
 import {
-  Button,
-  Modal,
-  ModalHeader,
-  ModalBody,
-  FormGroup,
-  Label,
-} from "reactstrap";
-import { Formik, Field, Form } from "formik";
+  StyledModal,
+  StyledModalHeader,
+  StyledModalBody,
+  StyledButton,
+  StyledField,
+  StyledForm,
+  StyledCloseButton,
+} from "./Modals.module";
 
 const CreateAnnouncement = (props) => {
-  // useState hooks
+  /* ---------------------------------- State --------------------------------- */
   const [modalOpen, setModalOpen] = useState(false);
   const [announcement, setAnnouncement] = useState({});
+  const [title, setTitle] = useState("");
+  const [message, setMessage] = useState("");
 
-  // helper functions
+  /* ---------------------------- helper funcitions ------------------------------ */
+
+  // function opens and closes form window
   const toggle = () => setModalOpen(!modalOpen);
-  
+
+  // function to create a new announcement
   const handleSubmit = (values) => {
-    // use value of input to set announcement body
-    // API call to save new post to database
-    const announcement = {
-      firstName: props.firstName,
-      lastName: props.lastName,
-      title: props.title,
-      postText: values.postText,
-      date: new Date(Date.now()).toDateString(), //create a new [Date] object and set it to the time the form was submitted
+    const newAnnouncement = {
+      author_id: props.userId,
+      company_making_announcement_id: props.companyId,
+      title: title,
+      message: message,
+      time_posted: new Date(Date.now()).toDateString(), //create a new [Date] object and set it to the time the form was submitted
     };
+    setAnnouncement(newAnnouncement);
 
-    setAnnouncement(announcement);
-
-    // const dispatch = useDispatch();
-    // dispatch(postAnnouncement(announcement)); // dispatch the action to update the state of the component
-    // setModalOpen(false); //when submitted the modal closes as the [modalOpen] is set to [false] by the [useState]/[setModalOpen]
+    // call to post a new announcement to database
+    createNewAnnouncement(newAnnouncement)
+      // after it succesfully saves return to home page
+      .then((res) => {
+        window.location = "/announcements";
+      })
+      .catch((err) => console.log(err));
   };
-
+console.log(announcement);
   return (
     <>
       <BasicButton outline onClick={() => setModalOpen(true)}>
         New
       </BasicButton>
-      <Modal isOpen={modalOpen} toggle={toggle}>
-        <ModalHeader>
+      <StyledModal isOpen={modalOpen} toggle={toggle}>
+        <StyledModalHeader>
           Add Announcement
-          <Button color="danger" onClick={() => setModalOpen(false)}>
+          <StyledCloseButton color="danger" onClick={() => setModalOpen(false)}>
             X
-          </Button>
-        </ModalHeader>
-        <ModalBody>
+          </StyledCloseButton>
+        </StyledModalHeader>
+        <StyledModalBody>
           <Formik
             initialValues={{
-              postText: "",
+              message: "",
             }}
             onSubmit={handleSubmit}
             // validate={validateForm}
           >
-            <Form>
+            <StyledForm>
+              <FormGroup>
+                <Label htmlFor="postTitle"></Label>
+                <StyledField
+                  name="postTitle"
+                  className="form-control"
+                  placeholder="Title"
+                  value={title}
+                  onChange={e => setTitle(e.target.value)}
+                />
+              </FormGroup>
               <FormGroup>
                 <Label htmlFor="postText"></Label>
-                <Field
+                <StyledField
                   name="postText"
                   as="textarea"
                   rows="5"
                   className="form-control"
+                  value={message}
+                  onChange={e => setMessage(e.target.value)}
                 />
               </FormGroup>
-              <Button type="submit" color="primary">
+              <StyledButton type="submit" color="primary">
                 Submit
-              </Button>
-            </Form>
+              </StyledButton>
+            </StyledForm>
           </Formik>
-        </ModalBody>
-      </Modal>
+        </StyledModalBody>
+      </StyledModal>
     </>
   );
 };
-
 export default CreateAnnouncement;
