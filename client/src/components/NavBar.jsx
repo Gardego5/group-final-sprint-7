@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { NavLink, Redirect } from "react-router-dom";
+import { NavLink, Redirect, useLocation } from "react-router-dom";
 
 import HamburgerImg from "../assets/hamburger.svg";
 import LogoImg from "../assets/logo.png";
@@ -7,6 +7,7 @@ import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
   eraseSession,
+  getAdmin,
   getCompany,
   getCredentials,
   getUser,
@@ -89,6 +90,8 @@ const NavBar = () => {
   const credentials = useSelector(getCredentials);
   const user = useSelector(getUser);
   const company = useSelector(getCompany);
+  const isAdmin = useSelector(getAdmin);
+  const { pathname } = useLocation();
 
   // Local State
   const [showing, updateShowing] = useState(false);
@@ -100,14 +103,13 @@ const NavBar = () => {
     dispatch(eraseSession());
   };
 
-  const selectCompany = () => {
-    setRedirect(<Redirect to="/company" />);
-  };
-
-  if (!redirect && (!credentials || !user)) logout();
-  if (!redirect && !company) selectCompany();
-
   const toggleShowing = (event) => updateShowing(!showing);
+
+  // Handle Redirects
+  if (!redirect && (!credentials || !user)) logout();
+  if (!redirect && !company) setRedirect(<Redirect to="/company" />);
+  if (!redirect && !isAdmin && new Set(["/teams", "/users"]).has(pathname))
+    setRedirect(<Redirect to="/announcements" />);
 
   return redirect ? (
     redirect
@@ -118,7 +120,7 @@ const NavBar = () => {
         <img src={LogoImg} alt="logo" id="logo" />
       </NavLink>
 
-      {user?.admin ? <p id="warning">Acting as Admin</p> : ""}
+      {isAdmin ? <p id="warning">Acting as Admin</p> : ""}
 
       <button id="menu-button" onClick={toggleShowing}>
         <img src={HamburgerImg} alt="menu" />
@@ -128,13 +130,15 @@ const NavBar = () => {
         <li onClick={toggleShowing}>
           <NavLink to="/announcements">Home</NavLink>
         </li>
-        <li onClick={toggleShowing}>
-          <NavLink to="/teams">Teams</NavLink>
-        </li>
-        {user?.admin ? (
-          <li onClick={toggleShowing}>
-            <NavLink to="/users">Users</NavLink>
-          </li>
+        {isAdmin ? (
+          <>
+            <li onClick={toggleShowing}>
+              <NavLink to="/teams">Teams</NavLink>
+            </li>
+            <li onClick={toggleShowing}>
+              <NavLink to="/users">Users</NavLink>
+            </li>
+          </>
         ) : (
           ""
         )}
