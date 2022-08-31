@@ -18,7 +18,49 @@ import {
   StyledForm,
   StyledCloseButton,
 } from "./Modals.module";
+import styled from 'styled-components';
 
+const NewButton = styled(Button)`
+  width: 19rem;
+  height: 21rem;
+  border: none;
+  &:hover {
+    background: none;
+  }
+  &:active{
+    background: none;
+    border: none;
+  }
+  &:focus {
+    background: none;
+    border: none;
+  }
+`
+
+const StyledAddTeam = styled.div`
+  position: relative;
+  width: 18rem;
+  height: 20rem;
+  border: 3px solid rgb(209, 175, 139);
+  border-radius: 25px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+`;
+const StyledPlus = styled.div`
+  color: rgb(222, 185, 146);
+  position: absolute;
+  font-size: 20rem;
+  bottom: -10%;
+`;
+
+const StyledText = styled.div`
+  font-size: 2rem;
+  color: rgb(222, 185, 146);
+  position: absolute;
+  bottom: 10%;
+`;
 //Form for adding a announcement to the announcement page
 const CreateTeam = ({teamId}) => {
   const [modalOpen, setModalOpen] = useState(false); // modalOpen state is set to [false]
@@ -40,11 +82,14 @@ const CreateTeam = ({teamId}) => {
   };
   return (
     <>
-      <Button outline onClick={() => setModalOpen(true)}>
+      <NewButton outline onClick={() => setModalOpen(true)}>
         {" "}
         {/*onClick the [modalOpen] is set to [true] */}
-        Create Team
-      </Button>
+          <StyledAddTeam>
+            <StyledPlus>+</StyledPlus>
+            <StyledText>New Team</StyledText>
+          </StyledAddTeam>
+      </NewButton>
       <StyledModal isOpen={modalOpen} toggle={toggle}>
         {" "}
         {/* if the [modalOpen] is [true] then the <Modal> is open*/}
