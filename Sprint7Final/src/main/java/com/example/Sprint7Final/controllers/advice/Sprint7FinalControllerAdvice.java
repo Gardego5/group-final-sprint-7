@@ -3,7 +3,6 @@ package com.example.Sprint7Final.controllers.advice;
 import com.example.Sprint7Final.dtos.ErrorDto;
 import com.example.Sprint7Final.exceptions.*;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -37,6 +36,12 @@ public class Sprint7FinalControllerAdvice {
     @ExceptionHandler(InternalServerException.class)
     public ErrorDto handleInternalServerException(HttpServletRequest request, InternalServerException internalServerException) {
         return new ErrorDto(internalServerException.getMessage());
+    }
+
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    @ExceptionHandler(NotValidCredentialsException.class)
+    public ErrorDto handleNotValidCredentialsException(HttpServletRequest request, NotValidCredentialsException notValidCredentialsException) {
+        return new ErrorDto(notValidCredentialsException.getMessage());
     }
 
 }
