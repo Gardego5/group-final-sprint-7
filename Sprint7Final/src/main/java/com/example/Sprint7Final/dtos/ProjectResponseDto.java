@@ -1,21 +1,23 @@
 package com.example.Sprint7Final.dtos;
 
-import com.example.Sprint7Final.entities.Team;
-
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.sql.Timestamp;
+
 @Data
 @NoArgsConstructor
-public class ProjectDto {
+public class ProjectResponseDto {
 	
 	private Long id;
 	
 	private String name;
 	
 	private String description;
+
+	private Timestamp timePosted;
 	
 	private Boolean active;
 	
-	private Long teamOnProject;
+	private TeamDto teamOnProject;
 }
