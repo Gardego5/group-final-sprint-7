@@ -2,10 +2,9 @@ package com.example.Sprint7Final.controllers;
 
 import java.util.List;
 
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import com.example.Sprint7Final.dtos.AnnouncementRequestDto;
+import org.hibernate.cfg.CannotForceNonNullableException;
+import org.springframework.web.bind.annotation.*;
 
 import com.example.Sprint7Final.dtos.AnnouncementResponseDto;
 import com.example.Sprint7Final.services.AnnouncementService;
@@ -27,6 +26,11 @@ public class AnnouncementController {
 	@GetMapping("/{companyId}")
 	public List<AnnouncementResponseDto> getAllCompanyAnnouncements(@PathVariable Long companyId)  {
 		return announcementService.getAllCompanyAnnouncements(companyId);
+	}
+
+	@PostMapping("/create")
+	public AnnouncementResponseDto createAnnouncement(@RequestBody AnnouncementRequestDto announcementRequestDto) {
+		return announcementService.createAnnouncement(announcementRequestDto);
 	}
 
 }
