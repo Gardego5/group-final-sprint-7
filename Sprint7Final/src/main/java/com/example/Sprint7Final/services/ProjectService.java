@@ -14,6 +14,6 @@ public interface ProjectService {
 
 	ProjectDto updateProjectById(ProjectDto projectDto, Long projectId);
 
-	List<ProjectDto> getProjectByTeamId(Long teamId);
+	List<ProjectDto> getProjectsByTeamId(Long teamId);
 
 }
