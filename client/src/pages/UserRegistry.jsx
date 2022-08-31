@@ -1,11 +1,15 @@
-import React, { Fragment, useMemo } from "react";
+import React, { Fragment, useMemo, useState, useEffect } from "react";
 import styled from "styled-components";
 import NavBar from "../components/NavBar";
 import { useTable } from "react-table";
+import { useSelector } from "react-redux";
 
 import MOCK_DATA from "../components/UsersTable/MOCK_DATA.json";
 import { Columns } from "../components/UsersTable/columns";
 import AddUser from "../components/Modals/AddUser";
+import { getCompany } from "../reducers/rootReducer";
+import { getAllUsersFromCompany } from "../utils/requests";
+import { render } from "react-dom";
 
 const Container = styled.div`
   display: flex;
@@ -58,8 +62,31 @@ const UserCell = styled.td`
 `;
 
 const UserRegistry = () => {
+  const setCompany = useSelector(getCompany);
+  const [userList, setUserList] = useState([]);
+  const [addedUsers, setAddedUsers] = useState(0);
+
+  const getUsers = async () => {
+    const allUsers = await getAllUsersFromCompany(setCompany.id);
+    setUserList(allUsers);
+  };
+
+  // useEffect hook to load all users by company from database
+  useEffect(() => {
+    getUsers();
+    // eslint-disable-next-line
+  }, [addedUsers]);
+
+  const increaseUsers = () => {
+    setAddedUsers(addedUsers + 1);
+  };
+
+  console.log(userList);
+
   const columns = useMemo(() => Columns, []);
-  const data = useMemo(() => MOCK_DATA, []);
+  const data = useMemo(() => userList, []);
+
+  console.log(MOCK_DATA);
 
   const tableInstance = useTable({
     columns,
@@ -104,7 +131,10 @@ const UserRegistry = () => {
             })}
           </UserBody>
         </UserTable>
-        <AddUser></AddUser>
+        <AddUser
+          addedUsers={addedUsers}
+          increaseUsers={increaseUsers}
+        ></AddUser>
       </Container>
     </Fragment>
   );
