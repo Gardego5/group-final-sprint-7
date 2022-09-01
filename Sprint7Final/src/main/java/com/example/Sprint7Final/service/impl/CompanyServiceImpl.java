@@ -34,5 +34,4 @@ public class CompanyServiceImpl implements CompanyService{
 		}
 		return companyMapper.entityToDto(companyRepository.saveAndFlush(companyToAdd));
 	}
-
 }

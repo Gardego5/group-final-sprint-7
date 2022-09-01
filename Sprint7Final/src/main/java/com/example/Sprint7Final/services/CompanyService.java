@@ -10,5 +10,4 @@ public interface CompanyService {
 	List<CompanyDto> getAllCompanies();
 
     CompanyDto createCompany(CompanyRequestDto companyRequestDto);
-
 }
