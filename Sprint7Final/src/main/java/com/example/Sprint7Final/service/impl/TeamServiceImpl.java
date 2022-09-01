@@ -197,7 +197,8 @@ public class TeamServiceImpl implements TeamService {
 			teamsToSet.add(teamAndMemberInfoAndProjectAmountDto);
 			teamAndMemberInfoAndProjectAmountDto.setNumberOfProjects((long) team.getTeamProjects().size());
 			teamAndMemberInfoAndProjectAmountDto.setMembers(memberInfo);
-
+			// Requested by David P
+			teamAndMemberInfoAndProjectAmountDto.setTeamName(team.getTeamName());
 		}
 		teamsListDto.setTeams(teamsToSet);
 		return teamsListDto;
