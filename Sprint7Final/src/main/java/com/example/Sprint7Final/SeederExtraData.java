@@ -17,7 +17,16 @@ import lombok.extern.slf4j.Slf4j;
 @Component
 @RequiredArgsConstructor
 @Slf4j
-public class Seeder implements CommandLineRunner {
+
+/**
+ * This is extra seeder data to populate the application with more entities and
+ * more real world examples.
+ * 
+ * These are intended to be added to the Seeder.java and not stand alone
+ *
+ *
+ */
+public class SeederExtraData {
 
 	private final UserRepository userRepository;
 	private final CompanyRepository companyRepository;
@@ -25,289 +34,7 @@ public class Seeder implements CommandLineRunner {
 	private final AnnouncementRepository announcementRepository;
 	private final ProjectRepository projectRepository;
 
-	@Override
 	public void run(String... args) throws Exception {
-		// --Company 1 ---
-		Company company1 = new Company();
-		company1.setCompanyName("Umbrella Corp");
-		company1.setCompanyDescription("Making the world a better place - RnD");
-
-		companyRepository.saveAndFlush(company1);
-
-		// --Company 2 ---
-		Company company2 = new Company();
-		company2.setCompanyName("Aperture Science Innovators");
-		company2.setCompanyDescription("The cake is not a lie...");
-		companyRepository.saveAndFlush(company2);
-
-		// team creations
-
-		Team team3 = new Team();
-		team3.setTeamName("Team 3!");
-		team3.setTeamCompany(company1);
-		team3.setTeamDescription("Team 3 rocks!");
-
-		Team team4 = new Team();
-		team4.setTeamName("Team 4!");
-		team4.setTeamCompany(company1);
-		team4.setTeamDescription("Team 4 is better!");
-
-		Team team5 = new Team();
-		team5.setTeamName("Team 5!");
-		team5.setTeamCompany(company2);
-		team5.setTeamDescription("Team 5 is the best!");
-
-		teamRepository.saveAndFlush(team3);
-		teamRepository.saveAndFlush(team4);
-		teamRepository.saveAndFlush(team5);
-
-		// --- User 1 ---
-		// Credentials
-		Credentials user1Cred = new Credentials();
-		user1Cred.setUsername("therealmc");
-		user1Cred.setPassword("Password");
-
-		User user1 = new User();
-		user1.setCredentials(user1Cred);
-
-		// Profile
-		Profile user1Pro = new Profile();
-		user1Pro.setFirstName("Master");
-		user1Pro.setLastName("Chief");
-		user1Pro.setEmail("sierra117@email.com");
-		user1Pro.setPhone("123-456-7890");
-		user1.setProfile(user1Pro);
-		user1.setCompany(company1);
-		user1.setTeam(team3);
-		user1.setStatus("PENDING");
-
-		// --- User 2 ---
-		// Credentials
-		Credentials user2Cred = new Credentials();
-		user2Cred.setUsername("mario");
-		user2Cred.setPassword("password");
-
-		User user2 = new User();
-		user2.setCredentials(user2Cred);
-
-		// Profile
-		Profile user2Pro = new Profile();
-		user2Pro.setFirstName("Mario");
-		user2Pro.setLastName("Mario");
-		user2Pro.setEmail("mario@email.com");
-		user2Pro.setPhone("234-567-8901");
-		user2.setProfile(user2Pro);
-		user2.setCompany(company2);
-		user2.setTeam(team5);
-		user2.setStatus("JOINED");
-		// Active
-		user2.setActive(false);
-
-		// --- User 3 ---
-		// Credentials
-		Credentials user3Cred = new Credentials();
-		user3Cred.setUsername("GLaDOS");
-		user3Cred.setPassword("password12");
-
-		User user3 = new User();
-		user3.setCredentials(user3Cred);
-
-		// Profile
-		Profile user3Pro = new Profile();
-		user3Pro.setFirstName("GLa");
-		user3Pro.setLastName("DOS");
-		user3Pro.setEmail("theCakeIsALie@email.com");
-		user3Pro.setPhone("234-567-1111");
-		user3.setProfile(user3Pro);
-		user3.setAdmin(true);
-		user3.setCompany(company2);
-		user3.setTeam(team5);
-		user3.setStatus("JOINED");
-
-		// --- User 4 ---
-		// Credentials
-		Credentials user4Cred = new Credentials();
-		user4Cred.setUsername("Steve");
-		user4Cred.setPassword("minecraft");
-
-		User user4 = new User();
-		user4.setCredentials(user4Cred);
-
-		// Profile
-		Profile user4Pro = new Profile();
-		user4Pro.setFirstName("Steve");
-		user4Pro.setLastName("Steve");
-		user4Pro.setEmail("mojang@email.com");
-		user4Pro.setPhone("234-555-8901");
-		user4.setProfile(user4Pro);
-		user4.setCompany(company1);
-		user4.setTeam(team4);
-		user4.setStatus("PENDING");
-
-		// --- User 5 ---
-		// Credentials
-		Credentials user5Cred = new Credentials();
-		user5Cred.setUsername("Steve2PointOH");
-		user5Cred.setPassword("minecraft");
-
-		User user5 = new User();
-		user5.setCredentials(user5Cred);
-
-		// Profile
-		Profile user5Pro = new Profile();
-		user5Pro.setFirstName("Carl");
-		user5Pro.setLastName("That");
-		user5Pro.setEmail("killspeople@email.com");
-		user5Pro.setPhone("234-555-8901");
-		user5.setProfile(user5Pro);
-		user5.setCompany(company1);
-		user5.setTeam(team4);
-		user5.setStatus("PENDING");
-
-		// --- User 6 ---
-		// Credentials
-		Credentials user6Cred = new Credentials();
-		user6Cred.setUsername("James");
-		user6Cred.setPassword("lovesPeaches");
-
-		User user6 = new User();
-		user6.setCredentials(user6Cred);
-
-		// Profile
-		Profile user6Pro = new Profile();
-		user6Pro.setFirstName("Francis");
-		user6Pro.setLastName("Popeman");
-		user6Pro.setEmail("vatican@email.com");
-		user6Pro.setPhone("234-555-6978");
-		user6.setProfile(user6Pro);
-		user6.setCompany(company1);
-		user6.setTeam(team4);
-		user6.setStatus("JOINED");
-
-		// --- User 7 ---
-		// Credentials
-		Credentials user7Cred = new Credentials();
-		user7Cred.setUsername("Alex");
-		user7Cred.setPassword("minecraft");
-
-		User user7 = new User();
-		user7.setCredentials(user7Cred);
-
-		// Profile
-		Profile user7Pro = new Profile();
-		user7Pro.setFirstName("Alex");
-		user7Pro.setLastName("Steve");
-		user7Pro.setEmail("mojang2@email.com");
-		user7Pro.setPhone("211-551-8901");
-		user7.setProfile(user7Pro);
-		user7.setCompany(company1);
-		user7.setTeam(team4);
-		user7.setStatus("PENDING");
-
-		// --- User 8 ---
-		// Credentials
-		Credentials user8Cred = new Credentials();
-		user8Cred.setUsername("DonkeyKong");
-		user8Cred.setPassword("bananas");
-
-		User user8 = new User();
-		user8.setCredentials(user8Cred);
-
-		// Profile
-		Profile user8Pro = new Profile();
-		user8Pro.setFirstName("Donkey");
-		user8Pro.setLastName("Kong");
-		user8Pro.setEmail("nintendo@email.com");
-		user8Pro.setPhone("234-555-8999");
-		user8.setProfile(user8Pro);
-		user8.setCompany(company1);
-		user8.setTeam(team4);
-		user8.setStatus("PENDING");
-
-		userRepository.saveAndFlush(user1);
-		userRepository.saveAndFlush(user2);
-		userRepository.saveAndFlush(user3);
-		userRepository.saveAndFlush(user4);
-		userRepository.saveAndFlush(user4);
-		userRepository.saveAndFlush(user5);
-		userRepository.saveAndFlush(user6);
-		userRepository.saveAndFlush(user7);
-		userRepository.saveAndFlush(user8);
-
-		// --Team 1 ---
-		List<User> team1Users = new ArrayList<>();
-		team1Users.add(user1);
-		team1Users.add(user2);
-
-		Team team1FromRepo = teamRepository.findByTeamName(team3.getTeamName());
-		team1FromRepo.setUsersOnTheTeam(team1Users);
-		teamRepository.saveAndFlush(team1FromRepo);
-
-		log.warn("Team Id returned for team1 " + team1FromRepo.getId());
-
-		// --Team 2 ---
-		List<User> team2Users = new ArrayList<>();
-		team2Users.add(user3);
-		team2Users.add(user4);
-		team2Users.add(user5);
-		team2Users.add(user6);
-		team2Users.add(user7);
-		team2Users.add(user8);
-
-		teamRepository.findByTeamName(team4.getTeamName()).setUsersOnTheTeam(team2Users);
-
-		teamRepository.saveAndFlush(team3);
-		teamRepository.saveAndFlush(team4);
-
-		// projects
-		Project project1 = new Project();
-		project1.setName("Dropship Project");
-		project1.setDescription("Plans to improve on the current dropship design. Expect completion date this winter.");
-		project1.setActive(true);
-		project1.setTeamOnProject(team3);
-		projectRepository.saveAndFlush(project1);
-
-		Project project2 = new Project();
-		project2.setName("Cake Recipes");
-		project2.setDescription("In order for the cake to not be a lie, we need those recipes for this project.");
-		project2.setActive(true);
-		project2.setTeamOnProject(team4);
-		projectRepository.saveAndFlush(project2);
-
-		Project project3 = new Project();
-		project3.setName("Diamond Sword Project");
-		project3.setDescription("To improve survival while farming, funds and research needed for the new diamond sword.");
-		project3.setActive(true);
-		project3.setTeamOnProject(team4);
-		projectRepository.saveAndFlush(project3);
-
-		Announcement announcement1 = new Announcement();
-		announcement1.setAuthor(user1);
-		announcement1.setCompanyMakingAnnouncement(company1);
-		announcement1.setTitle("Chili Cookoff this Weekend");
-		announcement1.setMessage("Hey Team. Just letting you know again that this weekend is our chili cookoff. Bring your best pots of chili for everyone and our judges to sample! Bring your family and expect an afternoon of fun!");
-		announcement1.setTimePosted(Timestamp.valueOf(LocalDateTime.now()));
-
-		Announcement announcement2 = new Announcement();
-		announcement2.setAuthor(user1);
-		announcement2.setCompanyMakingAnnouncement(company1);
-		announcement2.setTitle("Plasma Grenade Training");
-		announcement2.setMessage("Tomorrow morning will be mandatory plasma grenade training outside the cafeteria for the first work hour. We'll supply the body armor and grenades. We're out of coffee so feel free to bring your own or a pot to share.");
-		announcement2.setTimePosted(Timestamp.valueOf(LocalDateTime.now()));
-
-		Announcement announcement3 = new Announcement();
-		announcement3.setAuthor(user1);
-		announcement3.setCompanyMakingAnnouncement(company1);
-		announcement3.setTitle("Missing: Red Stapler");
-		announcement3.setMessage("I believe you have my stapler.");
-		announcement3.setTimePosted(Timestamp.valueOf(LocalDateTime.now()));
-
-		announcementRepository.saveAndFlush(announcement1);
-		announcementRepository.saveAndFlush(announcement2);
-		announcementRepository.saveAndFlush(announcement3);
-
-		// Extra Seeder Data
-
 		// --Company 3 ---
 		Company company3 = new Company();
 		company3.setCompanyName("765 Productions");
@@ -334,7 +61,6 @@ public class Seeder implements CommandLineRunner {
 
 		teamRepository.saveAndFlush(staffTeam);
 		teamRepository.saveAndFlush(productionTeam);
-		teamRepository.saveAndFlush(idolTeam);
 
 		// --- President User ---
 		// Credentials
@@ -405,7 +131,7 @@ public class Seeder implements CommandLineRunner {
 		// Credentials
 		Credentials Producer1Cred = new Credentials();
 		Producer1Cred.setUsername("producer");
-		Producer1Cred.setPassword("765producer");
+		Producer1Cred.setPassword("765prouducer");
 
 		User Producer1 = new User();
 		Producer1.setCredentials(Producer1Cred);
@@ -413,7 +139,7 @@ public class Seeder implements CommandLineRunner {
 		// Profile
 		Profile Producer1Profile = new Profile();
 		Producer1Profile.setFirstName("Kenji");
-		Producer1Profile.setLastName("Akabane");
+		Producer1Profile.setLastName("AKabane");
 		Producer1Profile.setEmail("producer@765Pro.com");
 		Producer1Profile.setPhone("765-76-7651");
 		Producer1.setProfile(Producer1Profile);
@@ -425,18 +151,18 @@ public class Seeder implements CommandLineRunner {
 		// --- Producer 2 user ---
 		// Credentials
 		Credentials Producer2Cred = new Credentials();
-		Producer2Cred.setUsername("kenji");
-		Producer2Cred.setPassword("kenji");
+		Producer2Cred.setUsername("producer");
+		Producer2Cred.setPassword("765prouducer");
 
 		User Producer2 = new User();
-		Producer2.setCredentials(Producer2Cred);
+		Producer1.setCredentials(Producer2Cred);
 
 		// Profile
 		Profile Producer2Profile = new Profile();
 		Producer2Profile.setFirstName("Yuutarou");
 		Producer2Profile.setLastName("Takagi");
 		Producer2Profile.setEmail("takagi@765Pro.com");
-		Producer2Profile.setPhone("765-76-7652");
+		Producer2Profile.setPhone("765-76-7651");
 		Producer2.setProfile(Producer2Profile);
 		Producer2.setCompany(company3);
 		Producer2.setActive(false);
