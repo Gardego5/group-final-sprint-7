@@ -21,6 +21,6 @@ public class AnnouncementRequestDto {
 
 	private Long companyId;
 
-	private Long userId;
+	private String username;
 
 }
