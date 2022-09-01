@@ -59,4 +59,21 @@ public class CompanyServiceImpl implements CompanyService{
 
 		return companyMapper.entityToDto((companyRepository.saveAndFlush(companyToDelete)));
 	}
+
+	@Override
+	public CompanyDto editCompany(CompanyDto companyDto, Long companyId) {
+
+		Optional<Company> optionalCompany = companyRepository.findByIdAndDeletedFalse(companyId);
+		if (optionalCompany.isEmpty()) {
+			throw new NotFoundException("Company with id: " + companyId + " not found in database");
+		}
+		Company companyInDatabase = optionalCompany.get();
+		if (companyDto.getCompanyName() != null) {
+			companyInDatabase.setCompanyName(companyDto.getCompanyName());
+		}
+		if (companyDto.getCompanyDescription() != null) {
+			companyInDatabase.setCompanyDescription(companyDto.getCompanyDescription());
+		}
+		return companyMapper.entityToDto(companyRepository.saveAndFlush(companyInDatabase));
+	}
 }
