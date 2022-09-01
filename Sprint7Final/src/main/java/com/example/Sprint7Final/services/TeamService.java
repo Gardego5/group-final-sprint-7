@@ -18,4 +18,6 @@ public interface TeamService {
     TeamResponseDto deleteTeam(Long teamId);
 
 	TeamResponseDto getTeamById(Long teamId);
+
+    TeamResponseDto editTeam(TeamRequestDto teamRequestDto, Long teamId);
 }

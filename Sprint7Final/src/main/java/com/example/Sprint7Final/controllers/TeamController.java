@@ -44,4 +44,9 @@ public class TeamController {
 		return teamService.getTeamById(teamId);
 	}
 
+	@PutMapping("/edit/{teamId}")
+	public TeamResponseDto editTeam(@RequestBody TeamRequestDto teamRequestDto, @PathVariable Long teamId) {
+		return teamService.editTeam(teamRequestDto, teamId);
+	}
+
 }
