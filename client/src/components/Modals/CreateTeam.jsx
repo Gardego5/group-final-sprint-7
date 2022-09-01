@@ -16,6 +16,7 @@ import {
   NewButton,
 } from "./Modals.module";
 import { getCompany } from "./../../reducers/rootReducer";
+import { createTeam } from "../../utils/requests";
 
 const CreateTeam = ({ members }) => {
   const [modalOpen, setModalOpen] = useState(false);
@@ -25,20 +26,27 @@ const CreateTeam = ({ members }) => {
 
   const dispatch = useDispatch();
   const toggle = () => setModalOpen(!modalOpen);
+
   const handleSubmit = (values) => {
     // pass the [values] to extract everything submited to the form
+    const postMembers = []
+    pickedMembers.map(member => postMembers.push(member.username))
+    console.log("Post Members: " + postMembers);
     const postTeamData = {
       teamName: values.teamName,
       teamDescription: values.description,
       companyID: company.id,
-      members: pickedMembers,
+      usernames: postMembers,
     };
+    console.log("Team Data: " + JSON.stringify(postTeamData));
+    createTeam(postTeamData)
+    setModalOpen(false)
   };
   
   useEffect(() => {
     setNewMembers([...members]);
   }, [members]);
-  console.log("PickedMembers: " + JSON.stringify(pickedMembers));
+  // console.log("PickedMembers: " + JSON.stringify(pickedMembers));
 
   const removeMember = (member) => {
     const tempList = pickedMembers.filter((user) => user != member);
@@ -92,8 +100,6 @@ const CreateTeam = ({ members }) => {
                 <StyledField
                   name="description"
                   placeholder="Description"
-                  as="textarea"
-                  rows="5"
                   className="form-control"
                 />
               </FormGroup>
