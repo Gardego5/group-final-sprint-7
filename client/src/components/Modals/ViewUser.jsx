@@ -35,10 +35,7 @@ const StyledUserInfo = styled.div`
     margin-left: 1rem;
   }
   p.info-field {
-    border-left: 1px solid #deb992;
-    border-top: 1px solid #deb992;
-    border-top-left-radius: 0.5rem;
-    padding: 0 0 0 0.5rem;
+    border-bottom: 1px solid #deb992;
     text-align: center;
   }
 `;
@@ -68,44 +65,44 @@ const ViewUser = ({ user, abbreviate }) => {
           <StyledUserInfo>
             <div className="info-row">
               <div className="info-group">
-                <p className="info-label">username</p>
                 <p className="info-field">{user?.username}</p>
+                <p className="info-label">username</p>
               </div>
             </div>
             <div className="info-row">
               <div className="info-group">
-                <p className="info-label">first name:</p>
                 <p className="info-field">{user?.profile?.firstName}</p>
+                <p className="info-label">first name</p>
               </div>
               <div className="info-group">
-                <p className="info-label">last name:</p>
                 <p className="info-field">{user?.profile?.lastName}</p>
+                <p className="info-label">last name</p>
               </div>
             </div>
             <div className="info-row">
               <div className="info-group">
-                <p className="info-label">email</p>
                 <p className="info-field">{user?.profile?.email}</p>
+                <p className="info-label">email</p>
               </div>
             </div>
             <div className="info-row">
               <div className="info-group">
-                <p className="info-label">phone</p>
                 <p className="info-field">{user?.profile?.phone}</p>
+                <p className="info-label">phone</p>
               </div>
             </div>
             <div className="info-row">
               <div className="info-group">
-                <p className="info-label">status</p>
                 <p className="info-field">{user?.status}</p>
+                <p className="info-label">status</p>
               </div>
               <div className="info-group">
-                <p className="info-label">active</p>
                 <p className="info-field">{user?.active ? "Yes" : "No"}</p>
+                <p className="info-label">active</p>
               </div>
               <div className="info-group">
-                <p className="info-label">admin</p>
                 <p className="info-field">{user?.admin ? "Yes" : "No"}</p>
+                <p className="info-label">admin</p>
               </div>
             </div>
           </StyledUserInfo>
