@@ -3,8 +3,9 @@ import styled from "styled-components";
 
 import NavBar from "../components/NavBar";
 import Project from "../components/Project";
-import CreateProject from "../components/Modals/CreateProject";
 import { getAllProjects } from "../utils/requests";
+import { useSelector } from "react-redux";
+import { getAdmin } from "../reducers/rootReducer";
 
 const StyledProjects = styled.div`
   display: flex;
@@ -13,16 +14,18 @@ const StyledProjects = styled.div`
   & h1 {
     color: #1ba098;
     font-weight: 400;
+    margin-top: 3rem;
   }
 `;
 
 const Projects = () => {
   const [projects, updateProjects] = useState([]);
+  const isAdmin = useSelector(getAdmin);
 
   const handleGetProjects = async () => {
     const DBprojects = await getAllProjects();
     if (DBprojects.length > 0) {
-      let tempArry = []
+      let tempArry = [];
       for (let i of DBprojects) {
         tempArry[tempArry.length] = {
           name: i.name,
@@ -32,12 +35,12 @@ const Projects = () => {
           ),
           desc: i.description,
           id: i.id,
-          teamID: i.teamOnProject.id
-        }
+          teamID: i.teamOnProject.id,
+        };
       }
-      updateProjects(tempArry)
+      updateProjects(tempArry);
     }
-  }
+  };
   useEffect(() => {
     handleGetProjects();
   }, []);
@@ -47,7 +50,7 @@ const Projects = () => {
       <NavBar />
       <StyledProjects>
         <h1>Projects</h1>
-        <Project updatePage={handleGetProjects} />
+        {isAdmin ? <Project updatePage={handleGetProjects} /> : ""}
         {projects.map(({ name, editedDaysAgo, desc, id, teamID }, idx) => (
           <Project
             ID={id}
@@ -57,6 +60,7 @@ const Projects = () => {
             key={idx}
             updatePage={handleGetProjects}
             teamID={teamID}
+            isAdmin={isAdmin}
           />
         ))}
       </StyledProjects>
