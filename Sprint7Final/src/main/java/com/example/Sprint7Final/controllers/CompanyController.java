@@ -36,4 +36,9 @@ public class CompanyController {
 	public CompanyDto deleteCompany(@PathVariable Long companyId) {
 		return companyService.deleteCompany(companyId);
 	}
+
+	@PutMapping("/{companyId}")
+	public CompanyDto editCompany(@RequestBody CompanyDto companyDto, @PathVariable Long companyId) {
+		return companyService.editCompany(companyDto, companyId);
+	}
 }
