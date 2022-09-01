@@ -10,15 +10,24 @@ const StyledProject = styled.div`
   width: 70%;
   justify-content: space-between;
   flex-direction: row-reverse;
+  & button {
+    flex: none;
+  }
   & div.project-title {
     display: flex;
     gap: 2rem;
     align-items: center;
-    justify-content: space-between;
     margin-bottom: 1rem;
     * {
       margin: 0;
     }
+  }
+  & p.project-desc {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    width: fit-content;
+    width: 50vw;
   }
   padding-block: 2rem;
 `;
@@ -62,15 +71,14 @@ const Project = ({
             Last edited {editedDaysAgo} days ago
           </p>
         </div>
-        <p className="project-desc">{desc}</p>
+        <p className="project-desc">
+          {desc}
+        </p>
       </div>
     </StyledProject>
   ) : (
     <StyledProject>
-      <CreateProject
-        updatePage={updatePage}
-        buttonText="New"
-      />
+      <CreateProject updatePage={updatePage} buttonText="New" />
     </StyledProject>
   );
 };

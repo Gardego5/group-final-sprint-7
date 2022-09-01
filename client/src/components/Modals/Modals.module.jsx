@@ -53,8 +53,8 @@ export const StyledCloseButton = styled(Button)`
   border: 3px solid red;
   border-radius: 50px;
   position: absolute;
-  right: 2%;
-  top: 2%;
+  right: 0.5rem;
+  top: 0.5rem;
 `;
 
 export const NewButton = styled(Button)`
