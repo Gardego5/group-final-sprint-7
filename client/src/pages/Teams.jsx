@@ -41,7 +41,6 @@ const Teams = () => {
   const handleGetUsers = async () => {
     const allUsers = await getAllUsersFromCompany(company.id);
     updateAllNewUsers(allUsers);
-    // console.log(allUsers);
   };
 
   const getProjects = async () => {
@@ -53,9 +52,6 @@ const Teams = () => {
     handleGetUsers();
     getProjects();
   }, []);
-
-  // console.log("Hello " + JSON.stringify(projects));
-  // console.log("Members " + JSON.stringify(members));
 
   useEffect(() => {
     //map thru all the users.
@@ -80,7 +76,6 @@ const Teams = () => {
       }
       return fullList;
     }, []);
-    // console.log(reduceProjects);
 
     let reducedTeams = filteredUsers.reduce((fullList, currentUser) => {
       let index = fullList.length - 1;
@@ -94,8 +89,6 @@ const Teams = () => {
       }
       return fullList;
     }, []);
-    console.log("ReducedTeams: " + JSON.stringify(reducedTeams));
-    // console.log(reduceProjects[0][0].length);
 
     const solutionTeams = reducedTeams.map((list, index) => ({
       name: list[0].team.teamName,

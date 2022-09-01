@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Button, FormGroup, Label } from "reactstrap";
+import { FormGroup, Label } from "reactstrap";
 import { Formik } from "formik";
 import {
   StyledModal,
@@ -24,7 +24,6 @@ const CreateTeam = ({ members }) => {
   const [newMembers, setNewMembers] = useState();
   const company = useSelector(getCompany);
 
-  const dispatch = useDispatch();
   const toggle = () => setModalOpen(!modalOpen);
 
   const handleSubmit = (values) => {
