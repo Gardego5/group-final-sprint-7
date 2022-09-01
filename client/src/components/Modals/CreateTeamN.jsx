@@ -9,6 +9,15 @@ import {
   Label,
 } from "reactstrap";
 import { Formik, Field, Form } from "formik";
+import {
+  StyledModal,
+  StyledModalHeader,
+  StyledModalBody,
+  StyledButton,
+  StyledField,
+  StyledForm,
+  StyledCloseButton,
+} from "./Modals.module";
 
 //Form for adding a announcement to the announcement page
 const CreateTeamN = ({teamId}) => {
@@ -36,16 +45,16 @@ const CreateTeamN = ({teamId}) => {
         {/*onClick the [modalOpen] is set to [true] */}
         Create Team
       </Button>
-      <Modal isOpen={modalOpen} toggle={toggle}>
+      <StyledModal isOpen={modalOpen} toggle={toggle}>
         {" "}
         {/* if the [modalOpen] is [true] then the <Modal> is open*/}
-        <ModalHeader>
+        <StyledModalHeader>
           {" "}
           Create Team
-          <Button color="danger" onClick={() => setModalOpen(false)}>X</Button>
+          <StyledCloseButton color="danger" onClick={() => setModalOpen(false)}>X</StyledCloseButton>
           {/*will close the modal if you click the X toggle on the top right*/}
-        </ModalHeader>
-        <ModalBody>
+        </StyledModalHeader>
+        <StyledModalBody>
           <Formik
             initialValues={{
               teamName: "",
@@ -55,10 +64,10 @@ const CreateTeamN = ({teamId}) => {
             onSubmit={handleSubmit}
             // validate={validateForm}
           >
-            <Form>
+            <StyledForm>
               <FormGroup>
                 <Label htmlFor="teamName"></Label>
-                <Field
+                <StyledField
                   name="teamName"
                   placeholder="Team Name"
                   className="form-control"
@@ -66,7 +75,7 @@ const CreateTeamN = ({teamId}) => {
               </FormGroup>
               <FormGroup>
                 <Label htmlFor="description"></Label>
-                <Field
+                <StyledField
                   name="description"
                   placeholder="Description"
                   as="textarea"
@@ -75,22 +84,22 @@ const CreateTeamN = ({teamId}) => {
                 />
               </FormGroup>
               <FormGroup>
-                <Label htmlFor="members">Members</Label>
-                <Field id="members" name="members" as="select" className="form-control">
+                <Label htmlFor="members" style={{color: "rgb(222, 185, 146)", marginTop: "3rem"}}>Members</Label>
+                <StyledField id="members" name="members" as="select" className="form-control">
                   {/* {members.map((member) => (
                     <option key={member} value={member}>
                       {member}
                     </option>
                   ))} */}
-                </Field>
+                </StyledField>
               </FormGroup>
-              <Button type="submit" color="primary">
+              <StyledButton type="submit" color="primary">
                 Submit
-              </Button>
-            </Form>
+              </StyledButton>
+            </StyledForm>
           </Formik>
-        </ModalBody>
-      </Modal>
+        </StyledModalBody>
+      </StyledModal>
     </>
   );
 };

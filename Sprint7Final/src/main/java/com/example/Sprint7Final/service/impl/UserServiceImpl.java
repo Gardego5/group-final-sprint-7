@@ -105,4 +105,15 @@ public class UserServiceImpl implements UserService {
 		return userMapper.entityToDto(userRepository.saveAndFlush(userToBeCreated));
 	}
 
+	@Override
+	public UserResponseDto deleteUser(Long userId) {
+		Optional<User> optionalUser = userRepository.findByIdAndDeletedFalse(userId);
+		if (optionalUser.isEmpty() || optionalUser.get().isDeleted()) throw new NotFoundException("User does not exist with ID: " + userId);
+
+		User userToDelete = optionalUser.get();
+		userToDelete.setDeleted(true);
+
+		return userMapper.entityToDto((userRepository.saveAndFlush(userToDelete)));
+	}
+
 }
