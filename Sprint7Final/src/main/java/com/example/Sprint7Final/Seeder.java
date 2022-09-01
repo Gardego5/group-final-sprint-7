@@ -42,18 +42,24 @@ public class Seeder implements CommandLineRunner {
 		
 		// team creations
 		
-		Team team1 = new Team();
-		team1.setTeamName("Team 1!");
-		team1.setTeamCompany(company1);
-		team1.setTeamDescription("Team 1 rocks!");
+		Team team3 = new Team();
+		team3.setTeamName("Team 3!");
+		team3.setTeamCompany(company1);
+		team3.setTeamDescription("Team 1 rocks!");
 		
-		Team team2 = new Team();
-		team2.setTeamName("Team 2!");
-		team2.setTeamCompany(company2);
-		team2.setTeamDescription("Team 2 is better!");
+		Team team4 = new Team();
+		team4.setTeamName("Team 4!");
+		team4.setTeamCompany(company1);
+		team4.setTeamDescription("Team 2 is better!");
+
+		Team team5 = new Team();
+		team5.setTeamName("Team 5!");
+		team5.setTeamCompany(company2);
+		team5.setTeamDescription("Team 2 is better!");
 		
-		teamRepository.saveAndFlush(team1);
-		teamRepository.saveAndFlush(team2);
+		teamRepository.saveAndFlush(team3);
+		teamRepository.saveAndFlush(team4);
+		teamRepository.saveAndFlush(team5);
 
 		// --- User 1 ---
 		// Credentials
@@ -72,7 +78,7 @@ public class Seeder implements CommandLineRunner {
 		user1Pro.setPhone("123-456-7890");
 		user1.setProfile(user1Pro);
 		user1.setCompany(company1);
-		user1.setTeam(team1);
+		user1.setTeam(team3);
 		user1.setStatus("PENDING");
 
 
@@ -94,7 +100,7 @@ public class Seeder implements CommandLineRunner {
 		user2Pro.setPhone("234-567-8901");
 		user2.setProfile(user2Pro);
 		user2.setCompany(company2);
-		user2.setTeam(team1);
+		user2.setTeam(team5);
 		user2.setStatus("JOINED");
 		// Active
 		user2.setActive(false);
@@ -117,7 +123,7 @@ public class Seeder implements CommandLineRunner {
 		user3.setProfile(user3Pro);
 		user3.setAdmin(true);
 		user3.setCompany(company2);
-		user3.setTeam(team2);
+		user3.setTeam(team5);
 		user3.setStatus("JOINED");
 
 
@@ -139,7 +145,7 @@ public class Seeder implements CommandLineRunner {
 		user4Pro.setPhone("234-555-8901");
 		user4.setProfile(user4Pro);
 		user4.setCompany(company1);
-		user4.setTeam(team2);
+		user4.setTeam(team4);
 		user4.setStatus("PENDING");
 
 
@@ -160,7 +166,7 @@ public class Seeder implements CommandLineRunner {
 		user5Pro.setPhone("234-555-8901");
 		user5.setProfile(user5Pro);
 		user5.setCompany(company1);
-		user5.setTeam(team2);
+		user5.setTeam(team4);
 		user5.setStatus("PENDING");
 
 
@@ -182,7 +188,7 @@ public class Seeder implements CommandLineRunner {
 		user6Pro.setPhone("234-555-6978");
 		user6.setProfile(user6Pro);
 		user6.setCompany(company1);
-		user6.setTeam(team2);
+		user6.setTeam(team4);
 		user6.setStatus("JOINED");
 
 
@@ -204,7 +210,7 @@ public class Seeder implements CommandLineRunner {
 		user7Pro.setPhone("211-551-8901");
 		user7.setProfile(user7Pro);
 		user7.setCompany(company1);
-		user7.setTeam(team2);
+		user7.setTeam(team4);
 		user7.setStatus("PENDING");
 
 
@@ -226,7 +232,7 @@ public class Seeder implements CommandLineRunner {
 		user8Pro.setPhone("234-555-8999");
 		user8.setProfile(user8Pro);
 		user8.setCompany(company1);
-		user8.setTeam(team2);
+		user8.setTeam(team4);
 		user8.setStatus("PENDING");
 
 
@@ -247,7 +253,7 @@ public class Seeder implements CommandLineRunner {
 		team1Users.add(user2);
 
 		
-		Team team1FromRepo = teamRepository.findByTeamName(team1.getTeamName());
+		Team team1FromRepo = teamRepository.findByTeamName(team3.getTeamName());
 		team1FromRepo.setUsersOnTheTeam(team1Users);
 		teamRepository.saveAndFlush(team1FromRepo);
 		
@@ -263,18 +269,32 @@ public class Seeder implements CommandLineRunner {
 		team2Users.add(user8);
 	
 		
-		teamRepository.findByTeamName(team2.getTeamName()).setUsersOnTheTeam(team2Users);
+		teamRepository.findByTeamName(team4.getTeamName()).setUsersOnTheTeam(team2Users);
 		
-		teamRepository.saveAndFlush(team1);
-		teamRepository.saveAndFlush(team2);
+		teamRepository.saveAndFlush(team3);
+		teamRepository.saveAndFlush(team4);
 
 		//projects
 		Project project1 = new Project();
 		project1.setName("Project 1");
 		project1.setDescription("Seed project from the DB");
 		project1.setActive(true);
-		project1.setTeamOnProject(team1);
+		project1.setTeamOnProject(team3);
 		projectRepository.saveAndFlush(project1);
+
+		Project project2 = new Project();
+		project2.setName("Project 2");
+		project2.setDescription("Seed project from the DB");
+		project2.setActive(true);
+		project2.setTeamOnProject(team4);
+		projectRepository.saveAndFlush(project2);
+
+		Project project3 = new Project();
+		project3.setName("Project 3");
+		project3.setDescription("Seed project from the DB");
+		project3.setActive(true);
+		project3.setTeamOnProject(team4);
+		projectRepository.saveAndFlush(project3);
 
 		Announcement announcement1 = new Announcement();
 		announcement1.setAuthor(user1);
