@@ -1,5 +1,6 @@
 import { useState } from "react";
-import { Button } from "reactstrap";
+import styled from "styled-components";
+import BasicButton from "../ModalComponents/BasicButton";
 
 import {
   StyledModal,
@@ -8,24 +9,31 @@ import {
   StyledCloseButton,
 } from "./Modals.module";
 
-const ViewProject = ({}) => {
+const ModalTimestamp = styled.p`
+  font-size: 0.8rem;
+  text-align: right;
+  margin: 0;
+`;
+
+const ViewProject = ({ name, desc, editedDaysAgo }) => {
   const [modalOpen, setModalOpen] = useState(false);
 
   const toggle = () => setModalOpen(!modalOpen);
   return (
     <>
-      <Button outline onClick={() => setModalOpen(true)}>
-        View Project
-      </Button>
+      <BasicButton onClick={() => setModalOpen(true)} bg="#deb992" c="black">
+        View
+      </BasicButton>
       <StyledModal isOpen={modalOpen} toggle={toggle}>
         <StyledModalHeader>
-          Pass in the Project Name Here
+          {name}
           <StyledCloseButton color="danger" onClick={() => setModalOpen(false)}>
             X
           </StyledCloseButton>
         </StyledModalHeader>
         <StyledModalBody>
-            <div>This is the body</div>
+          <p>{desc}</p>
+          <ModalTimestamp>Last edited {editedDaysAgo} days ago</ModalTimestamp>
         </StyledModalBody>
       </StyledModal>
     </>

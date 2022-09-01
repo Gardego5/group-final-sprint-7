@@ -7,6 +7,7 @@ const SET_USERNAME = "SET_USERNAME";
 const SET_PASSWORD = "SET_PASSWORD";
 const SET_USER = "SET_USER";
 const SET_COMPANY = "SET_COMPANY";
+const SET_TEAM = "SET_TEAM";
 
 const initialState = {
   credentials: {
@@ -15,13 +16,15 @@ const initialState = {
   },
   user: "",
   company: "",
+  team: "",
 };
 
 const loadState = () => {
   try {
-    const serializedState = localStorage.getItem(REDUX_STATE);
-    if (serializedState == null) return initialState;
-    return JSON.parse(serializedState);
+    return {
+      ...initialState,
+      ...JSON.parse(localStorage.getItem(REDUX_STATE)),
+    };
   } catch (err) {
     return initialState;
   }
@@ -63,6 +66,11 @@ const rootReducer = (state = loadState(), action) => {
         ...state,
         company: action.company,
       };
+    case SET_TEAM:
+      return {
+        ...state,
+        team: action.team,
+      };
     default:
       return state;
   }
@@ -98,12 +106,19 @@ export const setCompany = (company) => ({
   company,
 });
 
+export const setTeam = (team) => ({
+  type: SET_TEAM,
+  team,
+});
+
 /* Selectors */
 export const getCredentials = ({ credentials }) => credentials;
 
 export const getUser = ({ user }) => user;
 
 export const getCompany = ({ company }) => company;
+
+export const getTeam = ({ team }) => team;
 
 export const getAdmin = ({ user }) => user?.admin;
 

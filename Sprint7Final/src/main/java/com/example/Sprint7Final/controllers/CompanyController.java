@@ -31,4 +31,9 @@ public class CompanyController {
 	public CompanyDto createCompany(@RequestBody CompanyRequestDto companyRequestDto) {
 		return companyService.createCompany(companyRequestDto);
 	}
+
+	@DeleteMapping("/delete/{companyId}")
+	public CompanyDto deleteCompany(@PathVariable Long companyId) {
+		return companyService.deleteCompany(companyId);
+	}
 }

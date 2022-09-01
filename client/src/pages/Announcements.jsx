@@ -66,8 +66,6 @@ const Announcements = () => {
     // eslint-disable-next-line
   }, []);
 
-  console.log(company);
-
   return (
     <>
       <NavBar />

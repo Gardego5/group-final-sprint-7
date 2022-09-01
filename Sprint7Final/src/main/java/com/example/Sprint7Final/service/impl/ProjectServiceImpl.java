@@ -5,6 +5,7 @@ import com.example.Sprint7Final.dtos.ProjectRequestDto;
 import com.example.Sprint7Final.dtos.ProjectResponseDto;
 import com.example.Sprint7Final.entities.Project;
 import com.example.Sprint7Final.entities.Team;
+import com.example.Sprint7Final.entities.User;
 import com.example.Sprint7Final.exceptions.BadRequestException;
 import com.example.Sprint7Final.exceptions.NotFoundException;
 import com.example.Sprint7Final.mappers.ProjectMapper;
@@ -37,7 +38,11 @@ public class ProjectServiceImpl implements ProjectService {
 
 	@Override
 	public ProjectResponseDto getProjectById(Long id) {
-		return projectMapper.entityToResponseDto(projectRepository.getReferenceById(id));
+		Optional<Project> projectToReturn = projectRepository.findByIdAndDeletedFalse(id);
+		if(projectToReturn.isEmpty() || projectToReturn.get().isDeleted()) {
+			throw new NotFoundException("Project does not exist or has been deleted");
+		}
+		return projectMapper.entityToResponseDto(projectToReturn.get());
 	}
 
 	@Override
@@ -108,5 +113,16 @@ public class ProjectServiceImpl implements ProjectService {
 			throw new BadRequestException("No projects found with company id: " + companyId);
 		}
 		return projectMapper.entitiesToResponseDtos(projectsToReturn);
+	}
+
+	@Override
+	public ProjectResponseDto deleteProject(Long projectId) {
+		Optional<Project> optionalProject = projectRepository.findByIdAndDeletedFalse(projectId);
+		if (optionalProject.isEmpty() || optionalProject.get().isDeleted()) throw new NotFoundException("Project does not exist with ID: " + projectId);
+
+		Project projectToDelete = optionalProject.get();
+		projectToDelete.setDeleted(true);
+
+		return projectMapper.entityToResponseDto((projectRepository.saveAndFlush(projectToDelete)));
 	}
 }

@@ -1,5 +1,6 @@
 package com.example.Sprint7Final.entities;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -29,6 +30,7 @@ public class Project {
 	@UpdateTimestamp
 	private Timestamp timePosted;
 	
+	@Column(columnDefinition = "TEXT")
 	private String description;
 
 	private boolean deleted;

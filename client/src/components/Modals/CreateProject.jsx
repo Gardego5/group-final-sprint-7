@@ -12,7 +12,7 @@ import BasicButton from "../ModalComponents/BasicButton";
 
 import styled from "styled-components";
 
-const StyledForm2 = styled.form`
+const StyledForm = styled.form`
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -51,9 +51,6 @@ const CreateProject = ({
     active: true,
   });
 
-  console.log("teamID", team);
-  console.log("project", project);
-
   const [teams, setTeams] = useState([]);
 
   const toggle = () => setModalOpen(!modalOpen);
@@ -72,10 +69,9 @@ const CreateProject = ({
   useEffect(() => {
     (async () => {
       let DBTeams = await getAllTeams();
-      console.log("DBTeams", DBTeams);
 
       setTeams(DBTeams);
-      if (!team) setProject({...project, teamId: DBTeams[0].id})
+      if (!team) setProject({ ...project, teamId: DBTeams[0].id });
     })();
   }, []);
 
@@ -100,7 +96,7 @@ const CreateProject = ({
             </StyledCloseButton>
           </StyledModalHeader>
           <StyledModalBody>
-            <StyledForm2 onSubmit={handleSubmit}>
+            <StyledForm onSubmit={handleSubmit}>
               <input
                 type="text"
                 name="name"
@@ -137,7 +133,7 @@ const CreateProject = ({
                 ))}
               </select>
               <BasicButton type="submit">Submit</BasicButton>
-            </StyledForm2>
+            </StyledForm>
           </StyledModalBody>
         </StyledModal>
       </>
