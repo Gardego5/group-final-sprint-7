@@ -60,6 +60,11 @@ public class UserServiceImpl implements UserService {
 		return optionalUser.isPresent() && !optionalUser.get().isDeleted();
 	}
 
+	public boolean validateUserNameExistsInDatabase(String username) {
+		Optional<User> optionalUser = userRepository.findByCredentialsUsername(username);
+		return optionalUser.isPresent() && !optionalUser.get().isDeleted();
+	}
+
 	public User getUserByCredentials(CredentialsDto credentialsDto) {
 		return getUserByUsernameReturnUserEntity(credentialsDto.getUsername());
 	}
@@ -139,15 +144,24 @@ public class UserServiceImpl implements UserService {
 		if (userRequestDto.getStatus() != null) {
 			userInDatabase.setStatus(userRequestDto.getStatus());
 		}
-		if (userRequestDto.getTeam().getId() != null) {
-			Optional<Team> optionalTeam = teamRepository.findByIdAndDeletedFalse(userRequestDto.getTeam().getId());
-			if (optionalTeam.isEmpty()) {
-				throw new NotFoundException("Team not found in database with team id: " + userRequestDto.getTeam().getId());
+		if (userRequestDto.getTeam() != null) {
+			if (userRequestDto.getTeam().getId() != null) {
+				Optional<Team> optionalTeam = teamRepository.findByIdAndDeletedFalse(userRequestDto.getTeam().getId());
+				if (optionalTeam.isEmpty()) {
+					throw new NotFoundException("Team not found in database with team id: " + userRequestDto.getTeam().getId());
+				}
+				userInDatabase.setTeam(optionalTeam.get());
 			}
-//			userInDatabase.setTeam();
 		}
+
+
 		if (userRequestDto.getCredentials().getUsername() != null) {
-			userInDatabase.getCredentials().setUsername(userRequestDto.getCredentials().getUsername());
+			if (!validateUserNameExistsInDatabase(userRequestDto.getCredentials().getUsername())) {
+				userInDatabase.getCredentials().setUsername(userRequestDto.getCredentials().getUsername());
+			} else {
+				throw new BadRequestException("That username is not available");
+			}
+
 		}
 		if (userRequestDto.getCredentials().getPassword() != null) {
 			userInDatabase.getCredentials().setPassword(userRequestDto.getCredentials().getPassword());
@@ -156,7 +170,7 @@ public class UserServiceImpl implements UserService {
 //	if (userRequestDto.get) {
 //NOT FINISHED
 //	}
-		return null;
+		return userMapper.entityToDto(userRepository.saveAndFlush(userInDatabase));
 	}
 
 	public UserResponseDto deleteUser(Long userId) {
