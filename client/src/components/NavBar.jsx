@@ -129,21 +129,20 @@ const NavBar = () => {
       </button>
 
       <ul id="links">
+        {isAdmin ? (
+          <li onClick={toggleShowing}>
+            <NavLink to="/company">Company</NavLink>
+          </li>
+        ) : (
+          ""
+        )}
         <li onClick={toggleShowing}>
-          <NavLink to="/announcements">Home</NavLink>
+          <NavLink to="/announcements">Announcements</NavLink>
         </li>
         {isAdmin ? (
-          <>
-            <li onClick={toggleShowing}>
-              <NavLink to="/company">Company</NavLink>
-            </li>
-            <li onClick={toggleShowing}>
-              <NavLink to="/teams">Teams</NavLink>
-            </li>
-            <li onClick={toggleShowing}>
-              <NavLink to="/users">Users</NavLink>
-            </li>
-          </>
+          <li onClick={toggleShowing}>
+            <NavLink to="/teams">Teams</NavLink>
+          </li>
         ) : (
           ""
         )}
@@ -157,6 +156,13 @@ const NavBar = () => {
             Projects
           </NavLink>
         </li>
+        {isAdmin ? (
+          <li onClick={toggleShowing}>
+            <NavLink to="/users">Users</NavLink>
+          </li>
+        ) : (
+          ""
+        )}
         <li onClick={toggleShowing}>
           <NavLink to="/" onClick={logout}>
             Logout
