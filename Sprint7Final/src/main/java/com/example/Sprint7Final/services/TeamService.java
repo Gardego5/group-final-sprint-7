@@ -4,8 +4,8 @@ import java.util.List;
 
 import com.example.Sprint7Final.dtos.TeamRequestDto;
 import com.example.Sprint7Final.dtos.TeamResponseDto;
-import com.example.Sprint7Final.entities.Credentials;
-import org.springframework.stereotype.Repository;
+import com.example.Sprint7Final.dtos.TeamAndMemberInfoAndProjectAmountDto;
+import com.example.Sprint7Final.dtos.TeamsListDto;
 
 public interface TeamService {
 
@@ -20,4 +20,6 @@ public interface TeamService {
 	TeamResponseDto getTeamById(Long teamId);
 
     TeamResponseDto editTeam(TeamRequestDto teamRequestDto, Long teamId);
+
+    TeamsListDto getUniqueThingForDavidP(Long companyId);
 }
