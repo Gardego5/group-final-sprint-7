@@ -155,33 +155,15 @@ public class TeamServiceImpl implements TeamService {
 	}
 	@Override
 	public TeamsListDto getUniqueThingForDavidP(Long companyId) {
-
-		List<User> allUsersInDatabase = userRepository.findAllByDeletedFalse();
 		List<User> usersInCompany = new ArrayList<>();
-		Set<Long> teamIdsThatBelongToTheCompany = new HashSet<>();
-		//Now find all users that belong to the company and save them in a list
-		for (User user : allUsersInDatabase) {
+		for (User user : userRepository.findAllByDeletedFalse()) {
 			if (user.getCompany().getId().equals(companyId)) {
 				usersInCompany.add(user);
-				teamIdsThatBelongToTheCompany.add(user.getTeam().getId());
 			}
 		}
-//		for (Long id : teamIdsThatBelongToTheCompany) {
-//			System.out.println("Team ids");
-//			System.out.println(id);
-//		}
-		List<Team> allTeamsInDatabase = teamRepository.findAllByDeletedFalse();
-//		for (Team teams : allTeamsInDatabase) {
-//			System.out.println(teams.getTeamName());
-//		}
-
-		List<Team> neededTeams = getTeamsByCompanyIdReturnEntities(companyId);
-		//Now find all teams that belong to the company that
 		TeamsListDto teamsListDto = new TeamsListDto();
 		List<TeamAndMemberInfoAndProjectAmountDto> teamsToSet = new ArrayList<>();
-		for (Team team : neededTeams) {
-			TeamAndMemberInfoAndProjectAmountDto teamAndMemberInfoAndProjectAmountDto = new TeamAndMemberInfoAndProjectAmountDto();
-
+		for (Team team : getTeamsByCompanyIdReturnEntities(companyId)) {
 			List<MemberOfTeamDto> memberInfo = new ArrayList<>();
 			for (User user : usersInCompany) {
 				if (user.getTeam().getId().equals(team.getId())) {
@@ -193,15 +175,16 @@ public class TeamServiceImpl implements TeamService {
 					memberInfo.add(memberOfTeamDto);
 				}
 			}
+			TeamAndMemberInfoAndProjectAmountDto teamAndMemberInfoAndProjectAmountDto = new TeamAndMemberInfoAndProjectAmountDto();
 			teamAndMemberInfoAndProjectAmountDto.setId(team.getId());
-			teamsToSet.add(teamAndMemberInfoAndProjectAmountDto);
 			teamAndMemberInfoAndProjectAmountDto.setNumberOfProjects((long) team.getTeamProjects().size());
 			teamAndMemberInfoAndProjectAmountDto.setMembers(memberInfo);
+			teamsToSet.add(teamAndMemberInfoAndProjectAmountDto);
+			// Requested by David P
+			teamAndMemberInfoAndProjectAmountDto.setTeamName(team.getTeamName());
 
 		}
 		teamsListDto.setTeams(teamsToSet);
 		return teamsListDto;
 	}
-
-
 }

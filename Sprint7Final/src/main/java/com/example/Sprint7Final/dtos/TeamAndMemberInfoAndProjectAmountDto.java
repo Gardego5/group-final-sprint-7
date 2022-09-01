@@ -14,5 +14,8 @@ public class TeamAndMemberInfoAndProjectAmountDto {
     private List<MemberOfTeamDto> members;
 
     private Long numberOfProjects;
+    
+    // Requested by David P
+    private String teamName;
 
 }
