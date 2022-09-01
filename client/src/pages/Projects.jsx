@@ -3,6 +3,7 @@ import styled from "styled-components";
 
 import NavBar from "../components/NavBar";
 import Project from "../components/Project";
+import CreateProject from "../components/Modals/CreateProject";
 
 const StyledProjects = styled.div`
   display: flex;
@@ -21,7 +22,7 @@ const defaultProjects = [
     desc: "Lorem ipsum this project is about stuff",
   },
   {
-    name: "Project 1",
+    name: "Project 2",
     editedDaysAgo: 1,
     desc: "Lorem ipsum this project is about stuff",
   },
@@ -37,7 +38,8 @@ const Projects = () => {
       <NavBar />
       <StyledProjects>
         <h1>Projects</h1>
-        <Project onEdit={addNewProject} />
+        <CreateProject buttonColor="#1BA098" buttonText="Create Project"/>
+        <Project/>
         {projects.map(({ name, editedDaysAgo, desc }, idx) => (
           <Project
             name={name}

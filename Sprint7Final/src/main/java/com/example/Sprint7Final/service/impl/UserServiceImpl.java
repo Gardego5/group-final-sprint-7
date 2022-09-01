@@ -105,4 +105,51 @@ public class UserServiceImpl implements UserService {
 		return userMapper.entityToDto(userRepository.saveAndFlush(userToBeCreated));
 	}
 
+	@Override
+	public UserResponseDto editUser(UserRequestDto userRequestDto, Long userId) {
+
+		Optional<User> optionalUser = userRepository.findByIdAndDeletedFalse(userId);
+
+		if (optionalUser.isEmpty()) {
+			throw new NotFoundException("User could not be found in database with id: " + userId);
+		}
+		User userInDatabase = optionalUser.get();
+		if (userRequestDto.getCredentials().getUsername() != null) {
+			userInDatabase.getCredentials().setUsername(userRequestDto.getCredentials().getUsername());
+		}
+		if (userRequestDto.getCredentials().getPassword() != null) {
+			userInDatabase.getCredentials().setPassword(userRequestDto.getCredentials().getPassword());
+		}
+		if (userRequestDto.getFirstName() != null) {
+			userInDatabase.getProfile().setFirstName(userRequestDto.getFirstName());
+		}
+		if (userRequestDto.getLastName() != null) {
+			userInDatabase.getProfile().setLastName(userRequestDto.getLastName());
+		}
+		if (userRequestDto.getEmail() != null) {
+			userInDatabase.getProfile().setEmail(userRequestDto.getEmail());
+		}
+		if (userRequestDto.getPhone() != null) {
+			userInDatabase.getProfile().setPhone(userRequestDto.getPhone());
+		}
+		if (userRequestDto.getActive() != null) {
+			userInDatabase.setActive(userRequestDto.getActive());
+		}
+//	if (userRequestDto.get) {
+//NOT FINISHED
+//	}
+		return null;
+	}
+
+	public UserResponseDto deleteUser(Long userId) {
+		Optional<User> optionalUser = userRepository.findByIdAndDeletedFalse(userId);
+		if (optionalUser.isEmpty() || optionalUser.get().isDeleted()) throw new NotFoundException("User does not exist with ID: " + userId);
+
+		User userToDelete = optionalUser.get();
+		userToDelete.setDeleted(true);
+
+		return userMapper.entityToDto((userRepository.saveAndFlush(userToDelete)));
+
+	}
+
 }

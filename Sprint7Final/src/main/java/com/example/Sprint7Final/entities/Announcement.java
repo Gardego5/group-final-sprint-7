@@ -35,4 +35,6 @@ public class Announcement {
 	
 	@ManyToOne
 	private User Author;
+
+	private boolean deleted;
 }

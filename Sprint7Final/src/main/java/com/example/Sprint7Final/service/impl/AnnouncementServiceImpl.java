@@ -54,8 +54,10 @@ public class AnnouncementServiceImpl implements AnnouncementService{
 		//NEEDS LOGIC CHECK FOR IDS THAT DON'T EXIST
 		//NEEDS LOGIC CHECK FOR IDS THAT DON'T EXIST
 		//NEEDS LOGIC CHECK FOR IDS THAT DON'T EXIST
+
+
 		Announcement announcementToCreate = announcementMapper.dtoToEntity(announcementRequestDto);
-		Optional<User> userFromDatabase = userRepository.findById(announcementRequestDto.getUserId());
+		Optional<User> userFromDatabase = userRepository.findByCredentialsUsername(announcementRequestDto.getUsername());
 		Optional<Company> companyFromDatabase = companyRepository.findById(announcementRequestDto.getCompanyId());
 		announcementToCreate.setAuthor(userFromDatabase.get());
 		announcementToCreate.setCompanyMakingAnnouncement(companyFromDatabase.get());
