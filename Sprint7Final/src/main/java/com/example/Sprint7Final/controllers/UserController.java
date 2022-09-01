@@ -40,7 +40,8 @@ public class UserController {
 	@PutMapping("/{userId}")
 	public UserResponseDto editUser(@RequestBody UserRequestDto userRequestDto, @PathVariable Long userId) {
 		return userService.editUser(userRequestDto, userId);
-
+	}
+	
 	@DeleteMapping("/delete/{userId}")
 	public UserResponseDto deleteUser(@PathVariable Long userId) {
 		return userService.deleteUser(userId);
