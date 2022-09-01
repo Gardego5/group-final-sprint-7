@@ -105,4 +105,6 @@ export const getUser = ({ user }) => user;
 
 export const getCompany = ({ company }) => company;
 
+export const getAdmin = ({ user }) => user?.admin;
+
 export default rootReducer;

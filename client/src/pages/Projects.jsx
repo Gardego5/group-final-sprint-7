@@ -21,8 +21,6 @@ const Projects = () => {
 
   const handleGetProjects = async () => {
     const DBprojects = await getAllProjects();
-    console.log("Reloading projects: ")
-    console.log(DBprojects)
     if (DBprojects.length > 0) {
       let tempArry = []
       for (let i of DBprojects) {
@@ -39,7 +37,7 @@ const Projects = () => {
       }
       updateProjects(tempArry)
     }
-  };
+  }
   useEffect(() => {
     handleGetProjects();
   }, []);
@@ -49,8 +47,7 @@ const Projects = () => {
       <NavBar />
       <StyledProjects>
         <h1>Projects</h1>
-        <CreateProject updatePage={handleGetProjects} buttonColor="#1BA098" buttonText="Create Project"/>
-        <Project/>
+        <Project updatePage={handleGetProjects} />
         {projects.map(({ name, editedDaysAgo, desc, id, teamID }, idx) => (
           <Project
             ID={id}
