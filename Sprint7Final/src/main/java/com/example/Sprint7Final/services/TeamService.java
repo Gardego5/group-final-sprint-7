@@ -16,4 +16,6 @@ public interface TeamService {
     List<TeamResponseDto> getTeamsByCompanyId(Long companyId);
 
     TeamResponseDto deleteTeam(Long teamId);
+
+	TeamResponseDto getTeamById(Long teamId);
 }

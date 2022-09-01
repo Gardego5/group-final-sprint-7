@@ -35,4 +35,9 @@ public class AnnouncementController {
 		return announcementService.createAnnouncement(announcementRequestDto);
 	}
 
+	@DeleteMapping("/delete/{announcementId}")
+	public AnnouncementResponseDto deleteAnnouncement(@PathVariable Long announcementId) {
+		return announcementService.deleteAnnouncement(announcementId);
+	}
+
 }

@@ -149,6 +149,7 @@ public class UserServiceImpl implements UserService {
 			}
 		}
 
+
 		if (userRequestDto.getCredentials().getUsername() != null) {
 			userInDatabase.getCredentials().setUsername(userRequestDto.getCredentials().getUsername());
 		}

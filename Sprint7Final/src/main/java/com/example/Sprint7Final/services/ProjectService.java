@@ -20,4 +20,5 @@ public interface ProjectService {
 
 	List<ProjectResponseDto> getProjectsByCompanyId(Long companyId);
 
+	ProjectResponseDto deleteProject(Long projectId);
 }
