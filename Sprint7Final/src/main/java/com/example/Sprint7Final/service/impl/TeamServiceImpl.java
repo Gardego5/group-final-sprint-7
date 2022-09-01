@@ -1,7 +1,6 @@
 package com.example.Sprint7Final.service.impl;
 
-import com.example.Sprint7Final.dtos.TeamRequestDto;
-import com.example.Sprint7Final.dtos.TeamResponseDto;
+import com.example.Sprint7Final.dtos.*;
 import com.example.Sprint7Final.entities.Company;
 import com.example.Sprint7Final.entities.Team;
 import com.example.Sprint7Final.entities.User;
@@ -16,9 +15,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 
 @Service
@@ -84,6 +81,20 @@ public class TeamServiceImpl implements TeamService {
 		return teamMapper.entitiesToResponseDtos(teamsToReturn);
 	}
 
+	public List<Team> getTeamsByCompanyIdReturnEntities(Long companyId) {
+
+		List<Team> teamsToReturn = new ArrayList<>();
+		for (Team team : teamRepository.findAllByDeletedFalse()) {
+			if (team.getTeamCompany().getId().equals(companyId)) {
+				teamsToReturn.add(team);
+			}
+		}
+		if (teamsToReturn.size() < 1) {
+			throw new BadRequestException("Could not find teams with company id: " + companyId);
+		}
+		return teamsToReturn;
+	}
+
 	@Override
 	public TeamResponseDto deleteTeam(Long teamId) {
 		Optional<Team> optionalTeam = teamRepository.findByIdAndDeletedFalse(teamId);
@@ -141,6 +152,55 @@ public class TeamServiceImpl implements TeamService {
 		}
 
 		return teamMapper.entityToResponseDto(teamRepository.save(teamInDatabase));
+	}
+	@Override
+	public TeamsListDto getUniqueThingForDavidP(Long companyId) {
+
+		List<User> allUsersInDatabase = userRepository.findAllByDeletedFalse();
+		List<User> usersInCompany = new ArrayList<>();
+		Set<Long> teamIdsThatBelongToTheCompany = new HashSet<>();
+		//Now find all users that belong to the company and save them in a list
+		for (User user : allUsersInDatabase) {
+			if (user.getCompany().getId().equals(companyId)) {
+				usersInCompany.add(user);
+				teamIdsThatBelongToTheCompany.add(user.getTeam().getId());
+			}
+		}
+//		for (Long id : teamIdsThatBelongToTheCompany) {
+//			System.out.println("Team ids");
+//			System.out.println(id);
+//		}
+		List<Team> allTeamsInDatabase = teamRepository.findAllByDeletedFalse();
+//		for (Team teams : allTeamsInDatabase) {
+//			System.out.println(teams.getTeamName());
+//		}
+
+		List<Team> neededTeams = getTeamsByCompanyIdReturnEntities(companyId);
+		//Now find all teams that belong to the company that
+		TeamsListDto teamsListDto = new TeamsListDto();
+		List<TeamAndMemberInfoAndProjectAmountDto> teamsToSet = new ArrayList<>();
+		for (Team team : neededTeams) {
+			TeamAndMemberInfoAndProjectAmountDto teamAndMemberInfoAndProjectAmountDto = new TeamAndMemberInfoAndProjectAmountDto();
+
+			List<MemberOfTeamDto> memberInfo = new ArrayList<>();
+			for (User user : usersInCompany) {
+				if (user.getTeam().getId().equals(team.getId())) {
+					MemberOfTeamDto memberOfTeamDto = new MemberOfTeamDto();
+					memberOfTeamDto.setUsername(user.getCredentials().getUsername());
+					memberOfTeamDto.setFirstName(user.getProfile().getFirstName());
+					memberOfTeamDto.setLastName(user.getProfile().getLastName());
+					memberOfTeamDto.setId(user.getId());
+					memberInfo.add(memberOfTeamDto);
+				}
+			}
+			teamAndMemberInfoAndProjectAmountDto.setId(team.getId());
+			teamsToSet.add(teamAndMemberInfoAndProjectAmountDto);
+			teamAndMemberInfoAndProjectAmountDto.setNumberOfProjects((long) team.getTeamProjects().size());
+			teamAndMemberInfoAndProjectAmountDto.setMembers(memberInfo);
+
+		}
+		teamsListDto.setTeams(teamsToSet);
+		return teamsListDto;
 	}
 
 
