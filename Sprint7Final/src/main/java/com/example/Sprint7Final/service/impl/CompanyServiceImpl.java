@@ -37,6 +37,7 @@ public class CompanyServiceImpl implements CompanyService{
 			throw new NotFoundException("Company with id of " + companyId + " was not found.");
 		}
 		return companyMapper.entityToDto(company.get());
+	}
 
 	public CompanyDto createCompany(CompanyRequestDto companyRequestDto) {
 		Company companyToAdd = companyMapper.dtoToEntity(companyRequestDto);

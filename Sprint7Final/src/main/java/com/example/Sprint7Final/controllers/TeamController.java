@@ -29,7 +29,7 @@ public class TeamController {
 		return teamService.createTeams(teamRequestDto);
 	}
 
-	@GetMapping("/{companyId}")
+	@GetMapping("/company/{companyId}")
 	public List<TeamResponseDto> getTeamsByCompanyId(@PathVariable Long companyId) {
 		return teamService.getTeamsByCompanyId(companyId);
 	}
@@ -37,6 +37,11 @@ public class TeamController {
 	@DeleteMapping("/delete/{teamId}")
 	public TeamResponseDto deleteTeam(@PathVariable Long teamId) {
 		return teamService.deleteTeam(teamId);
+	}
+	
+	@GetMapping("/{teamId}")
+	public TeamResponseDto getTeamById(@PathVariable Long teamId) {
+		return teamService.getTeamById(teamId);
 	}
 
 }

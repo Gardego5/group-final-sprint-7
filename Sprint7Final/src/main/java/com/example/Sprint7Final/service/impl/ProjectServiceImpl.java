@@ -38,7 +38,11 @@ public class ProjectServiceImpl implements ProjectService {
 
 	@Override
 	public ProjectResponseDto getProjectById(Long id) {
-		return projectMapper.entityToResponseDto(projectRepository.getReferenceById(id));
+		Optional<Project> projectToReturn = projectRepository.findByIdAndDeletedFalse(id);
+		if(projectToReturn.isEmpty() || projectToReturn.get().isDeleted()) {
+			throw new NotFoundException("Project does not exist or has been deleted");
+		}
+		return projectMapper.entityToResponseDto(projectToReturn.get());
 	}
 
 	@Override
