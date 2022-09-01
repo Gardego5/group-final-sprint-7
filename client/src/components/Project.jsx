@@ -14,7 +14,7 @@ const StyledProject = styled.div`
     gap: 2rem;
     align-items: center;
   }
-  padding-bottom: 2rem;
+  padding-block: 2rem;
 `;
 
 const Project = ({ updatePage, name, editedDaysAgo, desc, onEdit, ID, teamID }) => {
@@ -22,7 +22,7 @@ const Project = ({ updatePage, name, editedDaysAgo, desc, onEdit, ID, teamID }) 
     editedDaysAgo !== undefined &&
     desc !== undefined ? (
     <StyledProject>
-      <CreateProject teamID={teamID} updatePage={updatePage} projNameProp={name} projectDescription={desc} projectID={ID} buttonText="Edit"/>
+      <CreateProject team={teamID} updatePage={updatePage} name={name} desc={desc} projectID={ID} buttonText="Edit"/>
       <div className="project-row">
         <div className="project-title">
           <h2>{name}</h2>
@@ -32,7 +32,9 @@ const Project = ({ updatePage, name, editedDaysAgo, desc, onEdit, ID, teamID }) 
       </div>
     </StyledProject>
   ) : (
-    <StyledProject/>
+    <StyledProject>
+      <CreateProject updatePage={updatePage} buttonColor="#1BA098" buttonText="New"/>
+    </StyledProject>
   );
 };
 
