@@ -34,4 +34,9 @@ public class TeamController {
 		return teamService.getTeamsByCompanyId(companyId);
 	}
 
+	@DeleteMapping("/delete/{teamId}")
+	public TeamResponseDto deleteTeam(@PathVariable Long teamId) {
+		return teamService.deleteTeam(teamId);
+	}
+
 }
