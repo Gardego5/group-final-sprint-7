@@ -89,9 +89,7 @@ const Teams = () => {
       name: list[0].team.teamName,
       projectCount:
         reduceProjects[index]?.length > 0 ? reduceProjects[index]?.length : 0,
-      members: list.map((user) => ({
-        name: `${user.profile.firstName} ${user.profile.lastName[0]}.`,
-      })),
+      members: list,
       team: list[0].team,
     }));
 

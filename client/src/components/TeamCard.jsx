@@ -5,6 +5,7 @@ import styled from "styled-components";
 import { setTeam } from "../reducers/rootReducer";
 
 import BasicButton from "./ModalComponents/BasicButton";
+import ViewUser from "./Modals/ViewUser";
 
 const StyledTeamCard = styled.div`
   width: 100%;
@@ -69,7 +70,7 @@ const TeamCard = ({ name, projectCount, members, team }) => {
           <p># of Projects: {projectCount}</p>
           <BasicButton
             onClick={() => {
-              setRedirect(<Redirect to="/Projects" />)
+              setRedirect(<Redirect to="/Projects" />);
               dispatch(setTeam(team));
             }}
           >
@@ -79,10 +80,8 @@ const TeamCard = ({ name, projectCount, members, team }) => {
       </div>
       <h3>Members</h3>
       <div className="team-members">
-        {members.map(({ name }, idx) => (
-          <BasicButton key={idx} w="auto">
-            {name}
-          </BasicButton>
+        {members.map((user, idx) => (
+          <ViewUser user={user} abbreviate={true} key={idx} />
         ))}
       </div>
     </StyledTeamCard>
