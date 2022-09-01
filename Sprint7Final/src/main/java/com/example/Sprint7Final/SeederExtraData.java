@@ -107,12 +107,12 @@ public class SeederExtraData {
 
 		// ---Secretary 2 User ---
 		// Credentials
-		Credentials Secretary2Pro = new Credentials();
-		Secretary2Pro.setUsername("misamisa");
-		Secretary2Pro.setPassword("imakeoutfits765");
+		Credentials Secretary2Cred = new Credentials();
+		Secretary2Cred.setUsername("misamisa");
+		Secretary2Cred.setPassword("imakeoutfits765");
 
 		User Secretary2 = new User();
-		Secretary2.setCredentials(Secretary2Pro);
+		Secretary2.setCredentials(Secretary2Cred);
 
 		// Profile
 		Profile Secretary2Profile = new Profile();
