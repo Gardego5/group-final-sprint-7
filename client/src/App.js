@@ -1,7 +1,6 @@
 import { Fragment } from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 
-import "./App.css"
 import Teams from "./pages/Teams";
 import Login from "./pages/Login";
 import Projects from "./pages/Projects";
