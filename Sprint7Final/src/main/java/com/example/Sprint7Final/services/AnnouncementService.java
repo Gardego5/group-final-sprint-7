@@ -12,4 +12,6 @@ public interface AnnouncementService {
 	List<AnnouncementResponseDto> getAllCompanyAnnouncements(Long companyId);
 
     AnnouncementResponseDto createAnnouncement(AnnouncementRequestDto announcementRequestDto);
+
+    AnnouncementResponseDto deleteAnnouncement(Long announcementId);
 }

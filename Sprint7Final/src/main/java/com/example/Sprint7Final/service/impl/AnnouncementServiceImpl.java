@@ -7,7 +7,9 @@ import java.util.Optional;
 import com.example.Sprint7Final.dtos.AnnouncementRequestDto;
 import com.example.Sprint7Final.entities.Announcement;
 import com.example.Sprint7Final.entities.Company;
+import com.example.Sprint7Final.entities.Project;
 import com.example.Sprint7Final.entities.User;
+import com.example.Sprint7Final.exceptions.NotFoundException;
 import com.example.Sprint7Final.repositories.CompanyRepository;
 import com.example.Sprint7Final.repositories.UserRepository;
 import lombok.extern.slf4j.Slf4j;
@@ -62,6 +64,17 @@ public class AnnouncementServiceImpl implements AnnouncementService{
 		announcementToCreate.setAuthor(userFromDatabase.get());
 		announcementToCreate.setCompanyMakingAnnouncement(companyFromDatabase.get());
 		return announcementMapper.entityToDto(announcementRepository.saveAndFlush(announcementToCreate));
+	}
+
+	@Override
+	public AnnouncementResponseDto deleteAnnouncement(Long announcementId) {
+		Optional<Announcement> optionalAnnouncement = announcementRepository.findByIdAndDeletedFalse(announcementId);
+		if (optionalAnnouncement.isEmpty() || optionalAnnouncement.get().isDeleted()) throw new NotFoundException("Announcement does not exist with ID: " + announcementId);
+
+		Announcement announcementToDelete = optionalAnnouncement.get();
+		announcementToDelete.setDeleted(true);
+
+		return announcementMapper.entityToDto((announcementRepository.saveAndFlush(announcementToDelete)));
 	}
 
 }
