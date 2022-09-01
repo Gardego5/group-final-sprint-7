@@ -60,7 +60,7 @@ export const StyledCloseButton = styled(Button)`
 export const NewButton = styled(Button)`
   z-index: 1;
   margin: auto;
-  width: 19rem;
+  width: 100%;
   height: 21rem;
   border: none;
   &:hover {
@@ -78,7 +78,7 @@ export const NewButton = styled(Button)`
 
 export const StyledAddTeam = styled.div`
   position: relative;
-  width: 18rem;
+  width: 100%;
   height: 20rem;
   border: 3px solid rgb(209, 175, 139);
   border-radius: 25px;
