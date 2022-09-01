@@ -11,7 +11,7 @@ import {
   getCompany,
   getCredentials,
   getUser,
-  setCompany,
+  setTeam,
 } from "../reducers/rootReducer";
 
 const StyledNav = styled.nav`
@@ -144,7 +144,14 @@ const NavBar = () => {
           ""
         )}
         <li onClick={toggleShowing}>
-          <NavLink to="/projects">Projects</NavLink>
+          <NavLink
+            to="/projects"
+            onClick={() => {
+              if (!isAdmin) dispatch(setTeam(isAdmin ? "" : user.team));
+            }}
+          >
+            Projects
+          </NavLink>
         </li>
         <li onClick={toggleShowing}>
           <NavLink to="/" onClick={logout}>
