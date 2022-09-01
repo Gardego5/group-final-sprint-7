@@ -60,6 +60,11 @@ public class UserServiceImpl implements UserService {
 		return optionalUser.isPresent() && !optionalUser.get().isDeleted();
 	}
 
+	public boolean validateUserNameExistsInDatabase(String username) {
+		Optional<User> optionalUser = userRepository.findByCredentialsUsername(username);
+		return optionalUser.isPresent() && !optionalUser.get().isDeleted();
+	}
+
 	public User getUserByCredentials(CredentialsDto credentialsDto) {
 		return getUserByUsernameReturnUserEntity(credentialsDto.getUsername());
 	}
@@ -151,7 +156,12 @@ public class UserServiceImpl implements UserService {
 
 
 		if (userRequestDto.getCredentials().getUsername() != null) {
-			userInDatabase.getCredentials().setUsername(userRequestDto.getCredentials().getUsername());
+			if (!validateUserNameExistsInDatabase(userRequestDto.getCredentials().getUsername())) {
+				userInDatabase.getCredentials().setUsername(userRequestDto.getCredentials().getUsername());
+			} else {
+				throw new BadRequestException("That username is not available");
+			}
+
 		}
 		if (userRequestDto.getCredentials().getPassword() != null) {
 			userInDatabase.getCredentials().setPassword(userRequestDto.getCredentials().getPassword());
@@ -160,7 +170,7 @@ public class UserServiceImpl implements UserService {
 //	if (userRequestDto.get) {
 //NOT FINISHED
 //	}
-		return null;
+		return userMapper.entityToDto(userRepository.saveAndFlush(userInDatabase));
 	}
 
 	public UserResponseDto deleteUser(Long userId) {
