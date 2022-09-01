@@ -55,6 +55,10 @@ const UserCell = styled.td`
   text-align: center;
   color: #deb992;
   padding: 10px;
+  max-width: 100px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 `;
 
 const UserRegistry = () => {
