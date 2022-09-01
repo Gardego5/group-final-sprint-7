@@ -30,7 +30,6 @@ public class CompanyServiceImpl implements CompanyService{
 	}
 
 	@Override
-
 	public CompanyDto getCompanyById(Long companyId) {
 		Optional<Company> company = companyRepository.findByIdAndDeletedFalse(companyId);
 		if (company.isEmpty()) {
@@ -39,7 +38,7 @@ public class CompanyServiceImpl implements CompanyService{
 		return companyMapper.entityToDto(company.get());
 
 	}
-
+	@Override
 	public CompanyDto createCompany(CompanyRequestDto companyRequestDto) {
 		Company companyToAdd = companyMapper.dtoToEntity(companyRequestDto);
 		if (companyToAdd.getCompanyName() == null || companyToAdd.getCompanyDescription() == null) {
