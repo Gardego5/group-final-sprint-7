@@ -1,7 +1,7 @@
-import { useState } from "react";
+import { useState, useRef } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Button, FormGroup, Label } from "reactstrap";
-import { Formik } from "formik";
+import { Formik, ErrorMessage } from "formik";
 import {
   StyledModal,
   StyledModalHeader,
@@ -11,10 +11,15 @@ import {
   StyledForm,
   StyledCloseButton,
 } from "./Modals.module";
+import styled from "styled-components";
 
 import { addUser } from "../../utils/requests";
 import { getCompany } from "../../reducers/rootReducer";
 import UserRegistry from "../../pages/UserRegistry";
+
+// const ErrorMessage = styled.p`
+//   color: red;
+// `;
 
 const AddUser = ({ increaseUsers }) => {
   const [modalOpen, setModalOpen] = useState(false);
@@ -51,6 +56,34 @@ const AddUser = ({ increaseUsers }) => {
     increaseUsers();
   };
 
+  const validateUserForm = (values) => {
+    const errors = {};
+    if (values.firstName.length < 1) {
+      errors.firstName = "Missing first name";
+    }
+    if (values.lastName.length < 1) {
+      errors.lastName = "Missing last name";
+    }
+    if (values.username.length < 1) {
+      errors.username = "Missing username";
+    }
+    if (values.email.length < 1) {
+      errors.email = "Missing email";
+    }
+    if (values.phone.length < 1) {
+      errors.phone = "Missing phone number";
+    }
+    if ((values.password.length || values.confirmPw.length) < 4) {
+      errors.password = "Password must be at least 2 characters";
+    } else if ((values.password.length || values.confirmPw.length) > 15) {
+      errors.password = "Password must be 15 characters or less";
+    }
+    if (values.password != values.confirmPw) {
+      errors.confirmPw = "Password and Confirm Password are not matching";
+    }
+    return errors;
+  };
+
   return (
     <>
       <Button outline onClick={() => setModalOpen(true)}>
@@ -68,6 +101,7 @@ const AddUser = ({ increaseUsers }) => {
         </StyledModalHeader>
         <StyledModalBody>
           <Formik
+            enableReinitialize={true}
             initialValues={{
               firstName: "",
               lastName: "",
@@ -78,6 +112,7 @@ const AddUser = ({ increaseUsers }) => {
               confirmPw: "",
             }}
             onSubmit={handleSubmit}
+            validate={validateUserForm}
           >
             <StyledForm>
               <FormGroup>
@@ -87,6 +122,10 @@ const AddUser = ({ increaseUsers }) => {
                   placeholder="First Name"
                   className="form-control"
                 />
+                <ErrorMessage name="firstName" component="p">
+                  {(msg) => <p className="text-danger">{msg}</p>}{" "}
+                  {/* for each error msg create a paragraph witht the msg in red color */}
+                </ErrorMessage>
               </FormGroup>
               <FormGroup>
                 <Label htmlFor="lastName"></Label>
@@ -95,6 +134,10 @@ const AddUser = ({ increaseUsers }) => {
                   placeholder="Last Name"
                   className="form-control"
                 />
+                <ErrorMessage name="lastName">
+                  {(msg) => <p className="text-danger">{msg}</p>}{" "}
+                  {/* for each error msg create a paragraph witht the msg in red color */}
+                </ErrorMessage>
               </FormGroup>
               <FormGroup>
                 <Label htmlFor="email"></Label>
@@ -103,12 +146,20 @@ const AddUser = ({ increaseUsers }) => {
                   placeholder="Email"
                   className="form-control"
                 />
+                <ErrorMessage name="email">
+                  {(msg) => <p className="text-danger">{msg}</p>}{" "}
+                  {/* for each error msg create a paragraph witht the msg in red color */}
+                </ErrorMessage>
                 <Label htmlFor="phone"></Label>
                 <StyledField
                   name="phone"
                   placeholder="Phone Number"
                   className="form-control"
                 />
+                <ErrorMessage name="phone">
+                  {(msg) => <p className="text-danger">{msg}</p>}{" "}
+                  {/* for each error msg create a paragraph witht the msg in red color */}
+                </ErrorMessage>
               </FormGroup>
               <FormGroup>
                 <Label htmlFor="username"></Label>
@@ -117,6 +168,10 @@ const AddUser = ({ increaseUsers }) => {
                   placeholder="Username"
                   className="form-control"
                 />
+                <ErrorMessage name="username">
+                  {(msg) => <p className="text-danger">{msg}</p>}{" "}
+                  {/* for each error msg create a paragraph witht the msg in red color */}
+                </ErrorMessage>
               </FormGroup>
               <FormGroup>
                 <Label htmlFor="password"></Label>
@@ -125,6 +180,10 @@ const AddUser = ({ increaseUsers }) => {
                   placeholder="Password"
                   className="form-control"
                 />
+                <ErrorMessage name="password">
+                  {(msg) => <p className="text-danger">{msg}</p>}{" "}
+                  {/* for each error msg create a paragraph witht the msg in red color */}
+                </ErrorMessage>
               </FormGroup>
               <FormGroup>
                 <Label htmlFor="confirmPw"></Label>
@@ -150,8 +209,8 @@ const AddUser = ({ increaseUsers }) => {
                 onChange={handleAdmin}
               >
                 <option value={null}>Pick an option</option>
-                <option value={true}>true</option>
-                <option value={false}>false</option>
+                <option value={true}>Yes</option>
+                <option value={false}>No</option>
               </select>
               <StyledButton
                 type="submit"
