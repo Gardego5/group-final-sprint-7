@@ -3,6 +3,7 @@ package com.example.Sprint7Final.entities;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -28,6 +29,7 @@ public class Announcement {
 	
 	private String title;
 	
+	@Column(columnDefinition = "TEXT")
 	private String message;
 	
 	@ManyToOne

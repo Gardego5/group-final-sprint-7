@@ -34,29 +34,17 @@ public class UserServiceImpl implements UserService {
 	private final CredentialsMapper credentialsMapper;
 	private final TeamRepository teamRepository;
 
-	public User validateUserCredentialsMatchDatabase(CredentialsDto credentialsDto) {
-		User userInDB = getUserByCredentials(credentialsDto);
-		Credentials credentialsInDB = userInDB.getCredentials();
-		Credentials sentCredentials = credentialsMapper.dtoToEntity(credentialsDto);
-
-		if (!userInDB.isActive())
-			throw new NotValidCredentialsException("User Not Active");
-
-		if (!credentialsInDB.equals(sentCredentials))
-			throw new NotValidCredentialsException("Invalid Password");
-
-		userInDB.setStatus("JOINED");
-		userRepository.saveAndFlush(userInDB);
-
-		return getUserByCredentials(credentialsDto);
-	}
-
 	public boolean validateCredentialsForm(CredentialsDto credentialsDto) {
 		return credentialsDto.getPassword() != null && credentialsDto.getUsername() != null;
 	}
 
 	public boolean validateUserNameExistsInDatabase(User user) {
 		Optional<User> optionalUser = userRepository.findByCredentialsUsername(user.getCredentials().getUsername());
+		return optionalUser.isPresent() && !optionalUser.get().isDeleted();
+	}
+
+	public boolean validateUserNameExistsInDatabase(String username) {
+		Optional<User> optionalUser = userRepository.findByCredentialsUsername(username);
 		return optionalUser.isPresent() && !optionalUser.get().isDeleted();
 	}
 
@@ -74,10 +62,27 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public UserResponseDto getUser(CredentialsDto credentialsDto) {
-		if (validateCredentialsForm(credentialsDto)) {
-			return userMapper.entityToDto(validateUserCredentialsMatchDatabase(credentialsDto));
+		User userInDB;
+
+		try {
+			userInDB = getUserByCredentials(credentialsDto);
+		} catch (NotFoundException notFoundException) {
+			throw new NotValidCredentialsException("Invalid Username");
 		}
-		throw new NotValidCredentialsException("Invalid Username");
+
+		Credentials credentialsInDB = userInDB.getCredentials();
+		Credentials sentCredentials = credentialsMapper.dtoToEntity(credentialsDto);
+
+		if (!userInDB.isActive())
+			throw new NotValidCredentialsException("User Not Active");
+
+		if (!credentialsInDB.equals(sentCredentials))
+			throw new NotValidCredentialsException("Invalid Password");
+
+		userInDB.setStatus("JOINED");
+		userRepository.saveAndFlush(userInDB);
+
+		return userMapper.entityToDto(getUserByCredentials(credentialsDto));
 	}
 
 	@Override
@@ -151,7 +156,12 @@ public class UserServiceImpl implements UserService {
 
 
 		if (userRequestDto.getCredentials().getUsername() != null) {
-			userInDatabase.getCredentials().setUsername(userRequestDto.getCredentials().getUsername());
+			if (!validateUserNameExistsInDatabase(userRequestDto.getCredentials().getUsername())) {
+				userInDatabase.getCredentials().setUsername(userRequestDto.getCredentials().getUsername());
+			} else {
+				throw new BadRequestException("That username is not available");
+			}
+
 		}
 		if (userRequestDto.getCredentials().getPassword() != null) {
 			userInDatabase.getCredentials().setPassword(userRequestDto.getCredentials().getPassword());
@@ -160,7 +170,7 @@ public class UserServiceImpl implements UserService {
 //	if (userRequestDto.get) {
 //NOT FINISHED
 //	}
-		return null;
+		return userMapper.entityToDto(userRepository.saveAndFlush(userInDatabase));
 	}
 
 	public UserResponseDto deleteUser(Long userId) {

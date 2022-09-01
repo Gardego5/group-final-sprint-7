@@ -1,4 +1,4 @@
-import React, { Fragment } from "react";
+import React from "react";
 import { Provider } from "react-redux";
 import { createStore } from "redux";
 import ReactDOM from "react-dom/client";
@@ -20,10 +20,8 @@ store.subscribe(() => {
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
-  <Fragment>
+  <Provider store={store}>
     <GlobalStyle />
-    <Provider store={store}>
-      <App />
-    </Provider>
-  </Fragment>
+    <App />
+  </Provider>
 );
