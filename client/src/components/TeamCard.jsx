@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 const StyledTeamCard = styled.div`
-  width: 23rem;
+  width: 100%;
   height: 21rem;
   background: #0b2d45;
   color: white;
@@ -19,11 +19,12 @@ const StyledTeamCard = styled.div`
   }
   & div.team-title {
     display: flex;
+    flex-direction: column;
     height: 4rem;
     justify-content: space-between;
     align-items: center;
     border-bottom: 2px solid #deb992;
-    padding-bottom: 0.5rem;
+    padding-bottom: 75px;
   }
   & div.team-title h2,
   & div.team-title p {
@@ -55,7 +56,7 @@ const TeamCard = ({name, projectCount, members}) => {
   return (
     <StyledTeamCard>
       <div className="team-title">
-        <h2>{name}</h2>
+        <h3>{name}</h3>
         <p># of Projects: {projectCount}</p> 
       </div>
       <h3>Members</h3>
