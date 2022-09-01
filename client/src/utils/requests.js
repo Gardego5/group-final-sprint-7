@@ -114,3 +114,14 @@ export const updateProject = async (newProject, replacedId) => {
     .then(handleData)
     .catch(handleError);
 };
+
+export const createTeam = async (teamData) => {
+  return fetch(`${ROOT_URL}/team`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(teamData),
+  })
+    .then((response) => console.log(response))
+    .then(handleData)
+    .catch(handleError);
+}
