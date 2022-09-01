@@ -12,4 +12,5 @@ public class CompanyDto {
 	private String companyName;
 	
 	private String companyDescription;
+
 }

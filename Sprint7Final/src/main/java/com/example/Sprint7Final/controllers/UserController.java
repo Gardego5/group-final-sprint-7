@@ -36,4 +36,9 @@ public class UserController {
 		return userService.createUser(userRequestDto);
 	}
 
+	@PutMapping("/{userId}")
+	public UserResponseDto editUser(@RequestBody UserRequestDto userRequestDto, @PathVariable Long userId) {
+		return userService.editUser(userRequestDto, userId);
+	}
+
 }
