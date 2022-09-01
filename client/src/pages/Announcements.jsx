@@ -66,6 +66,8 @@ const Announcements = () => {
     // eslint-disable-next-line
   }, []);
 
+  console.log(company);
+
   return (
     <>
       <NavBar />
@@ -74,7 +76,7 @@ const Announcements = () => {
         {user?.admin ? (
           <div className="add-announcement">
             <CreateAnnouncement
-              userId={currentUser.id}
+              username={currentUser.username}
               companyId={company.id}
             />
           </div>

@@ -31,15 +31,16 @@ const CreateAnnouncement = (props) => {
   const toggle = () => setModalOpen(!modalOpen);
 
   // function to create a new announcement
-  const handleSubmit = (values) => {
+  const handleSubmit = () => {
     const newAnnouncement = {
-      author_id: props.userId,
-      company_making_announcement_id: props.companyId,
+      time_posted: new Date(Date.now()).toDateString(), //create a new [Date] object and set it to the time the form was submitted
       title: title,
       message: message,
-      time_posted: new Date(Date.now()).toDateString(), //create a new [Date] object and set it to the time the form was submitted
+      company_making_announcement_id: props.companyId,
+      username: props.username,
     };
     setAnnouncement(newAnnouncement);
+    console.log(announcement);
 
     // call to post a new announcement to database
     createNewAnnouncement(newAnnouncement)
@@ -49,6 +50,8 @@ const CreateAnnouncement = (props) => {
       })
       .catch((err) => console.log(err));
   };
+
+  console.log(announcement);
 
   return (
     <>
@@ -78,7 +81,7 @@ const CreateAnnouncement = (props) => {
                   className="form-control"
                   placeholder="Title"
                   value={title}
-                  onChange={e => setTitle(e.target.value)}
+                  onChange={(e) => setTitle(e.target.value)}
                 />
               </FormGroup>
               <FormGroup>
@@ -89,7 +92,7 @@ const CreateAnnouncement = (props) => {
                   rows="5"
                   className="form-control"
                   value={message}
-                  onChange={e => setMessage(e.target.value)}
+                  onChange={(e) => setMessage(e.target.value)}
                 />
               </FormGroup>
               <StyledButton type="submit" color="primary">
