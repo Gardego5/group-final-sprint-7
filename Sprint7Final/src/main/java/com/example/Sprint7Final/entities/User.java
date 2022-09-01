@@ -37,7 +37,6 @@ public class User {
 	@ManyToOne
 	private Company company;
 
-
 	@OneToMany(mappedBy = "Author", cascade = CascadeType.ALL)
 
 	private List<Announcement> userAnnouncements;
