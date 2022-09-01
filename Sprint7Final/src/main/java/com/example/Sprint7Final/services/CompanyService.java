@@ -13,4 +13,6 @@ public interface CompanyService {
 	CompanyDto getCompanyById(Long companyId);
 
     CompanyDto createCompany(CompanyRequestDto companyRequestDto);
+
+	CompanyDto deleteCompany(Long companyId);
 }
