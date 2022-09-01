@@ -11,6 +11,22 @@ const GlobalStyle = createGlobalStyle`
     background: #051622;
     color: white;
   }
-`
+
+  /* width */
+  ::-webkit-scrollbar {
+    position: absolute;
+    width: 15px;
+  }
+  /* Track */
+  ::-webkit-scrollbar-track {
+    box-shadow: inset 0 0 5px rgb(248, 244, 244);
+    border-radius: 10px;
+  }
+  /* Handle */
+  ::-webkit-scrollbar-thumb {
+    background: rgb(22, 22, 22);
+    border-radius: 10px;
+  }
+`;
 
 export default GlobalStyle;

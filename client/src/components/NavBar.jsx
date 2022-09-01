@@ -118,7 +118,7 @@ const NavBar = () => {
   ) : (
     <StyledNav showLinks={showing}>
       <div className="overlay" onClick={toggleShowing}></div>
-      <NavLink to="/">
+      <NavLink to="/announcements">
         <img src={LogoImg} alt="logo" id="logo" />
       </NavLink>
 
