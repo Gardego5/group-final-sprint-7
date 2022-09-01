@@ -3,18 +3,17 @@ package com.example.Sprint7Final.service.impl;
 
 import com.example.Sprint7Final.dtos.CredentialsDto;
 import com.example.Sprint7Final.dtos.UserRequestDto;
-import com.example.Sprint7Final.entities.Credentials;
-import com.example.Sprint7Final.entities.Profile;
-import com.example.Sprint7Final.entities.Team;
+import com.example.Sprint7Final.entities.*;
 import com.example.Sprint7Final.exceptions.BadRequestException;
 import com.example.Sprint7Final.exceptions.NotFoundException;
 import com.example.Sprint7Final.exceptions.NotValidCredentialsException;
+import com.example.Sprint7Final.mappers.CompanyMapper;
 import com.example.Sprint7Final.mappers.CredentialsMapper;
+import com.example.Sprint7Final.repositories.CompanyRepository;
 import com.example.Sprint7Final.repositories.TeamRepository;
 import org.springframework.stereotype.Service;
 
 import com.example.Sprint7Final.dtos.UserResponseDto;
-import com.example.Sprint7Final.entities.User;
 import com.example.Sprint7Final.mappers.UserMapper;
 import com.example.Sprint7Final.repositories.UserRepository;
 import com.example.Sprint7Final.services.UserService;
@@ -33,6 +32,8 @@ public class UserServiceImpl implements UserService {
 	private final UserMapper userMapper;
 	private final CredentialsMapper credentialsMapper;
 	private final TeamRepository teamRepository;
+	private final CompanyRepository companyRepository;
+	private final CompanyMapper companyMapper;
 
 	public User validateUserCredentialsMatchDatabase(CredentialsDto credentialsDto) {
 		User userInDB = getUserByCredentials(credentialsDto);
@@ -109,6 +110,15 @@ public class UserServiceImpl implements UserService {
 		profile.setLastName(userRequestDto.getLastName());
 		profile.setPhone(userRequestDto.getPhone());
 		profile.setEmail(userRequestDto.getEmail());
+
+		if (userRequestDto.getCompany() != null) {
+			Optional<Company> optionalCompany = companyRepository.findByIdAndDeletedFalse(userRequestDto.getCompany().getId());
+			if (optionalCompany.isPresent()) {
+				userToBeCreated.setCompany(optionalCompany.get());
+			} else {
+				throw new BadRequestException("Company with id: " + userRequestDto.getCompany().getId() + " does not exist");
+			}
+		}
 		userToBeCreated.setProfile(profile);
 		return userMapper.entityToDto(userRepository.saveAndFlush(userToBeCreated));
 	}
@@ -150,12 +160,13 @@ public class UserServiceImpl implements UserService {
 				if (optionalTeam.isEmpty()) {
 					throw new NotFoundException("Team not found in database with team id: " + userRequestDto.getTeam().getId());
 				}
+				Team teamFromDatabase = optionalTeam.get();
+				 companyRepository.findByIdAndDeletedFalse(teamFromDatabase.getTeamCompany().getId());
+
 				userInDatabase.setTeam(optionalTeam.get());
 			}
 		}
-
-
-		if (userRequestDto.getCredentials().getUsername() != null) {
+		if (userRequestDto.getCredentials().getUsername() != null && !userRequestDto.getCredentials().getUsername().equals(userInDatabase.getCredentials().getUsername())) {
 			if (!validateUserNameExistsInDatabase(userRequestDto.getCredentials().getUsername())) {
 				userInDatabase.getCredentials().setUsername(userRequestDto.getCredentials().getUsername());
 			} else {
@@ -166,11 +177,9 @@ public class UserServiceImpl implements UserService {
 		if (userRequestDto.getCredentials().getPassword() != null) {
 			userInDatabase.getCredentials().setPassword(userRequestDto.getCredentials().getPassword());
 		}
-
-//	if (userRequestDto.get) {
-//NOT FINISHED
-//	}
-		return userMapper.entityToDto(userRepository.saveAndFlush(userInDatabase));
+		System.out.println("User in database company name" + userInDatabase.getCompany().getCompanyName());
+		userRepository.saveAndFlush(userInDatabase);
+		return userMapper.entityToDto(userInDatabase);
 	}
 
 	public UserResponseDto deleteUser(Long userId) {
