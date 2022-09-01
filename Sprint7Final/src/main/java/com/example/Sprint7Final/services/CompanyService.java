@@ -16,4 +16,5 @@ public interface CompanyService {
 
 	CompanyDto deleteCompany(Long companyId);
 
+	CompanyDto editCompany(CompanyDto companyDto, Long companyId);
 }

@@ -2,6 +2,7 @@ package com.example.Sprint7Final.service.impl;
 
 import com.example.Sprint7Final.dtos.TeamRequestDto;
 import com.example.Sprint7Final.dtos.TeamResponseDto;
+import com.example.Sprint7Final.entities.Company;
 import com.example.Sprint7Final.entities.Team;
 import com.example.Sprint7Final.entities.User;
 import com.example.Sprint7Final.exceptions.BadRequestException;
@@ -102,6 +103,45 @@ public class TeamServiceImpl implements TeamService {
 		}
 		return teamMapper.entityToResponseDto(optionalTeam.get());
 	}
-	
-	
+
+	@Override
+	public TeamResponseDto editTeam(TeamRequestDto teamRequestDto, Long teamId) {
+		Optional<Team> optionalTeam = teamRepository.findByIdAndDeletedFalse(teamId);
+		if(optionalTeam.isEmpty() || optionalTeam.get().isDeleted()) {
+			throw new NotFoundException("Team does not exist or has been deleted");
+		}
+		Team teamInDatabase = optionalTeam.get();
+
+		if (teamRequestDto.getTeamName() != null) {
+			teamInDatabase.setTeamName(teamRequestDto.getTeamName());
+		}
+		if (teamRequestDto.getTeamDescription() != null) {
+			teamInDatabase.setTeamDescription(teamRequestDto.getTeamDescription());
+		}
+		if (teamRequestDto.getCompanyID() != null) {
+			Optional<Company> optionalCompany = companyRepository.findByIdAndDeletedFalse(teamRequestDto.getCompanyID());
+			if (optionalCompany.isEmpty()) {
+				throw new NotFoundException("Company with company id: " + teamRequestDto.getCompanyID() + " does not exist.");
+			}
+			teamInDatabase.setTeamCompany(optionalCompany.get());
+		}
+		if (teamRequestDto.getUsernames() != null) {
+			List<User> usersToAdd = new ArrayList<>();
+			for (String username : teamRequestDto.getUsernames()) {
+				Optional<User> user = userRepository.findByCredentialsUsername(username);
+				if (user.isEmpty() || user.get().isDeleted()) throw new NotFoundException(username + "not found.");
+				usersToAdd.add(user.get());
+			}
+			teamInDatabase.setUsersOnTheTeam(usersToAdd);
+			teamRepository.save(teamInDatabase);
+			for (User user : usersToAdd) {
+				user.setTeam(teamInDatabase);
+			}
+			userRepository.saveAllAndFlush(usersToAdd);
+		}
+
+		return teamMapper.entityToResponseDto(teamRepository.save(teamInDatabase));
+	}
+
+
 }
