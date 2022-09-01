@@ -72,8 +72,8 @@ const TeamCard = ({ name, projectCount, members }) => {
       </div>
       <h3>Members</h3>
       <div className="team-members">
-        {members.map(({ name }, idx) => (
-          <button key={idx}>{name}</button>
+        {members?.map(({ firstName, lastName }, idx) => (
+          <button key={idx}>{`${firstName} ${lastName}`}</button>
         ))}
       </div>
     </StyledTeamCard>
