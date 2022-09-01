@@ -5,6 +5,7 @@ import java.util.Optional;
 
 import com.example.Sprint7Final.dtos.CompanyRequestDto;
 import com.example.Sprint7Final.entities.Company;
+import com.example.Sprint7Final.entities.User;
 import com.example.Sprint7Final.exceptions.BadRequestException;
 import org.springframework.stereotype.Service;
 
@@ -46,5 +47,16 @@ public class CompanyServiceImpl implements CompanyService{
 		}
 		return companyMapper.entityToDto(companyRepository.saveAndFlush(companyToAdd));
 
+	}
+
+	@Override
+	public CompanyDto deleteCompany(Long companyId) {
+		Optional<Company> optionalCompany = companyRepository.findByIdAndDeletedFalse(companyId);
+		if (optionalCompany.isEmpty() || optionalCompany.get().isDeleted()) throw new NotFoundException("Company does not exist with ID: " + companyId);
+
+		Company companyToDelete = optionalCompany.get();
+		companyToDelete.setDeleted(true);
+
+		return companyMapper.entityToDto((companyRepository.saveAndFlush(companyToDelete)));
 	}
 }
