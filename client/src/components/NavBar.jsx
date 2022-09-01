@@ -61,9 +61,9 @@ const StyledNav = styled.nav`
   & ul#links li {
     margin: 0;
     border-bottom: 0.125rem solid #1ba098;
-  }
-  & ul#links li:last-child {
-    border: 0;
+    :last-child {
+      border: 0;
+    }
   }
   & ul#links li a {
     height: 4rem;
@@ -76,13 +76,14 @@ const StyledNav = styled.nav`
     text-decoration: none;
   }
   & div.overlay {
+    display: ${({ showLinks }) => (showLinks ? "inherit" : "none")};
     position: absolute;
     top: 0;
     right: 0;
     width: 100vw;
     height: 99vh;
     z-index: 4;
-    background-color: #0000;
+    background: #0008;
   }
 `;
 
@@ -116,7 +117,7 @@ const NavBar = () => {
     redirect
   ) : (
     <StyledNav showLinks={showing}>
-      {showing ? <div className="overlay" onClick={toggleShowing}></div> : ""}
+      <div className="overlay" onClick={toggleShowing}></div>
       <NavLink to="/">
         <img src={LogoImg} alt="logo" id="logo" />
       </NavLink>
@@ -133,6 +134,9 @@ const NavBar = () => {
         </li>
         {isAdmin ? (
           <>
+            <li onClick={toggleShowing}>
+              <NavLink to="/company">Company</NavLink>
+            </li>
             <li onClick={toggleShowing}>
               <NavLink to="/teams">Teams</NavLink>
             </li>
