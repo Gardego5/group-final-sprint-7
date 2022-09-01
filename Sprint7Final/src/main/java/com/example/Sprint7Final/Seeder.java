@@ -45,17 +45,17 @@ public class Seeder implements CommandLineRunner {
 		Team team3 = new Team();
 		team3.setTeamName("Team 3!");
 		team3.setTeamCompany(company1);
-		team3.setTeamDescription("Team 1 rocks!");
+		team3.setTeamDescription("Team 3 rocks!");
 
 		Team team4 = new Team();
 		team4.setTeamName("Team 4!");
 		team4.setTeamCompany(company1);
-		team4.setTeamDescription("Team 2 is better!");
+		team4.setTeamDescription("Team 4 is better!");
 
 		Team team5 = new Team();
 		team5.setTeamName("Team 5!");
 		team5.setTeamCompany(company2);
-		team5.setTeamDescription("Team 2 is better!");
+		team5.setTeamDescription("Team 5 is the best!");
 
 		teamRepository.saveAndFlush(team3);
 		teamRepository.saveAndFlush(team4);
@@ -261,22 +261,22 @@ public class Seeder implements CommandLineRunner {
 
 		// projects
 		Project project1 = new Project();
-		project1.setName("Project 1");
-		project1.setDescription("Seed project from the DB");
+		project1.setName("Dropship Project");
+		project1.setDescription("Plans to improve on the current dropship design. Expect completion date this winter.");
 		project1.setActive(true);
 		project1.setTeamOnProject(team3);
 		projectRepository.saveAndFlush(project1);
 
 		Project project2 = new Project();
-		project2.setName("Project 2");
-		project2.setDescription("Seed project from the DB");
+		project2.setName("Cake Recipes");
+		project2.setDescription("In order for the cake to not be a lie, we need those recipes for this project.");
 		project2.setActive(true);
 		project2.setTeamOnProject(team4);
 		projectRepository.saveAndFlush(project2);
 
 		Project project3 = new Project();
-		project3.setName("Project 3");
-		project3.setDescription("Seed project from the DB");
+		project3.setName("Diamond Sword Project");
+		project3.setDescription("To improve survival while farming, funds and research needed for the new diamond sword.");
 		project3.setActive(true);
 		project3.setTeamOnProject(team4);
 		projectRepository.saveAndFlush(project3);
@@ -284,22 +284,22 @@ public class Seeder implements CommandLineRunner {
 		Announcement announcement1 = new Announcement();
 		announcement1.setAuthor(user1);
 		announcement1.setCompanyMakingAnnouncement(company1);
-		announcement1.setTitle("THis is the title");
-		announcement1.setMessage("anD THIS IS THE MESSAGE, SORRY I HAVE A TIME LIMIT");
+		announcement1.setTitle("Chili Cookoff this Weekend");
+		announcement1.setMessage("Hey Team. Just letting you know again that this weekend is our chili cookoff. Bring your best pots of chili for everyone and our judges to sample! Bring your family and expect an afternoon of fun!");
 		announcement1.setTimePosted(Timestamp.valueOf(LocalDateTime.now()));
 
 		Announcement announcement2 = new Announcement();
 		announcement2.setAuthor(user1);
 		announcement2.setCompanyMakingAnnouncement(company1);
-		announcement2.setTitle("THis is another title");
-		announcement2.setMessage("anD THIS IS THE MESSAGE, Sasd fsadfORRY I HAVE A TIME LIMIT");
+		announcement2.setTitle("Plasma Grenade Training");
+		announcement2.setMessage("Tomorrow morning will be mandatory plasma grenade training outside the cafeteria for the first work hour. We'll supply the body armor and grenades. We're out of coffee so feel free to bring your own or a pot to share.");
 		announcement2.setTimePosted(Timestamp.valueOf(LocalDateTime.now()));
 
 		Announcement announcement3 = new Announcement();
 		announcement3.setAuthor(user1);
 		announcement3.setCompanyMakingAnnouncement(company1);
-		announcement3.setTitle("THis is another another title");
-		announcement3.setMessage("anD THIS IS THE MESSAGE, SORRY I HAVE A TIME LIMITa sdf asfdas df");
+		announcement3.setTitle("Missing: Red Stapler");
+		announcement3.setMessage("I believe you have my stapler.");
 		announcement3.setTimePosted(Timestamp.valueOf(LocalDateTime.now()));
 
 		announcementRepository.saveAndFlush(announcement1);
