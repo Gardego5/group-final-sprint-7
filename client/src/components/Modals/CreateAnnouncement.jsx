@@ -33,25 +33,22 @@ const CreateAnnouncement = (props) => {
   // function to create a new announcement
   const handleSubmit = () => {
     const newAnnouncement = {
-      time_posted: new Date(Date.now()).toDateString(), //create a new [Date] object and set it to the time the form was submitted
+      date: new Date(Date.now()).toISOString(), //create a new [Date] object and set it to the time the form was submitted
       title: title,
       message: message,
-      company_making_announcement_id: props.companyId,
+      companyId: props.companyId,
       username: props.username,
     };
     setAnnouncement(newAnnouncement);
-    console.log(announcement);
 
     // call to post a new announcement to database
     createNewAnnouncement(newAnnouncement)
       // after it succesfully saves return to home page
       .then((res) => {
-        window.location = "/announcements";
+        console.log(newAnnouncement);
       })
       .catch((err) => console.log(err));
   };
-
-  console.log(announcement);
 
   return (
     <>
