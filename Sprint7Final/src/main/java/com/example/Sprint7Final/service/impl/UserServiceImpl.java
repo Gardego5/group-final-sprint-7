@@ -139,13 +139,16 @@ public class UserServiceImpl implements UserService {
 		if (userRequestDto.getStatus() != null) {
 			userInDatabase.setStatus(userRequestDto.getStatus());
 		}
-		if (userRequestDto.getTeam().getId() != null) {
-			Optional<Team> optionalTeam = teamRepository.findByIdAndDeletedFalse(userRequestDto.getTeam().getId());
-			if (optionalTeam.isEmpty()) {
-				throw new NotFoundException("Team not found in database with team id: " + userRequestDto.getTeam().getId());
+		if (userRequestDto.getTeam() != null) {
+			if (userRequestDto.getTeam().getId() != null) {
+				Optional<Team> optionalTeam = teamRepository.findByIdAndDeletedFalse(userRequestDto.getTeam().getId());
+				if (optionalTeam.isEmpty()) {
+					throw new NotFoundException("Team not found in database with team id: " + userRequestDto.getTeam().getId());
+				}
+				userInDatabase.setTeam(optionalTeam.get());
 			}
-//			userInDatabase.setTeam();
 		}
+
 		if (userRequestDto.getCredentials().getUsername() != null) {
 			userInDatabase.getCredentials().setUsername(userRequestDto.getCredentials().getUsername());
 		}
