@@ -54,7 +54,8 @@ const Teams = () => {
     getProjects();
   }, []);
 
-  console.log("Hello " + JSON.stringify(projects));
+  // console.log("Hello " + JSON.stringify(projects));
+  // console.log("Members " + JSON.stringify(members));
 
   useEffect(() => {
     //map thru all the users.
@@ -79,7 +80,7 @@ const Teams = () => {
       }
       return fullList;
     }, []);
-    console.log(reduceProjects);
+    // console.log(reduceProjects);
 
     let reducedTeams = filteredUsers.reduce((fullList, currentUser) => {
       let index = fullList.length - 1;
@@ -93,7 +94,7 @@ const Teams = () => {
       }
       return fullList;
     }, []);
-
+    console.log("ReducedTeams: " + JSON.stringify(reducedTeams));
     // console.log(reduceProjects[0][0].length);
 
     const solutionTeams = reducedTeams.map((list, index) => ({

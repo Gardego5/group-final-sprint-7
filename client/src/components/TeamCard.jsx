@@ -1,8 +1,8 @@
 import styled from "styled-components";
 
 const StyledTeamCard = styled.div`
-  width: 18rem;
-  height: 20rem;
+  width: 23rem;
+  height: 21rem;
   background: #0b2d45;
   color: white;
   padding: 0.5rem 0;
@@ -19,6 +19,7 @@ const StyledTeamCard = styled.div`
   }
   & div.team-title {
     display: flex;
+    height: 4rem;
     justify-content: space-between;
     align-items: center;
     border-bottom: 2px solid #deb992;
