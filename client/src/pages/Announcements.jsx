@@ -74,7 +74,7 @@ const Announcements = () => {
         {user?.admin ? (
           <div className="add-announcement">
             <CreateAnnouncement
-              userId={currentUser.id}
+              username={currentUser.username}
               companyId={company.id}
             />
           </div>

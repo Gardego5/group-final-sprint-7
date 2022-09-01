@@ -14,8 +14,9 @@ import {
 
 import { addUser } from "../../utils/requests";
 import { getCompany } from "../../reducers/rootReducer";
+import UserRegistry from "../../pages/UserRegistry";
 
-const AddUser = ({}) => {
+const AddUser = ({ increaseUsers }) => {
   const [modalOpen, setModalOpen] = useState(false);
   const [adminVal, setAdminVal] = useState(null);
 
@@ -46,6 +47,8 @@ const AddUser = ({}) => {
     };
     console.log(values);
     addUser(user);
+    setModalOpen(false);
+    increaseUsers();
   };
 
   return (
