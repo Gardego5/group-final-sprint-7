@@ -5,10 +5,12 @@ import com.example.Sprint7Final.dtos.CredentialsDto;
 import com.example.Sprint7Final.dtos.UserRequestDto;
 import com.example.Sprint7Final.entities.Credentials;
 import com.example.Sprint7Final.entities.Profile;
+import com.example.Sprint7Final.entities.Team;
 import com.example.Sprint7Final.exceptions.BadRequestException;
 import com.example.Sprint7Final.exceptions.NotFoundException;
 import com.example.Sprint7Final.exceptions.NotValidCredentialsException;
 import com.example.Sprint7Final.mappers.CredentialsMapper;
+import com.example.Sprint7Final.repositories.TeamRepository;
 import org.springframework.stereotype.Service;
 
 import com.example.Sprint7Final.dtos.UserResponseDto;
@@ -30,6 +32,7 @@ public class UserServiceImpl implements UserService {
 	private final UserRepository userRepository;
 	private final UserMapper userMapper;
 	private final CredentialsMapper credentialsMapper;
+	private final TeamRepository teamRepository;
 
 	public User validateUserCredentialsMatchDatabase(CredentialsDto credentialsDto) {
 		User userInDB = getUserByCredentials(credentialsDto);
@@ -114,12 +117,7 @@ public class UserServiceImpl implements UserService {
 			throw new NotFoundException("User could not be found in database with id: " + userId);
 		}
 		User userInDatabase = optionalUser.get();
-		if (userRequestDto.getCredentials().getUsername() != null) {
-			userInDatabase.getCredentials().setUsername(userRequestDto.getCredentials().getUsername());
-		}
-		if (userRequestDto.getCredentials().getPassword() != null) {
-			userInDatabase.getCredentials().setPassword(userRequestDto.getCredentials().getPassword());
-		}
+
 		if (userRequestDto.getFirstName() != null) {
 			userInDatabase.getProfile().setFirstName(userRequestDto.getFirstName());
 		}
@@ -135,6 +133,26 @@ public class UserServiceImpl implements UserService {
 		if (userRequestDto.getActive() != null) {
 			userInDatabase.setActive(userRequestDto.getActive());
 		}
+		if (userRequestDto.getAdmin() != null) {
+			userInDatabase.setAdmin(userRequestDto.getAdmin());
+		}
+		if (userRequestDto.getStatus() != null) {
+			userInDatabase.setStatus(userRequestDto.getStatus());
+		}
+		if (userRequestDto.getTeam().getId() != null) {
+			Optional<Team> optionalTeam = teamRepository.findByIdAndDeletedFalse(userRequestDto.getTeam().getId());
+			if (optionalTeam.isEmpty()) {
+				throw new NotFoundException("Team not found in database with team id: " + userRequestDto.getTeam().getId());
+			}
+//			userInDatabase.setTeam();
+		}
+		if (userRequestDto.getCredentials().getUsername() != null) {
+			userInDatabase.getCredentials().setUsername(userRequestDto.getCredentials().getUsername());
+		}
+		if (userRequestDto.getCredentials().getPassword() != null) {
+			userInDatabase.getCredentials().setPassword(userRequestDto.getCredentials().getPassword());
+		}
+
 //	if (userRequestDto.get) {
 //NOT FINISHED
 //	}

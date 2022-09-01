@@ -37,7 +37,7 @@ export const getCompanyAnnouncements = async (companyId) => {
 };
 
 export const createNewAnnouncement = async (announcement) => {
-  return fetch(`${ROOT_URL}/announcements`, {
+  return fetch(`${ROOT_URL}/announcements/create`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(announcement),
