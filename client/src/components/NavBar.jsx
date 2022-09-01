@@ -23,22 +23,22 @@ const StyledNav = styled.nav`
   padding: 0.5rem;
   gap: 1rem;
   border: 0.0625rem solid #deb992;
-  & > * {
+  > * {
     z-index: 5;
   }
-  & img#logo {
+  #logo {
     width: 3rem;
     border-radius: 50%;
     aspect-ratio: 1 / 1;
     object-fit: contain;
     background: #214963;
   }
-  & p#warning {
+  #warning {
     text-transform: uppercase;
     color: #f24e1e;
     margin: 0;
   }
-  & button#menu-button {
+  #menu-button {
     background: #0d3a59;
     border-radius: 0.5rem;
     border: none;
@@ -48,7 +48,7 @@ const StyledNav = styled.nav`
     padding: 0.5rem;
     cursor: pointer;
   }
-  & ul#links {
+  ul#links {
     position: absolute;
     top: 0;
     left: 0rem;
@@ -57,25 +57,25 @@ const StyledNav = styled.nav`
     width: 100%;
     padding: 0;
     margin: 0;
-  }
-  & ul#links li {
-    margin: 0;
-    border-bottom: 0.125rem solid #1ba098;
-    :last-child {
-      border: 0;
+    li {
+      margin: 0;
+      border-bottom: 0.125rem solid #1ba098;
+      :last-child {
+        border: 0;
+      }
+      a {
+        height: 4rem;
+        display: grid;
+        place-content: center;
+        margin: 0;
+        background: #214963;
+        color: #1ba098;
+        font-size: 2rem;
+        text-decoration: none;
+      }
     }
   }
-  & ul#links li a {
-    height: 4rem;
-    display: grid;
-    place-content: center;
-    margin: 0;
-    background: #214963;
-    color: #1ba098;
-    font-size: 2rem;
-    text-decoration: none;
-  }
-  & div.overlay {
+  div.overlay {
     display: ${({ showLinks }) => (showLinks ? "inherit" : "none")};
     position: absolute;
     top: 0;
@@ -113,6 +113,20 @@ const NavBar = () => {
   if (!redirect && !isAdmin && new Set(["/teams", "/users"]).has(pathname))
     setRedirect(<Redirect to="/announcements" />);
 
+  const links = [
+    { display: "Select Company", admin: true, link: "/company" },
+    { display: "Announcements" },
+    { display: "Teams", admin: true },
+    { display: "Projects", admin: false },
+    {
+      display: "Projects",
+      admin: true,
+      click: () => dispatch(setTeam(isAdmin ? "" : user.team)),
+    },
+    { display: "Users", admin: true },
+    { display: "Logout", link: "/", click: logout },
+  ];
+
   return redirect ? (
     redirect
   ) : (
@@ -129,45 +143,17 @@ const NavBar = () => {
       </button>
 
       <ul id="links">
-        {isAdmin ? (
-          <li onClick={toggleShowing}>
-            <NavLink to="/company">Company</NavLink>
-          </li>
-        ) : (
-          ""
+        {links.map(({ display, admin, link, click }, idx) =>
+          admin === undefined || admin === isAdmin ? (
+            <li onClick={toggleShowing} key={idx}>
+              <NavLink to={link ? link : `/${display}`} onClick={click}>
+                {display}
+              </NavLink>
+            </li>
+          ) : (
+            ""
+          )
         )}
-        <li onClick={toggleShowing}>
-          <NavLink to="/announcements">Announcements</NavLink>
-        </li>
-        {isAdmin ? (
-          <li onClick={toggleShowing}>
-            <NavLink to="/teams">Teams</NavLink>
-          </li>
-        ) : (
-          ""
-        )}
-        <li onClick={toggleShowing}>
-          <NavLink
-            to="/projects"
-            onClick={() => {
-              if (!isAdmin) dispatch(setTeam(isAdmin ? "" : user.team));
-            }}
-          >
-            Projects
-          </NavLink>
-        </li>
-        {isAdmin ? (
-          <li onClick={toggleShowing}>
-            <NavLink to="/users">Users</NavLink>
-          </li>
-        ) : (
-          ""
-        )}
-        <li onClick={toggleShowing}>
-          <NavLink to="/" onClick={logout}>
-            Logout
-          </NavLink>
-        </li>
       </ul>
     </StyledNav>
   );
