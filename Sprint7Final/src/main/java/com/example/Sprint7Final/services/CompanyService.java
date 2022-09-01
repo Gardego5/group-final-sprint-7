@@ -9,5 +9,8 @@ public interface CompanyService {
 
 	List<CompanyDto> getAllCompanies();
 
+
+	CompanyDto getCompanyById(Long companyId);
+
     CompanyDto createCompany(CompanyRequestDto companyRequestDto);
 }
