@@ -18,18 +18,29 @@ const StyledTeamCard = styled.div`
     margin: 0;
   }
   & div.team-title {
-    display: flex;
-    flex-direction: column;
-    height: 4rem;
+    /* display: flex; */
     justify-content: space-between;
     align-items: center;
     border-bottom: 2px solid #deb992;
-    padding-bottom: 75px;
   }
-  & div.team-title h2,
+
+  & div.team-title h3,
   & div.team-title p {
-    margin: 0;
+    margin: none;
+    padding: none;
   }
+  & div.team-title p {
+    flex: none;
+    padding-bottom: none;
+  }
+
+  & div.team-title h3 {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 100%;
+  }
+
   & div.team-members {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -52,16 +63,18 @@ const StyledTeamCard = styled.div`
   }
 `;
 
-const TeamCard = ({name, projectCount, members}) => {
+const TeamCard = ({ name, projectCount, members }) => {
   return (
     <StyledTeamCard>
       <div className="team-title">
         <h3>{name}</h3>
-        <p># of Projects: {projectCount}</p> 
+        <p># of Projects: {projectCount}</p>
       </div>
       <h3>Members</h3>
       <div className="team-members">
-        {members.map(({name}, idx) => <button key={idx}>{name}</button>)}
+        {members.map(({ name }, idx) => (
+          <button key={idx}>{name}</button>
+        ))}
       </div>
     </StyledTeamCard>
   );

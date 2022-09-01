@@ -9,7 +9,6 @@ import { Columns } from "../components/UsersTable/columns";
 import AddUser from "../components/Modals/AddUser";
 import { getCompany } from "../reducers/rootReducer";
 import { getAllUsersFromCompany } from "../utils/requests";
-import { render } from "react-dom";
 
 const Container = styled.div`
   display: flex;
@@ -24,10 +23,7 @@ const Title = styled.h1`
 `;
 
 const UserTable = styled.table`
-  //height: 500px;
   width: min(90%, 1200px);
-  /* display: flex;
-  flex-direction: row; */
   border: 3px solid #deb992;
   border-radius: 10px;
   padding: 10px;
@@ -40,7 +36,6 @@ const UserRow = styled.tr`
   border-top: 1px solid #deb992;
   border-bottom: 1px solid #deb992;
   border-radius: 10px;
-  /* padding: 10px; */
 `;
 
 const UserVars = styled.th`
@@ -60,6 +55,10 @@ const UserCell = styled.td`
   text-align: center;
   color: #deb992;
   padding: 10px;
+  max-width: 100px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 `;
 
 const UserRegistry = () => {
@@ -67,6 +66,7 @@ const UserRegistry = () => {
   const [userList, setUserList] = useState([]);
   const [addedUsers, setAddedUsers] = useState(0);
 
+  //Calls the GET method for all users by company id and saves to setUserList
   const getUsers = async () => {
     const allUsers = await getAllUsersFromCompany(setCompany.id);
     setUserList(allUsers);
@@ -78,16 +78,18 @@ const UserRegistry = () => {
     // eslint-disable-next-line
   }, [addedUsers]);
 
+  //Adds the new user to the userList
   const increaseUsers = () => {
     setAddedUsers(addedUsers + 1);
   };
 
-  console.log(userList);
+  //verify the data in userList
+  //   console.log(userList);
 
+  //Sets headers and accessors in table
   const columns = useMemo(() => Columns, []);
+  //Sets where the table takes the data from
   const data = useMemo(() => userList);
-
-  console.log(MOCK_DATA);
 
   const tableInstance = useTable({
     columns,
