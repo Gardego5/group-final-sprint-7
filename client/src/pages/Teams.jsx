@@ -4,8 +4,9 @@ import NavBar from "../components/NavBar";
 import TeamCard from "../components/TeamCard";
 import { getAllUsersFromCompany } from "../utils/requests";
 import { useSelector } from "react-redux";
-import { getCredentials, getCompany } from "./../reducers/rootReducer";
+import { getCompany } from "./../reducers/rootReducer";
 import CreateTeam from "../components/Modals/CreateTeam";
+import { getAllProjectsByTeamId } from './../utils/requests';
 
 const StyledTeams = styled.div`
   display: flex;
@@ -34,7 +35,6 @@ const Teams = () => {
   const [teams, updateTeams] = useState(defaultTeams);
   const [allNewUsers, updateAllNewUsers] = useState([]);
   const [members, setMembers] = useState([])
-  const credentials = useSelector(getCredentials);
   const company = useSelector(getCompany);
 
   const handleGetUsers = async () => {
@@ -42,6 +42,12 @@ const Teams = () => {
     updateAllNewUsers(allUsers);
     console.log(allUsers);
   };
+
+  const getProjects = async (teamId) => {
+    const indProjects = await getAllProjectsByTeamId(teamId)
+    return indProjects.length
+  }
+
   useEffect(() => {
     handleGetUsers();
   }, []);

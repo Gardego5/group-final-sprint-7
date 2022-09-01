@@ -1,14 +1,7 @@
 import { useState, useEffect } from "react";
-import { useDispatch } from "react-redux";
-import {
-  Button,
-  Modal,
-  ModalHeader,
-  ModalBody,
-  FormGroup,
-  Label,
-} from "reactstrap";
-import { Formik, Field, Form } from "formik";
+import { useDispatch, useSelector } from "react-redux";
+import { Button, FormGroup, Label } from "reactstrap";
+import { Formik } from "formik";
 import {
   StyledModal,
   StyledModalHeader,
@@ -19,8 +12,11 @@ import {
   StyledCloseButton,
 } from "./Modals.module";
 import styled from "styled-components";
+import { getCompany } from "./../../reducers/rootReducer";
 
 const NewButton = styled(Button)`
+  z-index: 1;
+  margin: auto;
   width: 19rem;
   height: 21rem;
   border: none;
@@ -61,62 +57,66 @@ const StyledText = styled.div`
   position: absolute;
   bottom: 10%;
 `;
-//Form for adding a announcement to the announcement page
-const CreateTeam = ({ teamId, members }) => {
-  const [modalOpen, setModalOpen] = useState(false); // modalOpen state is set to [false]
-  
 
-  const dispatch = useDispatch(); //conventional way to use useDispatch is to create a new const called dispatch to make it more readable
+const CreateTeam = ({ members }) => {
+  const [modalOpen, setModalOpen] = useState(false);
+  const [pickedMembers, setPickedMembers] = useState([]);
+  const [newMembers, setNewMembers] = useState();
+  const company = useSelector(getCompany);
+
+  const dispatch = useDispatch();
   const toggle = () => setModalOpen(!modalOpen);
   const handleSubmit = (values) => {
     // pass the [values] to extract everything submited to the form
-    const team = {
-      teamId: parseInt(teamId),
+    const postTeamData = {
       teamName: values.teamName,
-      description: values.description,
-      members: values.members,
-      // date: new Date(Date.now()).toISOString(), //create a new [Date] object and set it to the time the form was submitted
+      teamDescription: values.description,
+      companyID: company.id,
+      members: pickedMembers,
     };
+  };
+  useEffect(() => {
+    setNewMembers([...members]);
+  }, [members]);
+  console.log("PickedMembers: " + JSON.stringify(pickedMembers));
 
-    // dispatch(postTeam(team)); // dispatch the action to update the state of the component
-    // setModalOpen(false); //when submitted the modal closes as the [modalOpen] is set to [false] by the [useState]/[setModalOpen]
+  const removeMember = (member) => {
+    const tempList = pickedMembers.filter((user) => user != member);
+    setPickedMembers(tempList);
+    setNewMembers([...newMembers, member]);
   };
 
-  useEffect(() => {
-
-    console.log(members);
-  });
+  const setSelectChange = (e) => {
+    const option = e.target.value;
+    setPickedMembers([
+      ...pickedMembers,
+      newMembers.filter((member) => member.username === option)[0],
+    ]);
+    setNewMembers(newMembers.filter((member) => member.username !== option));
+  };
 
   return (
     <>
       <NewButton outline onClick={() => setModalOpen(true)}>
-        {" "}
-        {/*onClick the [modalOpen] is set to [true] */}
         <StyledAddTeam>
           <StyledPlus>+</StyledPlus>
           <StyledText>New Team</StyledText>
         </StyledAddTeam>
       </NewButton>
       <StyledModal isOpen={modalOpen} toggle={toggle}>
-        {" "}
-        {/* if the [modalOpen] is [true] then the <Modal> is open*/}
         <StyledModalHeader>
-          {" "}
           Create Team
           <StyledCloseButton color="danger" onClick={() => setModalOpen(false)}>
             X
           </StyledCloseButton>
-          {/*will close the modal if you click the X toggle on the top right*/}
         </StyledModalHeader>
         <StyledModalBody>
           <Formik
             initialValues={{
               teamName: "",
               description: "",
-              members: [],
             }}
             onSubmit={handleSubmit}
-            // validate={validateForm}
           >
             <StyledForm>
               <FormGroup>
@@ -144,19 +144,41 @@ const CreateTeam = ({ teamId, members }) => {
                 >
                   Members
                 </Label>
-                <StyledField
+                <select
                   id="members"
                   name="members"
-                  as="select"
+                  onChange={setSelectChange}
                   className="form-control"
                 >
-                  {members.map((user) => (
-                    <option key={user.username} value={user.profile.firstName}>
+                  <option>Pick A Member</option>
+                  {newMembers?.map((user) => (
+                    <option
+                      key={user.username}
+                      value={user.username}
+                      // onClick={console.log("Hello")}
+                    >
                       {user.profile.firstName}
                     </option>
                   ))}
-                </StyledField>
+                </select>
               </FormGroup>
+              {pickedMembers
+                ? pickedMembers.map((member, idx) => (
+                    <div key={idx}>
+                      <div>
+                        {member.profile.firstName}
+                        <button
+                          type="button"
+                          onClick={() => {
+                            removeMember(member);
+                          }}
+                        >
+                          x
+                        </button>
+                      </div>
+                    </div>
+                  ))
+                : ""}
               <StyledButton type="submit" color="primary">
                 Submit
               </StyledButton>

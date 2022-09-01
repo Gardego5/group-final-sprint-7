@@ -14,6 +14,7 @@ import {
 } from "../reducers/rootReducer";
 
 const StyledNav = styled.nav`
+  z-index: 5;
   position: sticky;
   background: #051622;
   display: flex;
