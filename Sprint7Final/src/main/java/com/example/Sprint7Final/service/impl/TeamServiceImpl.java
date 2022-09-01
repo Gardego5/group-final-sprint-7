@@ -82,4 +82,15 @@ public class TeamServiceImpl implements TeamService {
 		}
 		return teamMapper.entitiesToResponseDtos(teamsToReturn);
 	}
+
+	@Override
+	public TeamResponseDto deleteTeam(Long teamId) {
+		Optional<Team> optionalTeam = teamRepository.findByIdAndDeletedFalse(teamId);
+		if (optionalTeam.isEmpty() || optionalTeam.get().isDeleted()) throw new NotFoundException("Team does not exist with ID: " + teamId);
+
+		Team teamToDelete = optionalTeam.get();
+		teamToDelete.setDeleted(true);
+
+		return teamMapper.entityToResponseDto(teamRepository.saveAndFlush(teamToDelete));
+	}
 }
