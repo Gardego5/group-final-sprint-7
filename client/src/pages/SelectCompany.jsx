@@ -14,13 +14,6 @@ const MainDiv = styled.div`
   top: 300px;
 `;
 
-const Title = styled.h1`
-  color: blue;
-  margin-top: 1em;
-  text-align: center;
-  font-size: 50px;
-`;
-
 const CompanySelector = styled.select`
   border-radius: 4px;
   height: 40px;
@@ -70,7 +63,7 @@ const SelectCompany = () => {
     redirect
   ) : (
     <MainDiv>
-      <Title>Select Company</Title>
+      <h1>Select Company</h1>
       <CompanySelector onChange={selectCompany}>
         <CompanyOption value={null}>Pick an Option</CompanyOption>
         {companies

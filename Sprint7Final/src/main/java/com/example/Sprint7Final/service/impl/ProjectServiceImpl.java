@@ -94,7 +94,7 @@ public class ProjectServiceImpl implements ProjectService {
 	@Override
 	public List<ProjectResponseDto> getProjectsByTeamId(Long teamId) {
 		Optional<Team> optionalTeam = teamRepository.findByIdAndDeletedFalse(teamId);
-		if (optionalTeam.isEmpty() || optionalTeam.get().getTeamProjects().size() < 1) {
+		if (optionalTeam.isEmpty()) {
 			throw new NotFoundException("Team not found or no projects found with id: " + teamId);
 		}
 		return projectMapper.entitiesToResponseDtos(teamRepository.findByIdAndDeletedFalse(teamId).get().getTeamProjects());

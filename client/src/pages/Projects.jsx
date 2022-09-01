@@ -25,33 +25,27 @@ const Projects = () => {
   const [projects, updateProjects] = useState([]);
 
   const handleGetProjects = async () => {
-    const DBprojects = team
-      ? await getAllProjectsByTeamId(team.id)
-      : await getAllProjects();
-    if (DBprojects.length > 0) {
-      let tempArry = [];
-      for (let {
-        name,
-        timePosted,
-        description,
-        id,
-        teamOnProject,
-      } of DBprojects) {
-        tempArry[tempArry.length] = {
+    const DBprojects = !team
+      ? await getAllProjects()
+      : await getAllProjectsByTeamId(team.id);
+
+    updateProjects(
+      DBprojects.map(
+        ({ name, timePosted, description, id, teamOnProject }) => ({
+          id,
           name,
+          description,
+          teamID: teamOnProject.id,
+          teamName: teamOnProject.teamName,
           editedDaysAgo: Math.round(
             (new Date().getTime() - new Date(timePosted).getTime()) /
               (1000 * 60 * 60 * 24)
           ),
-          description,
-          id,
-          teamID: teamOnProject.id,
-          teamName: teamOnProject.teamName,
-        };
-      }
-      updateProjects(tempArry);
-    }
+        })
+      )
+    );
   };
+
   useEffect(() => {
     handleGetProjects();
   }, []);

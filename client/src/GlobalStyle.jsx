@@ -27,6 +27,12 @@ const GlobalStyle = createGlobalStyle`
     background: rgb(22, 22, 22);
     border-radius: 10px;
   }
+
+  h1 {
+    margin: 2rem 2rem 1rem;
+    color: #1ba098;
+    text-align: center;
+  }
 `;
 
 export default GlobalStyle;
