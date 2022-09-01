@@ -1,38 +1,104 @@
+import { useSelector } from "react-redux";
 import styled from "styled-components";
-import BasicButton from "./ModalComponents/BasicButton";
+import { getAdmin } from "../reducers/rootReducer";
 import CreateProject from "./Modals/CreateProject";
+import ViewProject from "./Modals/ViewProject";
 
 const StyledProject = styled.div`
   display: flex;
   align-items: center;
-  border-bottom: 0.0625rem solid #deb992;
   width: 70%;
   justify-content: space-between;
   flex-direction: row-reverse;
-  & div.project-title {
+  padding-block: 2rem;
+  :not(:last-child) {
+    border-bottom: 0.0625rem solid #deb992;
+  }
+  div.project-title {
     display: flex;
     gap: 2rem;
     align-items: center;
+    margin-bottom: 1rem;
+    * {
+      margin: 0;
+    }
   }
-  padding-bottom: 2rem;
+  div.info-group p {
+    font-size: 0.8rem;
+    span.label {
+      color: #1ba098;
+    }
+  }
+  p.project-desc {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    width: fit-content;
+    width: 50vw;
+  }
+  button {
+    flex: none;
+  }
 `;
 
-const Project = ({ updatePage, name, editedDaysAgo, desc, onEdit, ID, teamID }) => {
+const Project = ({
+  updatePage,
+  name,
+  editedDaysAgo,
+  description,
+  id,
+  teamID,
+  teamName,
+}) => {
+  const isAdmin = useSelector(getAdmin);
+
   return name !== undefined &&
     editedDaysAgo !== undefined &&
-    desc !== undefined ? (
+    description !== undefined ? (
     <StyledProject>
-      <CreateProject teamID={teamID} updatePage={updatePage} projNameProp={name} projectDescription={desc} projectID={ID} buttonText="Edit"/>
+      {isAdmin ? (
+        <CreateProject
+          team={teamID}
+          updatePage={updatePage}
+          name={name}
+          desc={description}
+          projectID={id}
+          buttonText="Edit"
+        />
+      ) : (
+        <ViewProject
+          team={teamID}
+          name={name}
+          desc={description}
+          editedDaysAgo={editedDaysAgo}
+          projectID={id}
+        />
+      )}
       <div className="project-row">
         <div className="project-title">
           <h2>{name}</h2>
-          <p>Last edited {editedDaysAgo} days ago</p>
+          <div className="info-group">
+            <p className="project-timestamp">
+              <span className="label">Last edited: </span>
+              {editedDaysAgo}
+              <span className="label"> days ago.</span>
+            </p>
+            {isAdmin ? (
+              <p className="project-assigned-team">
+                <span className="label">Assigned Team:</span> {teamName}
+              </p>
+            ) : (
+              ""
+            )}
+          </div>
         </div>
-        <p className="project-desc">{desc}</p>
+        <p className="project-desc">{description}</p>
       </div>
     </StyledProject>
   ) : (
-    <StyledProject/>
+    <StyledProject>
+      <CreateProject updatePage={updatePage} buttonText="New" />
+    </StyledProject>
   );
 };
 
