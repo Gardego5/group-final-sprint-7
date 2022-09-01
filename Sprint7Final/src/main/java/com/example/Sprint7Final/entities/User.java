@@ -32,6 +32,7 @@ public class User {
 	private boolean deleted;
 	
 	@ManyToOne
+	@JoinColumn
 	private Team team;
 	
 	@ManyToOne
