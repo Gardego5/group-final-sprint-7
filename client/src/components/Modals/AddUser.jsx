@@ -58,27 +58,33 @@ const AddUser = ({ increaseUsers }) => {
 
   const validateUserForm = (values) => {
     const errors = {};
-    if (values.firstName.length < 1) {
+    if (values.firstName.length < 2) {
       errors.firstName = "Missing first name";
     }
-    if (values.lastName.length < 1) {
+    if (values.lastName.length < 2) {
       errors.lastName = "Missing last name";
     }
-    if (values.username.length < 1) {
+    if (values.username.length < 2) {
       errors.username = "Missing username";
     }
-    if (values.email.length < 1) {
+    if (values.email.length < 2) {
       errors.email = "Missing email";
     }
-    if (values.phone.length < 1) {
+    if (values.phone.length < 2) {
       errors.phone = "Missing phone number";
     }
-    if ((values.password.length || values.confirmPw.length) < 4) {
+    if (values.password.length < 4) {
       errors.password = "Password must be at least 2 characters";
-    } else if ((values.password.length || values.confirmPw.length) > 15) {
+    } else if (values.password.length > 15) {
+      errors.password = "Password must be 15 characters or less";
+    }
+    if (values.confirmPw.length < 4) {
+      errors.password = "Password must be at least 2 characters";
+    } else if (values.confirmPw.length > 15) {
       errors.password = "Password must be 15 characters or less";
     }
     if (values.password != values.confirmPw) {
+      errors.password = "Password and Confirm Password are not matching";
       errors.confirmPw = "Password and Confirm Password are not matching";
     }
     return errors;
@@ -122,10 +128,11 @@ const AddUser = ({ increaseUsers }) => {
                   placeholder="First Name"
                   className="form-control"
                 />
-                <ErrorMessage name="firstName" component="p">
-                  {(msg) => <p className="text-danger">{msg}</p>}{" "}
-                  {/* for each error msg create a paragraph witht the msg in red color */}
-                </ErrorMessage>
+                <ErrorMessage
+                  name="firstName"
+                  component="p"
+                  style={{ color: "red" }}
+                />
               </FormGroup>
               <FormGroup>
                 <Label htmlFor="lastName"></Label>
@@ -134,10 +141,11 @@ const AddUser = ({ increaseUsers }) => {
                   placeholder="Last Name"
                   className="form-control"
                 />
-                <ErrorMessage name="lastName">
-                  {(msg) => <p className="text-danger">{msg}</p>}{" "}
-                  {/* for each error msg create a paragraph witht the msg in red color */}
-                </ErrorMessage>
+                <ErrorMessage
+                  name="lastName"
+                  component="p"
+                  style={{ color: "red" }}
+                />
               </FormGroup>
               <FormGroup>
                 <Label htmlFor="email"></Label>
@@ -146,20 +154,22 @@ const AddUser = ({ increaseUsers }) => {
                   placeholder="Email"
                   className="form-control"
                 />
-                <ErrorMessage name="email">
-                  {(msg) => <p className="text-danger">{msg}</p>}{" "}
-                  {/* for each error msg create a paragraph witht the msg in red color */}
-                </ErrorMessage>
+                <ErrorMessage
+                  name="email"
+                  component="p"
+                  style={{ color: "red" }}
+                />
                 <Label htmlFor="phone"></Label>
                 <StyledField
                   name="phone"
                   placeholder="Phone Number"
                   className="form-control"
                 />
-                <ErrorMessage name="phone">
-                  {(msg) => <p className="text-danger">{msg}</p>}{" "}
-                  {/* for each error msg create a paragraph witht the msg in red color */}
-                </ErrorMessage>
+                <ErrorMessage
+                  name="phone"
+                  component="p"
+                  style={{ color: "red" }}
+                />
               </FormGroup>
               <FormGroup>
                 <Label htmlFor="username"></Label>
@@ -168,10 +178,11 @@ const AddUser = ({ increaseUsers }) => {
                   placeholder="Username"
                   className="form-control"
                 />
-                <ErrorMessage name="username">
-                  {(msg) => <p className="text-danger">{msg}</p>}{" "}
-                  {/* for each error msg create a paragraph witht the msg in red color */}
-                </ErrorMessage>
+                <ErrorMessage
+                  name="username"
+                  component="p"
+                  style={{ color: "red" }}
+                />
               </FormGroup>
               <FormGroup>
                 <Label htmlFor="password"></Label>
@@ -180,10 +191,11 @@ const AddUser = ({ increaseUsers }) => {
                   placeholder="Password"
                   className="form-control"
                 />
-                <ErrorMessage name="password">
-                  {(msg) => <p className="text-danger">{msg}</p>}{" "}
-                  {/* for each error msg create a paragraph witht the msg in red color */}
-                </ErrorMessage>
+                <ErrorMessage
+                  name="password"
+                  component="p"
+                  style={{ color: "red" }}
+                />
               </FormGroup>
               <FormGroup>
                 <Label htmlFor="confirmPw"></Label>
@@ -191,6 +203,11 @@ const AddUser = ({ increaseUsers }) => {
                   name="confirmPw"
                   placeholder="Confirm Password"
                   className="form-control"
+                />
+                <ErrorMessage
+                  name="confirmPw"
+                  component="p"
+                  style={{ color: "red" }}
                 />
               </FormGroup>
               <h2
