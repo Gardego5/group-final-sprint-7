@@ -31,13 +31,13 @@ public class CompanyServiceImpl implements CompanyService{
 	}
 
 	@Override
-
 	public CompanyDto getCompanyById(Long companyId) {
 		Optional<Company> company = companyRepository.findByIdAndDeletedFalse(companyId);
-		if(company.isEmpty()) {
+		if (company.isEmpty()) {
 			throw new NotFoundException("Company with id of " + companyId + " was not found.");
 		}
 		return companyMapper.entityToDto(company.get());
+
 	}
 
 	public CompanyDto createCompany(CompanyRequestDto companyRequestDto) {
