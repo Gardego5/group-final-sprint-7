@@ -24,7 +24,7 @@ public class Announcement {
     private Long id;
 	
 	@CreatedDate
-    private Timestamp timePosted;
+    private Timestamp timePosted = Timestamp.valueOf(LocalDateTime.now());
 	
 	private String title;
 	
