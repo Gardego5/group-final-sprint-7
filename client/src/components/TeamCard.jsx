@@ -9,7 +9,7 @@ import ViewUser from "./Modals/ViewUser";
 
 const StyledTeamCard = styled.div`
   width: 100%;
-  height: 21rem;
+  min-height: 21rem;
   background: #0b2d45;
   color: white;
   padding: 0.5rem 0;
@@ -33,6 +33,7 @@ const StyledTeamCard = styled.div`
       overflow: hidden;
       text-overflow: ellipsis;
       max-width: 100%;
+      min-height: 1em;
     }
     div.projects {
       display: flex;
@@ -81,7 +82,7 @@ const TeamCard = ({ name, projectCount, members, team }) => {
       <h3>Members</h3>
       <div className="team-members">
         {members.map((user, idx) => (
-          <ViewUser user={user} abbreviate={true} key={idx} />
+          <ViewUser initialUser={user} abbreviate={true} key={idx} />
         ))}
       </div>
     </StyledTeamCard>

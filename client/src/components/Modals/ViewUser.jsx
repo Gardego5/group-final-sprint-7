@@ -40,14 +40,41 @@ const StyledUserInfo = styled.div`
   }
 `;
 
-const ViewUser = ({ user, abbreviate }) => {
+const ViewUser = ({ initialUser, abbreviate }) => {
   const [modalOpen, setModalOpen] = useState(false);
+  const [user, setUser] = useState(initialUser);
 
   const toggle = () => setModalOpen(!modalOpen);
 
-  const displayName = (a) => `${user?.profile?.firstName} ${
-    a ? `${user?.profile?.lastName[0]}.` : user?.profile?.lastName
-  }`;
+  const displayName = (a) =>
+    `${user?.profile?.firstName} ${
+      a ? `${user?.profile?.lastName[0]}.` : user?.profile?.lastName
+    }`;
+
+  const fields = [
+    { value: user?.username, label: "username" },
+    [
+      { value: user?.profile?.firstName, label: "first name" },
+      { value: user?.profile?.lastName, label: "last name" },
+    ],
+    { value: user?.profile?.email, label: "email" },
+    { value: user?.profile?.phone, label: "phone" },
+    [
+      { value: user?.status, label: "status" },
+      { value: user?.active ? "Yes" : "No", label: "active" },
+      { value: user?.admin ? "Yes" : "No", label: "admin" },
+    ],
+  ];
+
+  const genGroup = (group, idx) =>
+    Array.isArray(group) ? (
+      group.map(genGroup)
+    ) : (
+      <div className="info-group" key={idx}>
+        <p className="info-field">{group.value}</p>
+        <p className="info-label">{group.label}</p>
+      </div>
+    );
 
   return (
     <>
@@ -63,48 +90,11 @@ const ViewUser = ({ user, abbreviate }) => {
         </StyledModalHeader>
         <StyledModalBody>
           <StyledUserInfo>
-            <div className="info-row">
-              <div className="info-group">
-                <p className="info-field">{user?.username}</p>
-                <p className="info-label">username</p>
+            {fields.map((field, idx) => (
+              <div className="info-row" key={idx}>
+                {genGroup(field)}
               </div>
-            </div>
-            <div className="info-row">
-              <div className="info-group">
-                <p className="info-field">{user?.profile?.firstName}</p>
-                <p className="info-label">first name</p>
-              </div>
-              <div className="info-group">
-                <p className="info-field">{user?.profile?.lastName}</p>
-                <p className="info-label">last name</p>
-              </div>
-            </div>
-            <div className="info-row">
-              <div className="info-group">
-                <p className="info-field">{user?.profile?.email}</p>
-                <p className="info-label">email</p>
-              </div>
-            </div>
-            <div className="info-row">
-              <div className="info-group">
-                <p className="info-field">{user?.profile?.phone}</p>
-                <p className="info-label">phone</p>
-              </div>
-            </div>
-            <div className="info-row">
-              <div className="info-group">
-                <p className="info-field">{user?.status}</p>
-                <p className="info-label">status</p>
-              </div>
-              <div className="info-group">
-                <p className="info-field">{user?.active ? "Yes" : "No"}</p>
-                <p className="info-label">active</p>
-              </div>
-              <div className="info-group">
-                <p className="info-field">{user?.admin ? "Yes" : "No"}</p>
-                <p className="info-label">admin</p>
-              </div>
-            </div>
+            ))}
           </StyledUserInfo>
         </StyledModalBody>
       </StyledModal>
