@@ -18,11 +18,6 @@ const Container = styled.div`
   color: #1ba098;
 `;
 
-const Title = styled.h1`
-  font-size: 50px;
-  margin: 0px;
-`;
-
 const UserTable = styled.table`
   //height: 500px;
   width: min(90%, 1200px);
@@ -101,7 +96,7 @@ const UserRegistry = () => {
     <Fragment>
       <NavBar />
       <Container>
-        <Title>User Registry</Title>
+        <h1>User Registry</h1>
         <p>A general view of all your members in your organization</p>
         <UserTable {...getTableProps()}>
           <thead>
