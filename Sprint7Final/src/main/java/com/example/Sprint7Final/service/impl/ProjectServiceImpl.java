@@ -114,7 +114,7 @@ public class ProjectServiceImpl implements ProjectService {
 	@Override
 	public ProjectResponseDto deleteProject(Long projectId) {
 		Optional<Project> optionalProject = projectRepository.findByIdAndDeletedFalse(projectId);
-		if (optionalProject.isEmpty() || optionalProject.get().isDeleted()) throw new NotFoundException("User does not exist with ID: " + projectId);
+		if (optionalProject.isEmpty() || optionalProject.get().isDeleted()) throw new NotFoundException("Project does not exist with ID: " + projectId);
 
 		Project projectToDelete = optionalProject.get();
 		projectToDelete.setDeleted(true);
