@@ -10,53 +10,13 @@ import {
   StyledField,
   StyledForm,
   StyledCloseButton,
+  StyledAddTeam,
+  StyledPlus,
+  StyledText,
+  NewButton,
 } from "./Modals.module";
-import styled from "styled-components";
 import { getCompany } from "./../../reducers/rootReducer";
-
-const NewButton = styled(Button)`
-  z-index: -1;
-  margin: auto;
-  width: 19rem;
-  height: 21rem;
-  border: none;
-  &:hover {
-    background: none;
-  }
-  &:active {
-    background: none;
-    border: none;
-  }
-  &:focus {
-    background: none;
-    border: none;
-  }
-`;
-
-const StyledAddTeam = styled.div`
-  position: relative;
-  width: 18rem;
-  height: 20rem;
-  border: 3px solid rgb(209, 175, 139);
-  border-radius: 25px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-`;
-const StyledPlus = styled.div`
-  color: rgb(222, 185, 146);
-  position: absolute;
-  font-size: 20rem;
-  bottom: -10%;
-`;
-
-const StyledText = styled.div`
-  font-size: 2rem;
-  color: rgb(222, 185, 146);
-  position: absolute;
-  bottom: 10%;
-`;
+import { createTeam } from "../../utils/requests";
 
 const CreateTeam = ({ members }) => {
   const [modalOpen, setModalOpen] = useState(false);
@@ -66,19 +26,27 @@ const CreateTeam = ({ members }) => {
 
   const dispatch = useDispatch();
   const toggle = () => setModalOpen(!modalOpen);
+
   const handleSubmit = (values) => {
     // pass the [values] to extract everything submited to the form
+    const postMembers = []
+    pickedMembers.map(member => postMembers.push(member.username))
+    console.log("Post Members: " + postMembers);
     const postTeamData = {
       teamName: values.teamName,
       teamDescription: values.description,
       companyID: company.id,
-      members: pickedMembers,
+      usernames: postMembers,
     };
+    console.log("Team Data: " + JSON.stringify(postTeamData));
+    createTeam(postTeamData)
+    setModalOpen(false)
   };
+  
   useEffect(() => {
     setNewMembers([...members]);
   }, [members]);
-  console.log("PickedMembers: " + JSON.stringify(pickedMembers));
+  // console.log("PickedMembers: " + JSON.stringify(pickedMembers));
 
   const removeMember = (member) => {
     const tempList = pickedMembers.filter((user) => user != member);
@@ -132,8 +100,6 @@ const CreateTeam = ({ members }) => {
                 <StyledField
                   name="description"
                   placeholder="Description"
-                  as="textarea"
-                  rows="5"
                   className="form-control"
                 />
               </FormGroup>

@@ -5,12 +5,10 @@ import lombok.NoArgsConstructor;
 
 @Data
 @NoArgsConstructor
-public class CompanyDto {
-	
-	private Long id;
-	
-	private String companyName;
-	
-	private String companyDescription;
+public class CompanyRequestDto {
+
+    private String companyName;
+
+    private String companyDescription;
 
 }
