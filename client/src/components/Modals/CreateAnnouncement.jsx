@@ -33,7 +33,6 @@ const CreateAnnouncement = (props) => {
   // function to create a new announcement
   const handleSubmit = () => {
     const newAnnouncement = {
-      date: new Date(Date.now()).toISOString(), //create a new [Date] object and set it to the time the form was submitted
       title: title,
       message: message,
       companyId: props.companyId,
@@ -43,9 +42,9 @@ const CreateAnnouncement = (props) => {
 
     // call to post a new announcement to database
     createNewAnnouncement(newAnnouncement)
-      // after it succesfully saves return to home page
+      // after it succesfully saves return to announcements page
       .then((res) => {
-        console.log(newAnnouncement);
+        window.location = "/announcements";
       })
       .catch((err) => console.log(err));
   };
@@ -68,7 +67,6 @@ const CreateAnnouncement = (props) => {
               message: "",
             }}
             onSubmit={handleSubmit}
-            // validate={validateForm}
           >
             <StyledForm>
               <FormGroup>
