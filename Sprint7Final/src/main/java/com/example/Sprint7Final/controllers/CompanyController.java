@@ -21,5 +21,10 @@ public class CompanyController {
 	public List<CompanyDto> getAllCompanies() {
 		return companyService.getAllCompanies();
 	}
+	
+	@GetMapping("/{companyId}")
+	public CompanyDto getCompanyById(@PathVariable Long companyId) {
+		return companyService.getCompanyById(companyId);
+	}
 
 }
