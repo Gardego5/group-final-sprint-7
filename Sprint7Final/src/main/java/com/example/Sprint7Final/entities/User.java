@@ -23,7 +23,7 @@ public class User {
 	@Embedded
 	private Profile profile;
 	
-	private boolean Active;
+	private boolean Active = true;
 	
 	private boolean Admin;
 	
@@ -36,7 +36,6 @@ public class User {
 	
 	@ManyToOne
 	private Company company;
-
 
 	@OneToMany(mappedBy = "Author", cascade = CascadeType.ALL)
 

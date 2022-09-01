@@ -24,7 +24,7 @@ public class Announcement {
     private Long id;
 	
 	@CreatedDate
-    private Timestamp timePosted = Timestamp.valueOf(LocalDateTime.now());
+    private Timestamp timePosted;
 	
 	private String title;
 	
@@ -35,4 +35,6 @@ public class Announcement {
 	
 	@ManyToOne
 	private User Author;
+
+	private boolean deleted;
 }

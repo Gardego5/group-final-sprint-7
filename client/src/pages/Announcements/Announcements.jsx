@@ -1,75 +1,78 @@
-// imports
+/* -------------------------------------------------------------------------- */
+/*                             Import Dependencies                            */
+/* -------------------------------------------------------------------------- */
+import { useState, useEffect } from "react";
 import AnnouncementCard from "../../components/AnnouncementCard/AnnouncementCard";
+import CreateAnnouncement from "./../../components/Modals/CreateAnnouncement";
+import NavBar from "./../../components/NavBar";
+import { getCompanyAnnouncements } from "../../utils/requests";
+import { useSelector } from "react-redux";
+import { getCompany, getUser } from "../../reducers/rootReducer";
+
+// Styling Imports
 import {
   StyledTitle,
   ButtonDiv,
   AnnCardDiv,
   AnnsDiv,
 } from "./Announcements.module";
-import { useState } from "react";
-import NavBar from './../../components/NavBar';
-import CreateAnnouncement from './../../components/Modals/CreateAnnouncement';
-
-const defaultPost = [
-  {
-    postId: 1,
-    username: "Homie Tamblin",
-    title: "CEO",
-    postDate: "August 29, 2022",
-    userPost: "How do you go back a file?",
-  },
-  {
-    postId: 2,
-    username: "Senor Garret",
-    title: "CEO",
-    postDate: "August 29, 2022",
-    userPost: "I need coffee",
-  },
-];
 
 const Announcements = () => {
-  // hook for posts
-  const [posts, setPosts] = useState(defaultPost);
-  const [currentUser, setCurrentUser] = useState(getUser())
+  /* ---------------------------------- State --------------------------------- */
+  // get companyId from store
+  const company = useSelector(getCompany);
+  // get user info to verify who is posting from store
+  const user = useSelector(getUser);
 
-  //---------- helper functions ----------------//
+  // Holds the all the announcements made to the company
+  const [posts, setPosts] = useState([]);
+
+  // Holds the user details/info
+  // eslint-disable-next-line
+  const [currentUser, setCurrentUser] = useState(user);
+
+  /* ---------------------------- helper funcitions ------------------------------ */
 
   // useEffect hook to load all posts from datase
-  // API call get all posts inside
-
-  function getUser() {
-    // API call to get currentUser
-    // mock response
-    const currentUser = {
-      userId: 1,
-      firstName: "Jesus",
-      lastName: "Milan",
-      title: "Worker",
+  useEffect(() => {
+    function getPosts() {
+      // call to server to get company's posts
+      getCompanyAnnouncements(company.id)
+        .then((res) => {
+          setPosts(res.data);
+        })
+        .catch((err) => console.log(err));
     }
-    // set current user to response
-    return currentUser;
-  }
+    getPosts();
+    // eslint-disable-next-line
+  }, []);
 
   return (
     <>
-    <NavBar />
-    <AnnsDiv>
-      <StyledTitle>Announcements</StyledTitle>
-      <ButtonDiv>
-        <CreateAnnouncement firstName={currentUser.firstName} lastName={currentUser.lastName} title={currentUser.title}/>
-      </ButtonDiv>
-      <AnnCardDiv>
-        {posts.map(({ postId, username, title, postDate, userPost }) => (
-          <AnnouncementCard
-            key={postId}
-            username={username}
-            title={title}
-            postDate={postDate}
-            userPost={userPost}
+      <NavBar />
+      <AnnsDiv>
+        <StyledTitle>Announcements</StyledTitle>
+        <ButtonDiv>
+          <CreateAnnouncement
+            userId={currentUser.id}
+            companyId={company.id}
           />
-        ))}
-      </AnnCardDiv>
-    </AnnsDiv>
+        </ButtonDiv>
+        <AnnCardDiv>
+          {posts.map(
+            ({ id, firstName, lastName, title, timePosted, message }) => (
+              <AnnouncementCard
+                key={id}
+                firstName={firstName}
+                lastName={lastName}
+                title={title}
+                timePosted={timePosted}
+                message={message}
+              />
+            )
+          )}
+        </AnnCardDiv>
+      </AnnsDiv>
     </>
   );
 };

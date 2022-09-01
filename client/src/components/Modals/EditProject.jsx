@@ -9,7 +9,15 @@ import {
   Label,
 } from "reactstrap";
 import { Formik, Field, Form } from "formik";
-
+import {
+  StyledModal,
+  StyledModalHeader,
+  StyledModalBody,
+  StyledButton,
+  StyledField,
+  StyledForm,
+  StyledCloseButton,
+} from "./Modals.module";
 
 const EditProject = ({teamId}) => {
   const [modalOpen, setModalOpen] = useState(false); 
@@ -29,14 +37,14 @@ const EditProject = ({teamId}) => {
         {" "}
         Edit Project
       </Button>
-      <Modal isOpen={modalOpen} toggle={toggle}>
+      <StyledModal isOpen={modalOpen} toggle={toggle}>
         {" "}
-        <ModalHeader>
+        <StyledModalHeader>
           {" "}
           Edit Project
-          <Button color="danger" onClick={() => setModalOpen(false)}>X</Button>
-        </ModalHeader>
-        <ModalBody>
+          <StyledCloseButton color="danger" onClick={() => setModalOpen(false)}>X</StyledCloseButton>
+        </StyledModalHeader>
+        <StyledModalBody>
           <Formik
             initialValues={{
               projectName: "",
@@ -44,32 +52,33 @@ const EditProject = ({teamId}) => {
             }}
             onSubmit={handleSubmit}
           >
-            <Form>
+            <StyledForm>
               <FormGroup>
                 <Label htmlFor="projectName"></Label>
-                <Field
+                <StyledField
                   name="projectName"
                   placeholder="Project Name"
                   className="form-control"
                 />
               </FormGroup>
               <FormGroup>
-                <Label htmlFor="description">Description</Label>
-                <Field
+                <Label htmlFor="description"></Label>
+                <StyledField
                   id="description"
                   name="description"
                   as="textarea"
                   rows="5"
                   className="form-control"
+                  placeholder="Description"
                 />
               </FormGroup>
-              <Button type="submit" color="primary">
+              <StyledButton type="submit" color="primary">
                 Save
-              </Button>
-            </Form>
+              </StyledButton>
+            </StyledForm>
           </Formik>
-        </ModalBody>
-      </Modal>
+        </StyledModalBody>
+      </StyledModal>
     </>
   );
 };

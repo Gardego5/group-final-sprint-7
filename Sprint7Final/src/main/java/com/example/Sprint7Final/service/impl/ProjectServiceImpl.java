@@ -60,7 +60,7 @@ public class ProjectServiceImpl implements ProjectService {
 	@Override
 	public ProjectResponseDto updateProjectById(ProjectRequestDto projectRequestDto, Long projectId) {
 		
-		Optional<Project> optionalProject = projectRepository.findById(projectId);
+		Optional<Project> optionalProject = projectRepository.findByIdAndDeletedFalse(projectId);
 		if (optionalProject.isEmpty()) {
 			throw new NotFoundException("Project not found with id: " + projectId);
 		}

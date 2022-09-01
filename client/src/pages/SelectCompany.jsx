@@ -1,40 +1,85 @@
+import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { Redirect } from "react-router-dom";
 import styled from "styled-components";
+import { getUser, setCompany } from "../reducers/rootReducer";
+import { getCompanies } from "../utils/requests";
+
+const MainDiv = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  top: 300px;
+`;
+
+const Title = styled.h1`
+  color: blue;
+  margin-top: 1em;
+  text-align: center;
+  font-size: 50px;
+`;
+
+const CompanySelector = styled.select`
+  border-radius: 4px;
+  height: 40px;
+  width: 200px;
+  font-size: 20px;
+  text-align: center;
+`;
+
+const CompanyOption = styled.option``;
 
 const SelectCompany = () => {
-  const MainDiv = styled.div`
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    position: relative;
-    top: 300px;
-  `;
+  const dispatch = useDispatch();
+  const user = useSelector(getUser);
 
-  const Title = styled.h1`
-    color: blue;
-    margin-top: 1em;
-    text-align: center;
-    font-size: 50px;
-  `;
+  // Local State
+  const [redirect, setRedirect] = useState("");
+  const [companies, setCompanies] = useState([]);
 
-  const CompanySelector = styled.select`
-    border-radius: 4px;
-    height: 40px;
-    width: 200px;
-    font-size: 20px;
-    text-align: center;
-  `;
+  useEffect(() => {
+    (async () =>
+      await getCompanies().then((fetchedCompanies) =>
+        setCompanies(fetchedCompanies)
+      ))();
+  }, []);
 
-  const CompanyOption = styled.option``;
+  if (!user) return <Redirect to="" />;
 
-  return (
+  if (!user.admin) {
+    dispatch(setCompany(user?.company));
+    return <Redirect to="/announcements" />;
+  }
+
+  const selectCompany = (event) => {
+    if (event.target.value) {
+      dispatch(
+        setCompany(
+          companies.filter(
+            ({ id }) => id === Number.parseInt(event.target.value)
+          )[0]
+        )
+      );
+      setRedirect(<Redirect to="/announcements" />);
+    }
+  };
+
+  return redirect ? (
+    redirect
+  ) : (
     <MainDiv>
       <Title>Select Company</Title>
-      <CompanySelector>
-        <CompanyOption>Pick an Option</CompanyOption>
-        <CompanyOption>FedEx</CompanyOption>
-        <CompanyOption>Cook Systems</CompanyOption>
-        <CompanyOption>Google</CompanyOption>
+      <CompanySelector onChange={selectCompany}>
+        <CompanyOption value={null}>Pick an Option</CompanyOption>
+        {companies
+          ? companies.map((company, idx) => (
+              <CompanyOption value={company.id} key={idx}>
+                {company.name}
+              </CompanyOption>
+            ))
+          : ""}
       </CompanySelector>
     </MainDiv>
   );

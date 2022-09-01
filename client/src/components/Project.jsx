@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import BasicButton from "./ModalComponents/BasicButton";
+import CreateProject from "./Modals/CreateProject";
 
 const StyledProject = styled.div`
   display: flex;
@@ -21,7 +22,7 @@ const Project = ({ name, editedDaysAgo, desc, onEdit }) => {
     editedDaysAgo !== undefined &&
     desc !== undefined ? (
     <StyledProject>
-    <BasicButton className="edit-button" bg="#deb992" c="black">Edit</BasicButton>
+      <CreateProject projName={name} projectDescription={desc} buttonText="Edit"/>
       <div className="project-row">
         <div className="project-title">
           <h2>{name}</h2>
@@ -31,9 +32,7 @@ const Project = ({ name, editedDaysAgo, desc, onEdit }) => {
       </div>
     </StyledProject>
   ) : (
-    <StyledProject>
-      <BasicButton className="edit-button" onClick={onEdit}>New</BasicButton>
-    </StyledProject>
+    <StyledProject/>
   );
 };
 

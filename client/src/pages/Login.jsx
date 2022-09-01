@@ -1,7 +1,15 @@
+import { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
+import { Redirect } from "react-router-dom";
 import styled from "styled-components";
 import LogoImg from "../assets/logo.png";
-import { getCredentials, setPassword, setUsername } from "../reducers/rootReducer";
+import {
+  getCredentials,
+  setPassword,
+  setUser,
+  setUsername,
+} from "../reducers/rootReducer";
+import { loginUser } from "../utils/requests";
 
 const LoginPageDiv = styled.div`
   display: flex;
@@ -81,10 +89,23 @@ const LoginButton = styled.button`
 `;
 
 const Login = () => {
-  const credentials = useSelector(getCredentials);
   const dispatch = useDispatch();
+  const credentials = useSelector(getCredentials);
 
-  return (
+  // Local State
+  const [redirect, setRedirect] = useState("");
+
+  const handleLogin = async () => {
+    const user = await loginUser(credentials);
+    if (user) {
+      dispatch(setUser(user));
+      setRedirect(<Redirect to="/company" />);
+    }
+  };
+
+  return redirect ? (
+    redirect
+  ) : (
     <LoginPageDiv>
       <Title>Cook Systems</Title>
       <Subtitle>A FINAL APP</Subtitle>
@@ -104,7 +125,7 @@ const Login = () => {
           value={credentials.password}
           onChange={(event) => dispatch(setPassword(event.target.value))}
         />
-        <LoginButton>Login</LoginButton>
+        <LoginButton onClick={handleLogin}>Login</LoginButton>
       </LoginBox>
     </LoginPageDiv>
   );
