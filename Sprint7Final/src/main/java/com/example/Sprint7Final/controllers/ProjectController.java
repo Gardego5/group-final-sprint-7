@@ -35,8 +35,8 @@ public class ProjectController {
 	}
 
 	@PostMapping
-	public ProjectResponseDto createProject(@RequestBody ProjectRequestDto projecRequesttDto) {
-		return projectService.createProject(projecRequesttDto);
+	public ProjectResponseDto createProject(@RequestBody ProjectRequestDto projectRequestDto) {
+		return projectService.createProject(projectRequestDto);
 	}
 
 	@GetMapping("/team/{teamId}")

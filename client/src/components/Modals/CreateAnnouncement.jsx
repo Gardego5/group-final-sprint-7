@@ -49,7 +49,7 @@ const CreateAnnouncement = (props) => {
       })
       .catch((err) => console.log(err));
   };
-console.log(announcement);
+
   return (
     <>
       <BasicButton outline onClick={() => setModalOpen(true)}>
