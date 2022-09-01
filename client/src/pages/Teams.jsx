@@ -15,7 +15,7 @@ const StyledTeams = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  & div#teams {
+  div#teams {
     width: 80%;
     display: grid;
     gap: 4rem;
@@ -84,12 +84,13 @@ const Teams = () => {
       <StyledTeams>
         <h1>Teams</h1>
         <div id="teams">
-          {myNewTeams?.map(({ name, projectCount, members }, idx) => (
+          {myNewTeams?.map(({ name, projectCount, members, id }, idx) => (
             <TeamCard
               name={name}
               projectCount={projectCount}
               members={members}
               key={idx}
+              teamId={id}
             />
           ))}
           <CreateTeam members={members} getNewTeams={getNewTeams} />

@@ -5,6 +5,10 @@ const GlobalStyle = createGlobalStyle`
     font-family: "Mulish", sans-serif;
   }
 
+  html {
+    
+  }
+
   body {
     margin: 0;
     padding: 0;
@@ -15,17 +19,26 @@ const GlobalStyle = createGlobalStyle`
   /* width */
   ::-webkit-scrollbar {
     position: absolute;
-    width: 15px;
+    width: 0.8rem;
   }
   /* Track */
   ::-webkit-scrollbar-track {
-    box-shadow: inset 0 0 5px rgb(248, 244, 244);
+    background: #051622;
+    border-inline: 1px solid #deb992;
     border-radius: 10px;
   }
   /* Handle */
   ::-webkit-scrollbar-thumb {
-    background: rgb(22, 22, 22);
+    background: rgba(11, 45, 69, 0.3);
+    box-shadow: inset 0 0 0.35rem #deb992;
+    border: 1px solid rgb(11, 45, 69);
     border-radius: 10px;
+  }
+
+  h1 {
+    margin: 2rem 2rem 1rem;
+    color: #1ba098;
+    text-align: center;
   }
 `;
 

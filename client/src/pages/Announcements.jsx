@@ -12,13 +12,6 @@ import { getCompanyAnnouncements } from "../utils/requests";
 import { getCompany, getUser } from "../reducers/rootReducer";
 
 const AnnouncementsStyle = styled.div`
-  & h1 {
-    align-items: center;
-    display: flex;
-    flex-direction: column;
-    color: #1ba098;
-    margin: 1rem;
-  }
   & div.announcements {
     align-items: center;
     display: flex;
