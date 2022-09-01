@@ -36,33 +36,28 @@ const Teams = () => {
   const [allNewUsers, updateAllNewUsers] = useState([]);
   const [members, setMembers] = useState([]);
   const [projects, setProjects] = useState([]);
+  const [newTeams, setNewTeams] = useState(0)
   const company = useSelector(getCompany);
 
   const handleGetUsers = async () => {
     const allUsers = await getAllUsersFromCompany(company.id);
     updateAllNewUsers(allUsers);
-  };
-
-  const getProjects = async () => {
     const indProjects = await getAllProjects();
     setProjects(indProjects);
   };
 
+  const getNewTeams = () => setTimeout(function(){
+    setNewTeams(newTeams + 1)
+}, 2000);
+
   useEffect(() => {
     handleGetUsers();
-    getProjects();
-  }, []);
+  }, [newTeams]);
 
   useEffect(() => {
     //map thru all the users.
     const filteredUsers = allNewUsers.filter((user) => user.team);
     setMembers(filteredUsers);
-
-    const teamIds = allNewUsers.map((user) => user.team.id);
-    console.log(teamIds);
-    const idSet = new Set(teamIds);
-    // idSet.add(...teamIds);
-    console.log(idSet);
 
     const reduceProjects = projects.reduce((fullList, currentProject) => {
       let index = fullList.length - 1;
@@ -116,7 +111,7 @@ const Teams = () => {
               key={idx}
             />
           ))}
-          <CreateTeam members={members} />
+          <CreateTeam members={members} getNewTeams={getNewTeams}/>
         </div>
       </StyledTeams>
     </>
