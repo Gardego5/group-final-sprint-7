@@ -38,7 +38,7 @@ export const getCompanyAnnouncements = async (companyId) => {
 };
 
 export const createNewAnnouncement = async (announcement) => {
-  return fetch(`${ROOT_URL}announcements`, {
+  return fetch(`${ROOT_URL}/announcements`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(announcement),
@@ -65,12 +65,51 @@ export const addUser = async (user) => {
     .catch(handleError);
 };
 
-export const getAllUsersFromCompany = async (credentials, id) => {
-  return fetch(`${ROOT_URL}/user/${id}`, {
-    method: "POST",
+export const getAllUsersFromCompany = async (companyId) => {
+  return fetch(`${ROOT_URL}/user/${companyId}`, {
+    method: "GET",
     headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(credentials),
   })
   .then(handleData)
   .catch(handleError);
+}
+
+export const createProject = async (newProject) => {
+  return fetch(`${ROOT_URL}/project`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(newProject)
+  })
+  .then((response) => console.log(response))
+  .then(handleData)
+  .catch(handleError)
+}
+
+export const getAllProjects = async () => {
+  return fetch (`${ROOT_URL}/project`, {
+    method: "GET"
+  })
+  .then(handleData)
+  .catch(handleError)
+}
+
+export const getAllTeams = async () => {
+  return fetch(`${ROOT_URL}/team`, {
+    method: "GET"
+  })
+  .then(handleData)
+  .catch(handleError)
+}
+
+export const updateProject = async (newProject, replacedId) => {
+  return fetch(`${ROOT_URL}/project/${replacedId}`, {
+    method: "PUT",
+    headers: { 
+      "Content-Type": "application/json" ,
+      "Access-Control-Allow-Origin": "no-cors"
+    },
+    body: JSON.stringify(newProject)
+  })
+  .then(handleData)
+  .catch(handleError)
 }

@@ -35,8 +35,8 @@ public class ProjectController {
 	}
 
 	@PostMapping
-	public ProjectResponseDto createProject(@RequestBody ProjectRequestDto projecRequesttDto) {
-		return projectService.createProject(projecRequesttDto);
+	public ProjectResponseDto createProject(@RequestBody ProjectRequestDto projectRequestDto) {
+		return projectService.createProject(projectRequestDto);
 	}
 
 	@GetMapping("/team/{teamId}")
@@ -52,6 +52,11 @@ public class ProjectController {
 	@GetMapping("/company/{companyId}")
 	public List<ProjectResponseDto> getProjectsByCompanyId(@PathVariable Long companyId) {
 		return projectService.getProjectsByCompanyId(companyId);
+	}
+
+	@DeleteMapping("/delete/{projectId}")
+	public ProjectResponseDto deleteProject(@PathVariable Long projectId) {
+		return projectService.deleteProject(projectId);
 	}
 
 }
