@@ -74,12 +74,12 @@ public class UserServiceImpl implements UserService {
 		Credentials credentialsInDB = userInDB.getCredentials();
 		Credentials sentCredentials = credentialsMapper.dtoToEntity(credentialsDto);
 
-		if (!userInDB.isActive())
+		if (!userInDB.isActive()) {
 			throw new NotValidCredentialsException("User Not Active");
-
-		if (!credentialsInDB.equals(sentCredentials))
+		}
+		if (!credentialsInDB.equals(sentCredentials)) {
 			throw new NotValidCredentialsException("Invalid Password");
-
+		}
 		userInDB.setStatus("JOINED");
 		userRepository.saveAndFlush(userInDB);
 
@@ -119,6 +119,14 @@ public class UserServiceImpl implements UserService {
 				throw new BadRequestException("Company with id: " + userRequestDto.getCompany().getId() + " does not exist");
 			}
 		}
+		if (userRequestDto.getTeam() != null) {
+			Optional<Team> optionalTeam = teamRepository.findByIdAndDeletedFalse(userRequestDto.getTeam().getId());
+			if (optionalTeam.isPresent()) {
+				userToBeCreated.setTeam(optionalTeam.get());
+			} else {
+				throw new BadRequestException("Team with id: " + userRequestDto.getTeam().getId() + " does not exist");
+			}
+		}
 		userToBeCreated.setProfile(profile);
 		return userMapper.entityToDto(userRepository.saveAndFlush(userToBeCreated));
 	}
@@ -127,12 +135,10 @@ public class UserServiceImpl implements UserService {
 	public UserResponseDto editUser(UserRequestDto userRequestDto, Long userId) {
 
 		Optional<User> optionalUser = userRepository.findByIdAndDeletedFalse(userId);
-
 		if (optionalUser.isEmpty()) {
 			throw new NotFoundException("User could not be found in database with id: " + userId);
 		}
 		User userInDatabase = optionalUser.get();
-
 		if (userRequestDto.getFirstName() != null) {
 			userInDatabase.getProfile().setFirstName(userRequestDto.getFirstName());
 		}
@@ -154,17 +160,21 @@ public class UserServiceImpl implements UserService {
 		if (userRequestDto.getStatus() != null) {
 			userInDatabase.setStatus(userRequestDto.getStatus());
 		}
-		if (userRequestDto.getTeam() != null) {
+		if (userRequestDto.getTeam() != null && userRequestDto.getTeam().getId() != null) {
 			if (userRequestDto.getTeam().getId() != null) {
 				Optional<Team> optionalTeam = teamRepository.findByIdAndDeletedFalse(userRequestDto.getTeam().getId());
 				if (optionalTeam.isEmpty()) {
 					throw new NotFoundException("Team not found in database with team id: " + userRequestDto.getTeam().getId());
 				}
-				Team teamFromDatabase = optionalTeam.get();
-				 companyRepository.findByIdAndDeletedFalse(teamFromDatabase.getTeamCompany().getId());
-
 				userInDatabase.setTeam(optionalTeam.get());
 			}
+		}
+		if (userRequestDto.getCompany() != null && userRequestDto.getCompany().getId() != null) {
+			Optional<Company> optionalCompany = companyRepository.findByIdAndDeletedFalse(userRequestDto.getCompany().getId());
+			if (optionalCompany.isEmpty()) {
+				throw new NotFoundException("Company team with id: " + userRequestDto.getTeam().getTeamCompany().getId());
+			}
+			userInDatabase.setCompany(optionalCompany.get());
 		}
 		if (userRequestDto.getCredentials().getUsername() != null && !userRequestDto.getCredentials().getUsername().equals(userInDatabase.getCredentials().getUsername())) {
 			if (!validateUserNameExistsInDatabase(userRequestDto.getCredentials().getUsername())) {
@@ -177,7 +187,6 @@ public class UserServiceImpl implements UserService {
 		if (userRequestDto.getCredentials().getPassword() != null) {
 			userInDatabase.getCredentials().setPassword(userRequestDto.getCredentials().getPassword());
 		}
-		System.out.println("User in database company name" + userInDatabase.getCompany().getCompanyName());
 		userRepository.saveAndFlush(userInDatabase);
 		return userMapper.entityToDto(userInDatabase);
 	}
