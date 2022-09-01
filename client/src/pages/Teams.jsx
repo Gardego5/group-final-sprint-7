@@ -59,10 +59,6 @@ const Teams = () => {
     setMembers(filteredUsers);
 
     const teamIds = allNewUsers.map((user) => user.team.id);
-    console.log(teamIds);
-    const idSet = new Set(teamIds);
-    // idSet.add(...teamIds);
-    console.log(idSet);
 
     const reduceProjects = projects.reduce((fullList, currentProject) => {
       let index = fullList.length - 1;
@@ -97,7 +93,7 @@ const Teams = () => {
       members: list.map((user) => ({
         name: `${user.profile.firstName} ${user.profile.lastName[0]}.`,
       })),
-      id: list[0].team.id,
+      team: list[0].team,
     }));
 
     updateTeams(solutionTeams);
@@ -109,13 +105,13 @@ const Teams = () => {
       <StyledTeams>
         <h1>Teams</h1>
         <div id="teams">
-          {teams.map(({ name, projectCount, members, id }, idx) => (
+          {teams.map(({ name, projectCount, members, team }, idx) => (
             <TeamCard
               name={name}
               projectCount={projectCount}
               members={members}
               key={idx}
-              teamId={id}
+              team={team}
             />
           ))}
           <CreateTeam members={members} />
