@@ -5,15 +5,12 @@ const GlobalStyle = createGlobalStyle`
     font-family: "Mulish", sans-serif;
   }
 
-  html {
-    
-  }
-
   body {
     margin: 0;
     padding: 0;
     background: #051622;
     color: white;
+    margin-bottom: 4rem
   }
 
   /* width */
