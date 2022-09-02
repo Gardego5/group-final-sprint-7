@@ -86,12 +86,6 @@ const Teams = () => {
     setMyNewTeams(newSolutionTeams);
   }, [users]);
 
-  console.log("[  ---  TEAMS  ---  ]");
-  console.log("ALL USERS", allUsers);
-  console.log("USERS", users);
-  console.log("TEAMS", teams);
-  console.log("NEW TEAMS", myNewTeams);
-
   return (
     <>
       <NavBar />
