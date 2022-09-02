@@ -9,16 +9,9 @@ import AnnouncementCard from "../components/AnnouncementCard";
 import CreateAnnouncement from "../components/Modals/CreateAnnouncement";
 import NavBar from "../components/NavBar";
 import { getCompanyAnnouncements } from "../utils/requests";
-import { getCompany, getUser } from "../reducers/rootReducer";
+import { getAdmin, getCompany, getUser } from "../reducers/rootReducer";
 
 const AnnouncementsStyle = styled.div`
-  & h1 {
-    align-items: center;
-    display: flex;
-    flex-direction: column;
-    color: #1ba098;
-    margin: 1rem;
-  }
   & div.announcements {
     align-items: center;
     display: flex;
@@ -39,43 +32,46 @@ const AnnouncementsStyle = styled.div`
 const Announcements = () => {
   /* ---------------------------------- State --------------------------------- */
   // get companyId from store
-  const company = useSelector(getCompany);
+  const { id: companyId } = useSelector(getCompany);
   // get user info to verify who is posting from store
-  const user = useSelector(getUser);
+  const { username } = useSelector(getUser);
+  const isAdmin = useSelector(getAdmin);
 
   // Holds the all the announcements made to the company
   const [posts, setPosts] = useState([]);
 
   // Holds the user details/info
   // eslint-disable-next-line
-  const [currentUser, setCurrentUser] = useState(user);
 
   /* ---------------------------- helper funcitions ------------------------------ */
 
+  const getPosts = async () => {
+    // call to server to get company's posts
+    setPosts(
+      (await getCompanyAnnouncements(companyId)).sort(
+        (a, b) =>
+          new Date(b.timePosted).getTime() - new Date(a.timePosted).getTime()
+      )
+    );
+  };
+
   // useEffect hook to load all posts from datase
   useEffect(() => {
-    function getPosts() {
-      // call to server to get company's posts
-      getCompanyAnnouncements(company.id)
-        .then((data) => {
-          setPosts(data);
-        })
-        .catch((err) => console.log(err));
-    }
     getPosts();
     // eslint-disable-next-line
-  }, []);
+  }, [posts]);
 
   return (
     <>
       <NavBar />
       <AnnouncementsStyle>
         <h1>Announcements</h1>
-        {user?.admin ? (
+        {isAdmin ? (
           <div className="add-announcement">
             <CreateAnnouncement
-              username={currentUser.username}
-              companyId={company.id}
+              username={username}
+              companyId={companyId}
+              update={getPosts}
             />
           </div>
         ) : (

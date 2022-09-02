@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Button, FormGroup, Label } from "reactstrap";
+import { FormGroup, Label } from "reactstrap";
 import { Formik } from "formik";
 import {
   StyledModal,
@@ -18,35 +18,32 @@ import {
 import { getCompany } from "./../../reducers/rootReducer";
 import { createTeam } from "../../utils/requests";
 
-const CreateTeam = ({ members }) => {
+const CreateTeam = ({ members, getNewTeams }) => {
   const [modalOpen, setModalOpen] = useState(false);
   const [pickedMembers, setPickedMembers] = useState([]);
   const [newMembers, setNewMembers] = useState();
   const company = useSelector(getCompany);
 
-  const dispatch = useDispatch();
   const toggle = () => setModalOpen(!modalOpen);
 
   const handleSubmit = (values) => {
     // pass the [values] to extract everything submited to the form
     const postMembers = []
     pickedMembers.map(member => postMembers.push(member.username))
-    console.log("Post Members: " + postMembers);
     const postTeamData = {
       teamName: values.teamName,
       teamDescription: values.description,
       companyID: company.id,
       usernames: postMembers,
     };
-    console.log("Team Data: " + JSON.stringify(postTeamData));
     createTeam(postTeamData)
+    getNewTeams()
     setModalOpen(false)
   };
   
   useEffect(() => {
     setNewMembers([...members]);
   }, [members]);
-  // console.log("PickedMembers: " + JSON.stringify(pickedMembers));
 
   const removeMember = (member) => {
     const tempList = pickedMembers.filter((user) => user != member);
@@ -121,7 +118,6 @@ const CreateTeam = ({ members }) => {
                     <option
                       key={user.username}
                       value={user.username}
-                      // onClick={console.log("Hello")}
                     >
                       {user.profile.firstName}
                     </option>

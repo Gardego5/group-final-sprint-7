@@ -1,8 +1,11 @@
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import styled from "styled-components";
-import { getAdmin } from "../reducers/rootReducer";
+import { getAdmin, setTeam } from "../reducers/rootReducer";
+import BasicButton from "./ModalComponents/BasicButton";
 import CreateProject from "./Modals/CreateProject";
 import ViewProject from "./Modals/ViewProject";
+import { Redirect } from "react-router-dom";
+import { useState } from "react";
 
 const StyledProject = styled.div`
   display: flex;
@@ -51,6 +54,7 @@ const Project = ({
   teamName,
 }) => {
   const isAdmin = useSelector(getAdmin);
+  const dispatch = useDispatch();
 
   return name !== undefined &&
     editedDaysAgo !== undefined &&
@@ -98,6 +102,14 @@ const Project = ({
   ) : (
     <StyledProject>
       <CreateProject updatePage={updatePage} buttonText="New" />
+      <BasicButton
+        w="250px"
+        onClick={() => {
+          dispatch(setTeam(""));
+        }}
+      >
+        View All Company Projects
+      </BasicButton>
     </StyledProject>
   );
 };

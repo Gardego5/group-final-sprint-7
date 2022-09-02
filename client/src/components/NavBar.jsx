@@ -14,31 +14,38 @@ import {
   setTeam,
 } from "../reducers/rootReducer";
 
+const NothingSpace = styled.nav`
+  height: 4rem;
+  position: static;
+`;
+
 const StyledNav = styled.nav`
   z-index: 5;
-  position: sticky;
+  position: fixed;
+  top: 0;
+  width: 100%;
   background: #051622;
   display: flex;
   align-items: center;
   padding: 0.5rem;
   gap: 1rem;
   border: 0.0625rem solid #deb992;
-  & > * {
+  > * {
     z-index: 5;
   }
-  & img#logo {
+  #logo {
     width: 3rem;
     border-radius: 50%;
     aspect-ratio: 1 / 1;
     object-fit: contain;
     background: #214963;
   }
-  & p#warning {
+  #warning {
     text-transform: uppercase;
     color: #f24e1e;
     margin: 0;
   }
-  & button#menu-button {
+  #menu-button {
     background: #0d3a59;
     border-radius: 0.5rem;
     border: none;
@@ -48,7 +55,7 @@ const StyledNav = styled.nav`
     padding: 0.5rem;
     cursor: pointer;
   }
-  & ul#links {
+  ul#links {
     position: absolute;
     top: 0;
     left: 0rem;
@@ -57,32 +64,33 @@ const StyledNav = styled.nav`
     width: 100%;
     padding: 0;
     margin: 0;
+    li {
+      margin: 0;
+      border-bottom: 0.125rem solid #1ba098;
+      :last-child {
+        border: 0;
+      }
+      a {
+        height: 4rem;
+        display: grid;
+        place-content: center;
+        margin: 0;
+        background: #214963;
+        color: #1ba098;
+        font-size: 2rem;
+        text-decoration: none;
+      }
+    }
   }
-  & ul#links li {
-    margin: 0;
-    border-bottom: 0.125rem solid #1ba098;
-  }
-  & ul#links li:last-child {
-    border: 0;
-  }
-  & ul#links li a {
-    height: 4rem;
-    display: grid;
-    place-content: center;
-    margin: 0;
-    background: #214963;
-    color: #1ba098;
-    font-size: 2rem;
-    text-decoration: none;
-  }
-  & div.overlay {
+  div.overlay {
+    display: ${({ showLinks }) => (showLinks ? "inherit" : "none")};
     position: absolute;
     top: 0;
     right: 0;
     width: 100vw;
     height: 99vh;
     z-index: 4;
-    background-color: #0000;
+    background: #0008;
   }
 `;
 
@@ -112,54 +120,52 @@ const NavBar = () => {
   if (!redirect && !isAdmin && new Set(["/teams", "/users"]).has(pathname))
     setRedirect(<Redirect to="/announcements" />);
 
+  const links = [
+    { display: "Select Company", admin: true, link: "/company" },
+    { display: "Announcements" },
+    { display: "Teams", admin: true },
+    { display: "Projects", admin: false },
+    {
+      display: "Projects",
+      admin: true,
+      click: () => dispatch(setTeam(isAdmin ? "" : user.team)),
+    },
+    { display: "Users", admin: true },
+    { display: "Logout", link: "/", click: logout },
+  ];
+
   return redirect ? (
     redirect
   ) : (
-    <StyledNav showLinks={showing}>
-      {showing ? <div className="overlay" onClick={toggleShowing}></div> : ""}
-      <NavLink to="/">
-        <img src={LogoImg} alt="logo" id="logo" />
-      </NavLink>
+    <>
+      <NothingSpace />
+      <StyledNav showLinks={showing}>
+        <div className="overlay" onClick={toggleShowing}></div>
+        <NavLink to="/announcements">
+          <img src={LogoImg} alt="logo" id="logo" />
+        </NavLink>
 
-      {isAdmin ? <p id="warning">Acting as Admin</p> : ""}
+        {isAdmin ? <p id="warning">Acting as Admin</p> : ""}
 
-      <button id="menu-button" onClick={toggleShowing}>
-        <img src={HamburgerImg} alt="menu" />
-      </button>
+        <button id="menu-button" onClick={toggleShowing}>
+          <img src={HamburgerImg} alt="menu" />
+        </button>
 
-      <ul id="links">
-        <li onClick={toggleShowing}>
-          <NavLink to="/announcements">Home</NavLink>
-        </li>
-        {isAdmin ? (
-          <>
-            <li onClick={toggleShowing}>
-              <NavLink to="/teams">Teams</NavLink>
-            </li>
-            <li onClick={toggleShowing}>
-              <NavLink to="/users">Users</NavLink>
-            </li>
-          </>
-        ) : (
-          ""
-        )}
-        <li onClick={toggleShowing}>
-          <NavLink
-            to="/projects"
-            onClick={() => {
-              if (!isAdmin) dispatch(setTeam(isAdmin ? "" : user.team));
-            }}
-          >
-            Projects
-          </NavLink>
-        </li>
-        <li onClick={toggleShowing}>
-          <NavLink to="/" onClick={logout}>
-            Logout
-          </NavLink>
-        </li>
-      </ul>
-    </StyledNav>
+        <ul id="links">
+          {links.map(({ display, admin, link, click }, idx) =>
+            admin === undefined || admin === isAdmin ? (
+              <li onClick={toggleShowing} key={idx}>
+                <NavLink to={link ? link : `/${display}`} onClick={click}>
+                  {display}
+                </NavLink>
+              </li>
+            ) : (
+              ""
+            )
+          )}
+        </ul>
+      </StyledNav>
+    </>
   );
 };
 

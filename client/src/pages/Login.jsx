@@ -126,7 +126,7 @@ const Login = () => {
           onChange={handleChange(setUsername)}
         />
         <input
-          type="text"
+          type="password"
           placeholder="password"
           value={credentials.password}
           onChange={handleChange(setPassword)}

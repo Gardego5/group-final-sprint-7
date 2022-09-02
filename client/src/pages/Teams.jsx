@@ -2,7 +2,10 @@ import { useEffect, useState } from "react";
 import styled from "styled-components";
 import NavBar from "../components/NavBar";
 import TeamCard from "../components/TeamCard";
-import { getAllUsersFromCompany } from "../utils/requests";
+import {
+  getAllUsersFromCompany,
+  getAllTeamsAndProjectCountByCompany,
+} from "../utils/requests";
 import { useSelector } from "react-redux";
 import { getCompany } from "./../reducers/rootReducer";
 import CreateTeam from "../components/Modals/CreateTeam";
@@ -12,7 +15,7 @@ const StyledTeams = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  & div#teams {
+  div#teams {
     width: 80%;
     display: grid;
     gap: 4rem;
@@ -32,55 +35,55 @@ const Teams = () => {
       ],
     },
   ];
-  const [teams, updateTeams] = useState(defaultTeams);
-  const [allNewUsers, updateAllNewUsers] = useState([]);
+  const [allUsers, updateAllNewUsers] = useState([]);
   const [members, setMembers] = useState([]);
-  const [projects, setProjects] = useState([]);
+  const [teamCount, setNewTeams] = useState(0);
   const company = useSelector(getCompany);
+
+  const [myNewUsersData, setMyNewData] = useState();
+  const [myNewTeams, setMyNewTeams] = useState(defaultTeams);
+
+  const [teams, updateTeams] = useState(defaultTeams);
 
   const handleGetUsers = async () => {
     const allUsers = await getAllUsersFromCompany(company.id);
     updateAllNewUsers(allUsers);
-    // console.log(allUsers);
   };
 
-  const getProjects = async () => {
-    const indProjects = await getAllProjects();
-    setProjects(indProjects);
+  const getNewTeams = () =>
+    setTimeout(function () {
+      setNewTeams(teamCount + 1);
+    }, 300);
+
+  const getAllUsersAgain = async () => {
+    const newUsersAndProjects = await getAllTeamsAndProjectCountByCompany(
+      company.id
+    );
+    setMyNewData(newUsersAndProjects);
   };
+
+  useEffect(() => {
+    const filteredUsers = allUsers.filter((user) => user.team);
+    setMembers(filteredUsers);
+
+    const solutionTeams = myNewUsersData?.teams.map((list, index) => ({
+      name: list.teamName,
+      projectCount: list.numberOfProjects,
+      members: list.members,
+      id: list.id
+    }));
+    setMyNewTeams(solutionTeams);
+  }, [myNewUsersData]);
 
   useEffect(() => {
     handleGetUsers();
-    getProjects();
-  }, []);
-
-  // console.log("Hello " + JSON.stringify(projects));
-  // console.log("Members " + JSON.stringify(members));
+    getAllUsersAgain();
+  }, [teamCount]);
 
   useEffect(() => {
     //map thru all the users.
-    const filteredUsers = allNewUsers.filter((user) => user.team);
+    const filteredUsers = allUsers.filter((user) => user.team);
     setMembers(filteredUsers);
-
-    const teamIds = allNewUsers.map((user) => user.team.id);
-    console.log(teamIds);
-    const idSet = new Set(teamIds);
-    // idSet.add(...teamIds);
-    console.log(idSet);
-
-    const reduceProjects = projects.reduce((fullList, currentProject) => {
-      let index = fullList.length - 1;
-      if (
-        fullList.length &&
-        fullList[index][0].teamOnProject.id === currentProject.teamOnProject.id
-      ) {
-        fullList[index].push(currentProject);
-      } else {
-        fullList.push([currentProject]);
-      }
-      return fullList;
-    }, []);
-    // console.log(reduceProjects);
 
     let reducedTeams = filteredUsers.reduce((fullList, currentUser) => {
       let index = fullList.length - 1;
@@ -94,20 +97,15 @@ const Teams = () => {
       }
       return fullList;
     }, []);
-    console.log("ReducedTeams: " + JSON.stringify(reducedTeams));
-    // console.log(reduceProjects[0][0].length);
 
     const solutionTeams = reducedTeams.map((list, index) => ({
-      name: list[0].team.teamName,
-      projectCount:
-        reduceProjects[index]?.length > 0 ? reduceProjects[index]?.length : 0,
-      members: list.map((user) => ({
-        name: `${user.profile.firstName} ${user.profile.lastName[0]}.`,
-      })),
+      team: list[0].team,
+      members: list,
+      id: list[0].team.id,
     }));
-
+    
     updateTeams(solutionTeams);
-  }, [allNewUsers, projects]);
+  }, [allUsers]);
 
   return (
     <>
@@ -115,15 +113,18 @@ const Teams = () => {
       <StyledTeams>
         <h1>Teams</h1>
         <div id="teams">
-          {teams.map(({ name, projectCount, members }, idx) => (
-            <TeamCard
-              name={name}
-              projectCount={projectCount}
-              members={members}
-              key={idx}
-            />
-          ))}
-          <CreateTeam members={members} />
+          {myNewTeams
+            ?.map(({ name, projectCount, members, id }, idx) => (
+              <TeamCard
+                name={name}
+                projectCount={projectCount}
+                members={members}
+                key={idx}
+                teams={teams}
+                teamId={id}
+              />
+            ))}
+          <CreateTeam members={members} getNewTeams={getNewTeams} />
         </div>
       </StyledTeams>
     </>

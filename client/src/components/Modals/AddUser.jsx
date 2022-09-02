@@ -1,7 +1,7 @@
-import { useState } from "react";
+import { useState, useRef } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Button, FormGroup, Label } from "reactstrap";
-import { Formik } from "formik";
+import { Formik, ErrorMessage } from "formik";
 import {
   StyledModal,
   StyledModalHeader,
@@ -12,13 +12,17 @@ import {
   StyledCloseButton,
 } from "./Modals.module";
 
+import BasicButton from "../ModalComponents/BasicButton";
 import { addUser } from "../../utils/requests";
 import { getCompany } from "../../reducers/rootReducer";
-import UserRegistry from "../../pages/UserRegistry";
 
-const AddUser = ({ increaseUsers }) => {
+// const ErrorMessage = styled.p`
+//   color: red;
+// `;
+
+const AddUser = ({ update }) => {
   const [modalOpen, setModalOpen] = useState(false);
-  const [adminVal, setAdminVal] = useState(null);
+  const [adminVal, setAdminVal] = useState("");
 
   const dispatch = useDispatch();
   const toggle = () => setModalOpen(!modalOpen);
@@ -48,19 +52,50 @@ const AddUser = ({ increaseUsers }) => {
     console.log(values);
     addUser(user);
     setModalOpen(false);
-    increaseUsers();
+    update();
+  };
+
+  const validateUserForm = (values) => {
+    const errors = {};
+    if (values.firstName.length < 2) {
+      errors.firstName = "Missing first name";
+    }
+    if (values.lastName.length < 2) {
+      errors.lastName = "Missing last name";
+    }
+    if (values.username.length < 2) {
+      errors.username = "Missing username";
+    }
+    if (values.email.length < 2) {
+      errors.email = "Missing email";
+    }
+    if (values.phone.length < 2) {
+      errors.phone = "Missing phone number";
+    }
+    if (values.password.length < 4) {
+      errors.password = "Password must be at least 2 characters";
+    } else if (values.password.length > 15) {
+      errors.password = "Password must be 15 characters or less";
+    }
+    if (values.confirmPw.length < 4) {
+      errors.password = "Password must be at least 2 characters";
+    } else if (values.confirmPw.length > 15) {
+      errors.password = "Password must be 15 characters or less";
+    }
+    if (values.password != values.confirmPw) {
+      errors.password = "Password and Confirm Password are not matching";
+      errors.confirmPw = "Password and Confirm Password are not matching";
+    }
+    return errors;
   };
 
   return (
     <>
-      <Button outline onClick={() => setModalOpen(true)}>
-        {" "}
+      <BasicButton w="auto" onClick={() => setModalOpen(true)}>
         Add User
-      </Button>
+      </BasicButton>
       <StyledModal isOpen={modalOpen} toggle={toggle}>
-        {" "}
         <StyledModalHeader>
-          {" "}
           Add User
           <StyledCloseButton color="danger" onClick={() => setModalOpen(false)}>
             X
@@ -68,6 +103,7 @@ const AddUser = ({ increaseUsers }) => {
         </StyledModalHeader>
         <StyledModalBody>
           <Formik
+            enableReinitialize={true}
             initialValues={{
               firstName: "",
               lastName: "",
@@ -78,6 +114,7 @@ const AddUser = ({ increaseUsers }) => {
               confirmPw: "",
             }}
             onSubmit={handleSubmit}
+            validate={validateUserForm}
           >
             <StyledForm>
               <FormGroup>
@@ -87,6 +124,11 @@ const AddUser = ({ increaseUsers }) => {
                   placeholder="First Name"
                   className="form-control"
                 />
+                <ErrorMessage
+                  name="firstName"
+                  component="p"
+                  style={{ color: "red" }}
+                />
               </FormGroup>
               <FormGroup>
                 <Label htmlFor="lastName"></Label>
@@ -94,6 +136,11 @@ const AddUser = ({ increaseUsers }) => {
                   name="lastName"
                   placeholder="Last Name"
                   className="form-control"
+                />
+                <ErrorMessage
+                  name="lastName"
+                  component="p"
+                  style={{ color: "red" }}
                 />
               </FormGroup>
               <FormGroup>
@@ -103,11 +150,21 @@ const AddUser = ({ increaseUsers }) => {
                   placeholder="Email"
                   className="form-control"
                 />
+                <ErrorMessage
+                  name="email"
+                  component="p"
+                  style={{ color: "red" }}
+                />
                 <Label htmlFor="phone"></Label>
                 <StyledField
                   name="phone"
                   placeholder="Phone Number"
                   className="form-control"
+                />
+                <ErrorMessage
+                  name="phone"
+                  component="p"
+                  style={{ color: "red" }}
                 />
               </FormGroup>
               <FormGroup>
@@ -117,6 +174,11 @@ const AddUser = ({ increaseUsers }) => {
                   placeholder="Username"
                   className="form-control"
                 />
+                <ErrorMessage
+                  name="username"
+                  component="p"
+                  style={{ color: "red" }}
+                />
               </FormGroup>
               <FormGroup>
                 <Label htmlFor="password"></Label>
@@ -125,6 +187,11 @@ const AddUser = ({ increaseUsers }) => {
                   placeholder="Password"
                   className="form-control"
                 />
+                <ErrorMessage
+                  name="password"
+                  component="p"
+                  style={{ color: "red" }}
+                />
               </FormGroup>
               <FormGroup>
                 <Label htmlFor="confirmPw"></Label>
@@ -132,6 +199,11 @@ const AddUser = ({ increaseUsers }) => {
                   name="confirmPw"
                   placeholder="Confirm Password"
                   className="form-control"
+                />
+                <ErrorMessage
+                  name="confirmPw"
+                  component="p"
+                  style={{ color: "red" }}
                 />
               </FormGroup>
               <h2
@@ -150,13 +222,13 @@ const AddUser = ({ increaseUsers }) => {
                 onChange={handleAdmin}
               >
                 <option value={null}>Pick an option</option>
-                <option value={true}>true</option>
-                <option value={false}>false</option>
+                <option value={true}>Yes</option>
+                <option value={false}>No</option>
               </select>
               <StyledButton
                 type="submit"
                 color="primary"
-                disabled={adminVal === null}
+                disabled={adminVal === ""}
               >
                 Submit
               </StyledButton>

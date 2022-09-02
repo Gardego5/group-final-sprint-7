@@ -5,7 +5,7 @@ import styled from "styled-components";
 import NavBar from "../components/NavBar";
 import Project from "../components/Project";
 import { getAllProjects, getAllProjectsByTeamId } from "../utils/requests";
-import { getAdmin, getTeam } from "../reducers/rootReducer";
+import { getAdmin, getCompany, getTeam } from "../reducers/rootReducer";
 
 const StyledProjects = styled.div`
   display: flex;
@@ -20,41 +20,41 @@ const StyledProjects = styled.div`
 
 const Projects = () => {
   const team = useSelector(getTeam);
+  const company = useSelector(getCompany);
   const isAdmin = useSelector(getAdmin);
 
   const [projects, updateProjects] = useState([]);
 
   const handleGetProjects = async () => {
-    const DBprojects = team
-      ? await getAllProjectsByTeamId(team.id)
-      : await getAllProjects();
-    if (DBprojects.length > 0) {
-      let tempArry = [];
-      for (let {
-        name,
-        timePosted,
-        description,
-        id,
-        teamOnProject,
-      } of DBprojects) {
-        tempArry[tempArry.length] = {
+    const DBprojects = !team
+      ? await getAllProjects()
+      : await getAllProjectsByTeamId(team.id);
+
+    updateProjects(
+      DBprojects.filter(
+        (project) => project?.teamOnProject?.teamCompany?.id === company?.id
+      )
+        .sort(
+          (a, b) =>
+            new Date(b.timePosted).getTime() - new Date(a.timePosted).getTime()
+        )
+        .map(({ name, timePosted, description, id, teamOnProject }) => ({
+          id,
           name,
+          description,
+          teamID: teamOnProject.id,
+          teamName: teamOnProject.teamName,
           editedDaysAgo: Math.round(
             (new Date().getTime() - new Date(timePosted).getTime()) /
               (1000 * 60 * 60 * 24)
           ),
-          description,
-          id,
-          teamID: teamOnProject.id,
-          teamName: teamOnProject.teamName,
-        };
-      }
-      updateProjects(tempArry);
-    }
+        }))
+    );
   };
+
   useEffect(() => {
     handleGetProjects();
-  }, []);
+  }, [team, company]);
 
   return (
     <Fragment>
