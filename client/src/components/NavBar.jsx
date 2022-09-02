@@ -14,9 +14,16 @@ import {
   setTeam,
 } from "../reducers/rootReducer";
 
+const NothingSpace = styled.nav`
+  height: 4rem;
+  position: static;
+`;
+
 const StyledNav = styled.nav`
   z-index: 5;
-  position: sticky;
+  position: fixed;
+  top: 0;
+  width: 100%;
   background: #051622;
   display: flex;
   align-items: center;
@@ -130,32 +137,35 @@ const NavBar = () => {
   return redirect ? (
     redirect
   ) : (
-    <StyledNav showLinks={showing}>
-      <div className="overlay" onClick={toggleShowing}></div>
-      <NavLink to="/announcements">
-        <img src={LogoImg} alt="logo" id="logo" />
-      </NavLink>
+    <>
+      <NothingSpace />
+      <StyledNav showLinks={showing}>
+        <div className="overlay" onClick={toggleShowing}></div>
+        <NavLink to="/announcements">
+          <img src={LogoImg} alt="logo" id="logo" />
+        </NavLink>
 
-      {isAdmin ? <p id="warning">Acting as Admin</p> : ""}
+        {isAdmin ? <p id="warning">Acting as Admin</p> : ""}
 
-      <button id="menu-button" onClick={toggleShowing}>
-        <img src={HamburgerImg} alt="menu" />
-      </button>
+        <button id="menu-button" onClick={toggleShowing}>
+          <img src={HamburgerImg} alt="menu" />
+        </button>
 
-      <ul id="links">
-        {links.map(({ display, admin, link, click }, idx) =>
-          admin === undefined || admin === isAdmin ? (
-            <li onClick={toggleShowing} key={idx}>
-              <NavLink to={link ? link : `/${display}`} onClick={click}>
-                {display}
-              </NavLink>
-            </li>
-          ) : (
-            ""
-          )
-        )}
-      </ul>
-    </StyledNav>
+        <ul id="links">
+          {links.map(({ display, admin, link, click }, idx) =>
+            admin === undefined || admin === isAdmin ? (
+              <li onClick={toggleShowing} key={idx}>
+                <NavLink to={link ? link : `/${display}`} onClick={click}>
+                  {display}
+                </NavLink>
+              </li>
+            ) : (
+              ""
+            )
+          )}
+        </ul>
+      </StyledNav>
+    </>
   );
 };
 

@@ -125,3 +125,12 @@ export const createTeam = async (teamData) => {
     .then(handleData)
     .catch(handleError);
 }
+
+
+export const getAllTeamsAndProjectCountByCompany = async (companyId) => {
+  return fetch(`${ROOT_URL}/team/teams/${companyId}`, {
+    method: "GET",
+  })
+    .then(handleData)
+    .catch(handleError);
+};
