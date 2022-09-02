@@ -166,7 +166,8 @@ public class TeamServiceImpl implements TeamService {
 		for (Team team : getTeamsByCompanyIdReturnEntities(companyId)) {
 			List<MemberOfTeamDto> memberInfo = new ArrayList<>();
 			for (User user : usersInCompany) {
-				if (user.getTeam().getId().equals(team.getId())) {
+
+				if (user.getTeam() != null && user.getTeam().getId().equals(team.getId())) {
 					MemberOfTeamDto memberOfTeamDto = new MemberOfTeamDto();
 					memberOfTeamDto.setUsername(user.getCredentials().getUsername());
 					memberOfTeamDto.setFirstName(user.getProfile().getFirstName());
