@@ -36,6 +36,7 @@ public class Seeder implements CommandLineRunner {
 		Company company2 = new Company();
 		company2.setCompanyName("Aperture Science Innovators");
 		company2.setCompanyDescription("The cake is not a lie...");
+
 		companyRepository.saveAndFlush(company2);
 
 		// team creations
@@ -285,7 +286,7 @@ public class Seeder implements CommandLineRunner {
 		user11Pro.setPhone("heeeyaaah");
 		user11.setProfile(user11Pro);
 		user11.setCompany(company1);
-		user11.setTeam(team4);
+		user11.setTeam(team3);
 		user11.setStatus("PENDING");
 
 		// --- User 12 ---
@@ -305,6 +306,7 @@ public class Seeder implements CommandLineRunner {
 		user12Pro.setPhone("181-922-3399");
 		user12.setProfile(user12Pro);
 		user12.setCompany(company1);
+		user12.setTeam(team3);
 		user12.setStatus("PENDING");
 
 		// --- User 13 ---
@@ -324,6 +326,7 @@ public class Seeder implements CommandLineRunner {
 		user13Pro.setPhone("181-978-1123");
 		user13.setProfile(user13Pro);
 		user13.setCompany(company1);
+		user13.setTeam(team3);
 		user13.setStatus("PENDING");
 		
 		// --- User 14 ---
@@ -343,6 +346,7 @@ public class Seeder implements CommandLineRunner {
 		user14Pro.setPhone("281-223-4499");
 		user14.setProfile(user14Pro);
 		user14.setCompany(company1);
+		user14.setTeam(team3);
 		user14.setStatus("PENDING");
 
 		// --- User 15 ---
@@ -362,6 +366,7 @@ public class Seeder implements CommandLineRunner {
 		user15Pro.setPhone("181-900-0099");
 		user15.setProfile(user15Pro);
 		user15.setCompany(company1);
+		user15.setTeam(team3);
 		user15.setStatus("PENDING");
 
 		// --- User 16 ---
@@ -381,6 +386,7 @@ public class Seeder implements CommandLineRunner {
 		user16Pro.setPhone("444-222-7899");
 		user16.setProfile(user16Pro);
 		user16.setCompany(company1);
+		user16.setTeam(team3);
 		user16.setStatus("PENDING");
 
 		// --- User 17 ---
@@ -400,6 +406,7 @@ public class Seeder implements CommandLineRunner {
 		user17Pro.setPhone("221-887-4477");
 		user17.setProfile(user17Pro);
 		user17.setCompany(company1);
+		user17.setTeam(team4);
 		user17.setStatus("PENDING");
 
 		// --- User 18 ---
@@ -419,6 +426,7 @@ public class Seeder implements CommandLineRunner {
 		user18Pro.setPhone("181-978-7222");
 		user18.setProfile(user18Pro);
 		user18.setCompany(company1);
+		user18.setTeam(team4);
 		user18.setStatus("PENDING");
 
 		// --- User 19 ---
@@ -438,6 +446,7 @@ public class Seeder implements CommandLineRunner {
 		user19Pro.setPhone("556-344-2211");
 		user19.setProfile(user19Pro);
 		user19.setCompany(company1);
+		user19.setTeam(team4);
 		user19.setStatus("PENDING");
 
 		// --- User 20 ---
@@ -457,6 +466,7 @@ public class Seeder implements CommandLineRunner {
 		user20Pro.setPhone("333-112-3345");
 		user20.setProfile(user20Pro);
 		user20.setCompany(company1);
+		user20.setTeam(team4);
 		user20.setStatus("PENDING");
 
 		// --- User 21 ---
@@ -862,9 +872,19 @@ public class Seeder implements CommandLineRunner {
 		announcement3.setMessage("I believe you have my stapler.");
 		announcement3.setTimePosted(Timestamp.valueOf(LocalDateTime.now()));
 
+		Announcement announcement4 = new Announcement();
+		announcement4.setCompanyMakingAnnouncement(company2);
+		announcement4.setAuthor(user3);
+		announcement4.setTitle("Please do not attempt to remove testing apparatus from the testing area.");
+		announcement4.setMessage("This Aperture Science Material Emancipation Grid will vaporize any unauthorized equipment that passes through it - for instance, the Aperture Science Weighted Storage Cube. " +
+				"While safety is one of many Enrichment Center goals, the Aperture Science High Energy Pellet, seen to the left of the chamber, can and has caused permanent disabilities such as vaporization.");
+		announcement4.setTimePosted(Timestamp.valueOf(LocalDateTime.now()));
+
 		announcementRepository.saveAndFlush(announcement1);
 		announcementRepository.saveAndFlush(announcement2);
 		announcementRepository.saveAndFlush(announcement3);
+		announcementRepository.saveAndFlush(announcement4);
+
 
 		// Extra Seeder Data
 
