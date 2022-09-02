@@ -41,33 +41,37 @@ const StyledUserInfo = styled.div`
   }
 `;
 
-const ViewUser = ({ initialUser, abbreviate }) => {
+const ViewUser = ({
+  user: {
+    username,
+    profile: { firstName, lastName, email, phone },
+    status,
+    active,
+    admin,
+  },
+  abbreviate,
+}) => {
   const [modalOpen, setModalOpen] = useState(false);
-  const [user, setUser] = useState(initialUser);
+
+  const fields = [
+    { value: username, label: "username" },
+    [
+      { value: firstName, label: "first name" },
+      { value: lastName, label: "last name" },
+    ],
+    { value: email, label: "email" },
+    { value: phone, label: "phone" },
+    [
+      { value: status, label: "status" },
+      { value: active ? "Yes" : "No", label: "active" },
+      { value: admin ? "Yes" : "No", label: "admin" },
+    ],
+  ];
 
   const toggle = () => setModalOpen(!modalOpen);
 
-  const displayName = (a) => {
-    const {
-      profile: { firstName, lastName },
-    } = user;
-    return `${firstName} ${lastName ? (a ? `${lastName[0]}.` : lastName) : ""}`;
-  };
-
-  const fields = [
-    { value: user?.username, label: "username" },
-    [
-      { value: user?.profile?.firstName, label: "first name" },
-      { value: user?.profile?.lastName, label: "last name" },
-    ],
-    { value: user?.profile?.email, label: "email" },
-    { value: user?.profile?.phone, label: "phone" },
-    [
-      { value: user?.status, label: "status" },
-      { value: user?.active ? "Yes" : "No", label: "active" },
-      { value: user?.admin ? "Yes" : "No", label: "admin" },
-    ],
-  ];
+  const displayName = (a) =>
+    `${firstName} ${lastName ? (a ? `${lastName[0]}.` : lastName) : ""}`;
 
   const genGroup = (group, idx) =>
     Array.isArray(group) ? (
