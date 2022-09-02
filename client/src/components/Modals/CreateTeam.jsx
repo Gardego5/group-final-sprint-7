@@ -39,7 +39,7 @@ const CreateTeam = ({ members, update }) => {
       usernames: postMembers,
     };
     createTeam(postTeamData);
-    setTimeout(update, 1);
+    setTimeout(update, 100);
     setModalOpen(false);
   };
 

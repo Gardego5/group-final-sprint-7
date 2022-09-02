@@ -53,6 +53,7 @@ const Teams = () => {
 
   useEffect(() => {
     const solutionTeams = allUsers
+      .sort((a, b) => a.team.id - b.team.id)
       .reduce((fullList, currentUser) => {
         let index = fullList.length - 1;
         if (
@@ -92,11 +93,10 @@ const Teams = () => {
       <StyledTeams>
         <h1>Teams</h1>
         <div id="teams">
-          {myNewTeams?.map(({ name, projectCount, members, id }, idx) => (
+          {myNewTeams?.map(({ name, projectCount, id }, idx) => (
             <TeamCard
               name={name}
               projectCount={projectCount}
-              members={members}
               key={idx}
               teams={teams}
               teamId={id}

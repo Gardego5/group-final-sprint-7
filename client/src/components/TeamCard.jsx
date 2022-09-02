@@ -66,6 +66,7 @@ const TeamCard = ({ name, projectCount, teams, teamId }) => {
 
   useEffect(() => {
     const tempTeam = teams?.filter((t) => t.id === teamId)[0];
+    console.log(tempTeam, teams)
     const tempMembers = tempTeam?.members;
     setAllMembers(tempMembers);
     setSingleTeam(tempTeam);
