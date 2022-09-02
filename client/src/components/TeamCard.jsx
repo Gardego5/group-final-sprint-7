@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { Redirect } from "react-router-dom";
 import styled from "styled-components";
@@ -60,9 +60,25 @@ const StyledTeamCard = styled.div`
 const TeamCard = ({ name, projectCount, teams, teamId }) => {
   const dispatch = useDispatch();
   const [redirect, setRedirect] = useState("");
+  const [singleTeam, setSingleTeam] = useState();
+  const [allMembers, setAllMembers] = useState();
+  const [disabled, setDisabled] = useState(true);
 
-  const {team, members} = teams.filter(t => t.id === teamId)[0]
-
+  console.log("teams in Team Card", teams);
+  useEffect(() => {
+    const tempTeam = teams?.filter((t) => t.id === teamId)[0];
+    const tempMembers = tempTeam?.members;
+    setAllMembers(tempMembers);
+    setSingleTeam(tempTeam);
+  }, []);
+  useEffect(() => {
+    // if (allMembers || projectCount > 0) {
+    //   setDisabled(false)
+    // }
+    if (allMembers) {
+      setDisabled(false);
+    }
+  });
   return redirect ? (
     redirect
   ) : (
@@ -70,12 +86,17 @@ const TeamCard = ({ name, projectCount, teams, teamId }) => {
       <div className="team-title">
         <h3>{name}</h3>
         <div className="projects">
-          <p># of Projects: {projectCount}</p>
+          {allMembers ? (
+            <p># of Projects: {projectCount}</p>
+          ) : (
+            <BasicButton>Add a Member</BasicButton>
+          )}
           <BasicButton
             onClick={() => {
               setRedirect(<Redirect to="/Projects" />);
-              dispatch(setTeam(team));
+              dispatch(setTeam(singleTeam));
             }}
+            disabled={disabled}
           >
             View Projects
           </BasicButton>
@@ -83,7 +104,7 @@ const TeamCard = ({ name, projectCount, teams, teamId }) => {
       </div>
       <h3>Members</h3>
       <div className="team-members">
-        {members?.map((user, idx) => (
+        {allMembers?.map((user, idx) => (
           <ViewUser initialUser={user} abbreviate={true} key={idx} />
         ))}
       </div>
