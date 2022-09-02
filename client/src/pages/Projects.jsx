@@ -30,7 +30,9 @@ const Projects = () => {
       : await getAllProjectsByTeamId(team.id);
 
     updateProjects(
-      DBprojects.map(
+      DBprojects
+      .reverse()
+      .map(
         ({ name, timePosted, description, id, teamOnProject }) => ({
           id,
           name,
