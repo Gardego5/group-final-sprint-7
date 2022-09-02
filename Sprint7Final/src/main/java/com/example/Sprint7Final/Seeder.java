@@ -204,8 +204,8 @@ public class Seeder implements CommandLineRunner {
 		user7Pro.setEmail("mojang2@email.com");
 		user7Pro.setPhone("211-551-8901");
 		user7.setProfile(user7Pro);
+		user7.setTeam(team3);
 		user7.setCompany(company1);
-		user7.setTeam(team4);
 		user7.setStatus("PENDING");
 
 		// --- User 8 ---
@@ -225,7 +225,7 @@ public class Seeder implements CommandLineRunner {
 		user8Pro.setPhone("234-555-8999");
 		user8.setProfile(user8Pro);
 		user8.setCompany(company1);
-		user8.setTeam(team4);
+		user8.setTeam(team3);
 		user8.setStatus("PENDING");
 
 		// --- User 9 ---
@@ -245,7 +245,7 @@ public class Seeder implements CommandLineRunner {
 		user9Pro.setPhone("111-555-7899");
 		user9.setProfile(user9Pro);
 		user9.setCompany(company1);
-		user9.setTeam(team4);
+		user9.setTeam(team3);
 		user9.setStatus("PENDING");
 
 		// --- User 10 ---
@@ -265,7 +265,7 @@ public class Seeder implements CommandLineRunner {
 		user10Pro.setPhone("211-987-7899");
 		user10.setProfile(user10Pro);
 		user10.setCompany(company1);
-		user10.setTeam(team4);
+		user10.setTeam(team3);
 		user10.setStatus("PENDING");
 
 		// --- User 11 ---
@@ -305,7 +305,6 @@ public class Seeder implements CommandLineRunner {
 		user12Pro.setPhone("181-922-3399");
 		user12.setProfile(user12Pro);
 		user12.setCompany(company1);
-		user12.setTeam(team4);
 		user12.setStatus("PENDING");
 
 		// --- User 13 ---
@@ -325,7 +324,6 @@ public class Seeder implements CommandLineRunner {
 		user13Pro.setPhone("181-978-1123");
 		user13.setProfile(user13Pro);
 		user13.setCompany(company1);
-		user13.setTeam(team4);
 		user13.setStatus("PENDING");
 		
 		// --- User 14 ---
@@ -345,7 +343,6 @@ public class Seeder implements CommandLineRunner {
 		user14Pro.setPhone("281-223-4499");
 		user14.setProfile(user14Pro);
 		user14.setCompany(company1);
-		user14.setTeam(team4);
 		user14.setStatus("PENDING");
 
 		// --- User 15 ---
@@ -365,7 +362,6 @@ public class Seeder implements CommandLineRunner {
 		user15Pro.setPhone("181-900-0099");
 		user15.setProfile(user15Pro);
 		user15.setCompany(company1);
-		user15.setTeam(team4);
 		user15.setStatus("PENDING");
 
 		// --- User 16 ---
@@ -385,7 +381,6 @@ public class Seeder implements CommandLineRunner {
 		user16Pro.setPhone("444-222-7899");
 		user16.setProfile(user16Pro);
 		user16.setCompany(company1);
-		user16.setTeam(team4);
 		user16.setStatus("PENDING");
 
 		// --- User 17 ---
@@ -405,7 +400,6 @@ public class Seeder implements CommandLineRunner {
 		user17Pro.setPhone("221-887-4477");
 		user17.setProfile(user17Pro);
 		user17.setCompany(company1);
-		user17.setTeam(team4);
 		user17.setStatus("PENDING");
 
 		// --- User 18 ---
@@ -425,7 +419,6 @@ public class Seeder implements CommandLineRunner {
 		user18Pro.setPhone("181-978-7222");
 		user18.setProfile(user18Pro);
 		user18.setCompany(company1);
-		user18.setTeam(team4);
 		user18.setStatus("PENDING");
 
 		// --- User 19 ---
@@ -445,7 +438,6 @@ public class Seeder implements CommandLineRunner {
 		user19Pro.setPhone("556-344-2211");
 		user19.setProfile(user19Pro);
 		user19.setCompany(company1);
-		user19.setTeam(team4);
 		user19.setStatus("PENDING");
 
 		// --- User 20 ---
@@ -465,7 +457,6 @@ public class Seeder implements CommandLineRunner {
 		user20Pro.setPhone("333-112-3345");
 		user20.setProfile(user20Pro);
 		user20.setCompany(company1);
-		user20.setTeam(team4);
 		user20.setStatus("PENDING");
 
 		// --- User 21 ---
