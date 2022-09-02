@@ -37,6 +37,7 @@ const StyledUserInfo = styled.div`
   p.info-field {
     border-bottom: 1px solid #deb992;
     text-align: center;
+    height: 1.5rem;
   }
 `;
 
@@ -46,10 +47,12 @@ const ViewUser = ({ initialUser, abbreviate }) => {
 
   const toggle = () => setModalOpen(!modalOpen);
 
-  const displayName = (a) =>
-    `${user?.profile?.firstName} ${
-      a ? `${user?.profile?.lastName[0]}.` : user?.profile?.lastName
-    }`;
+  const displayName = (a) => {
+    const {
+      profile: { firstName, lastName },
+    } = user;
+    return `${firstName} ${lastName ? (a ? `${lastName[0]}.` : lastName) : ""}`;
+  };
 
   const fields = [
     { value: user?.username, label: "username" },
