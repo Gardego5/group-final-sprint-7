@@ -150,9 +150,9 @@ public class TeamServiceImpl implements TeamService {
 			}
 			userRepository.saveAllAndFlush(usersToAdd);
 		}
-
 		return teamMapper.entityToResponseDto(teamRepository.save(teamInDatabase));
 	}
+
 	@Override
 	public TeamsListDto getUniqueThingForDavidP(Long companyId) {
 		List<User> usersInCompany = new ArrayList<>();
