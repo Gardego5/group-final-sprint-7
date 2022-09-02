@@ -36,6 +36,7 @@ public class Seeder implements CommandLineRunner {
 		Company company2 = new Company();
 		company2.setCompanyName("Aperture Science Innovators");
 		company2.setCompanyDescription("The cake is not a lie...");
+
 		companyRepository.saveAndFlush(company2);
 
 		// team creations
@@ -862,9 +863,19 @@ public class Seeder implements CommandLineRunner {
 		announcement3.setMessage("I believe you have my stapler.");
 		announcement3.setTimePosted(Timestamp.valueOf(LocalDateTime.now()));
 
+		Announcement announcement4 = new Announcement();
+		announcement4.setCompanyMakingAnnouncement(company2);
+		announcement4.setAuthor(user3);
+		announcement4.setTitle("Please do not attempt to remove testing apparatus from the testing area.");
+		announcement4.setMessage("This Aperture Science Material Emancipation Grid will vaporize any unauthorized equipment that passes through it - for instance, the Aperture Science Weighted Storage Cube. " +
+				"While safety is one of many Enrichment Center goals, the Aperture Science High Energy Pellet, seen to the left of the chamber, can and has caused permanent disabilities such as vaporization.");
+		announcement4.setTimePosted(Timestamp.valueOf(LocalDateTime.now()));
+
 		announcementRepository.saveAndFlush(announcement1);
 		announcementRepository.saveAndFlush(announcement2);
 		announcementRepository.saveAndFlush(announcement3);
+		announcementRepository.saveAndFlush(announcement4);
+
 
 		// Extra Seeder Data
 
