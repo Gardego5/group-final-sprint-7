@@ -1,18 +1,16 @@
 package com.example.Sprint7Final;
 
+import com.example.Sprint7Final.entities.*;
+import com.example.Sprint7Final.repositories.*;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.boot.CommandLineRunner;
+import org.springframework.stereotype.Component;
+
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
-
-import com.example.Sprint7Final.entities.*;
-import com.example.Sprint7Final.repositories.*;
-import org.springframework.boot.CommandLineRunner;
-import org.springframework.boot.autoconfigure.jms.artemis.ArtemisNoOpBindingRegistry;
-import org.springframework.stereotype.Component;
-
-import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 
 @Component
 @RequiredArgsConstructor
@@ -282,6 +280,7 @@ public class Seeder implements CommandLineRunner {
 		// Profile
 		Profile user11Pro = new Profile();
 		user11Pro.setFirstName("Link");
+		user11Pro.setLastName("404");
 		user11Pro.setEmail("Hyrule@hylian.com");
 		user11Pro.setPhone("heeeyaaah");
 		user11.setProfile(user11Pro);
@@ -441,6 +440,7 @@ public class Seeder implements CommandLineRunner {
 		// Profile
 		Profile user19Pro = new Profile();
 		user19Pro.setFirstName("Poseidon");
+		user19Pro.setLastName("LotsAWater");
 		user19Pro.setEmail("atlanticIsLife@email.com");
 		user19Pro.setPhone("556-344-2211");
 		user19.setProfile(user19Pro);
