@@ -51,8 +51,6 @@ const Announcements = () => {
       // call to server to get company's posts
       getCompanyAnnouncements(company.id)
         .then((data) => {
-          // const tempData = data
-          // tempData.reverse()
           setPosts(data.reverse());
         })
         .catch((err) => console.log(err));
