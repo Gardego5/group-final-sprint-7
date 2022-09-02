@@ -11,6 +11,8 @@ import {
 import BasicButton from "../ModalComponents/BasicButton";
 
 import styled from "styled-components";
+import { useSelector } from "react-redux";
+import { getCompany } from "../../reducers/rootReducer";
 
 const StyledForm = styled.form`
   display: flex;
@@ -43,6 +45,7 @@ const CreateProject = ({
   team = "",
   projectID,
 }) => {
+  const company = useSelector(getCompany);
   const [modalOpen, setModalOpen] = useState(false);
   const [project, setProject] = useState({
     name,
@@ -68,10 +71,12 @@ const CreateProject = ({
 
   useEffect(() => {
     (async () => {
-      let DBTeams = await getAllTeams();
+      let DBTeams = (await getAllTeams()).filter(
+        (team) => team?.teamCompany?.id === company?.id
+      );
 
       setTeams(DBTeams);
-      if (!team) setProject({ ...project, teamId: DBTeams[0].id });
+      if (!team) setProject({ ...project, teamId: DBTeams[0]?.id });
     })();
   }, []);
 
