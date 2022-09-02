@@ -590,7 +590,7 @@ public class Seeder implements CommandLineRunner {
 		Project office1Project = new Project();
 		office1Project.setName("Office Renovation Planning");
 		office1Project.setDescription(
-				"Discuss plans for improving the office environment. Suggestions are a new air conditioner (old one is broken), a new refrigerator (old one is too small), and more seating for visitorsF");
+				"Discuss plans for improving the office environment. Suggestions are a new air conditioner (old one is broken), a new refrigerator (old one is too small), and more seating for visitors");
 		office1Project.setActive(true);
 		office1Project.setTeamOnProject(staffTeam);
 		projectRepository.saveAndFlush(office1Project);
@@ -598,7 +598,7 @@ public class Seeder implements CommandLineRunner {
 		Project promo1Project = new Project();
 		promo1Project.setName("Shopping Mall Promotion");
 		promo1Project.setDescription(
-				"Greet fans at the Atre Shopping Mall and pose for photos and shake fans' hands and sign autographs");
+				"Greet fans at the Atre Shopping Mall, pose for photos, shake fans' hands, and sign autographs");
 		promo1Project.setActive(true);
 		promo1Project.setTeamOnProject(idolTeam);
 		projectRepository.saveAndFlush(promo1Project);
@@ -617,7 +617,7 @@ public class Seeder implements CommandLineRunner {
 		staffAnnouncement1.setCompanyMakingAnnouncement(company3);
 		staffAnnouncement1.setTitle("Be Sure to Hydrate!");
 		staffAnnouncement1.setMessage(
-				"Due to the air conditioner currently being out of service, expect it to be hot in the office! We'll have several fans running during the day, but please take care of yourselves and drink plenty of water and bring an extra water bottle when you come to work this week! Don't worry, we expect to get the air conditioner repaired or replaced on Saturday! Keep up the good work! ");
+				"Due to the air conditioner currently being out of service, expect it to be hot in the office! We'll have several fans running during the day, but please take care of yourselves and drink plenty of water and bring an extra water bottle when you come to work this week! Don't worry, we expect to get the air conditioner repaired or replaced on Saturday! Keep up the good work!");
 		staffAnnouncement1.setTimePosted(Timestamp.valueOf(LocalDateTime.now()));
 
 		Announcement staffAnnouncement2 = new Announcement();
@@ -625,7 +625,7 @@ public class Seeder implements CommandLineRunner {
 		staffAnnouncement2.setCompanyMakingAnnouncement(company3);
 		staffAnnouncement2.setTitle("Beach Concert Next Month!");
 		staffAnnouncement2.setMessage(
-				"I hope everyone's training is going well for the beach concert next month! We expect a lot of people to show up, so put in that extra effort and reach out to your Producer, Otonashi-kun or Aoba-kun if you have anything you need to discuss!  ");
+				"I hope everyone's training is going well for the beach concert next month! We expect a lot of people to show up, so put in that extra effort and reach out to your Producer, Otonashi-kun or Aoba-kun if you have anything you need to discuss.");
 		staffAnnouncement2.setTimePosted(Timestamp.valueOf(LocalDateTime.now()));
 
 		Announcement staffAnnouncement3 = new Announcement();
