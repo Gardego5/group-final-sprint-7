@@ -9,6 +9,20 @@ import {
 import BasicButton from "../ModalComponents/BasicButton";
 import styled from "styled-components";
 
+const StyledUserButton = styled(BasicButton)`
+  ${({ admin }) =>
+    admin
+      ? `::after {
+    content: "*";
+    position: absolute;
+    left: 0.25rem;
+    height: 100%
+    font-size: 0.5rem;
+    color: #0b2d45;
+  }`
+      : ""}
+`;
+
 const StyledUserInfo = styled.div`
   display: flex;
   flex-direction: column;
@@ -85,9 +99,14 @@ const ViewUser = ({
 
   return (
     <>
-      <BasicButton onClick={() => setModalOpen(true)} w="auto">
+      <StyledUserButton
+        admin={admin}
+        onClick={() => setModalOpen(true)}
+        w="auto"
+        bg={!active ? "#a7a7a7" : undefined}
+      >
         {displayName(abbreviate)}
-      </BasicButton>
+      </StyledUserButton>
       <StyledModal isOpen={modalOpen} toggle={toggle}>
         <StyledModalHeader>
           {displayName()}
