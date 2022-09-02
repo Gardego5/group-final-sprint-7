@@ -9,7 +9,6 @@ import {
 import { useSelector } from "react-redux";
 import { getCompany } from "./../reducers/rootReducer";
 import CreateTeam from "../components/Modals/CreateTeam";
-import { getAllProjects } from "./../utils/requests";
 
 const StyledTeams = styled.div`
   display: flex;
@@ -53,6 +52,7 @@ const Teams = () => {
   const getNewTeams = () =>
     setTimeout(function () {
       setNewTeams(teamCount + 1);
+      window.location.reload();
     }, 300);
 
   const getAllUsersAgain = async () => {
@@ -73,7 +73,7 @@ const Teams = () => {
       id: list.id
     }));
     setMyNewTeams(solutionTeams);
-  }, [myNewUsersData]);
+  }, [myNewUsersData, teamCount]);
 
   useEffect(() => {
     handleGetUsers();
@@ -105,7 +105,7 @@ const Teams = () => {
     }));
     
     updateTeams(solutionTeams);
-  }, [allUsers]);
+  }, [allUsers, teamCount]);
 
   return (
     <>
