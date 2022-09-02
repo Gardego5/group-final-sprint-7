@@ -84,6 +84,7 @@ public class Seeder implements CommandLineRunner {
 		user1.setProfile(user1Pro);
 		user1.setCompany(company1);
 		user1.setTeam(team3);
+		user1.setAdmin(true);
 		user1.setStatus("PENDING");
 
 		// --- User 2 ---
@@ -206,6 +207,7 @@ public class Seeder implements CommandLineRunner {
 		user7Pro.setPhone("211-551-8901");
 		user7.setProfile(user7Pro);
 		user7.setTeam(team3);
+		user7.setActive(false);
 		user7.setCompany(company1);
 		user7.setStatus("PENDING");
 
@@ -346,6 +348,7 @@ public class Seeder implements CommandLineRunner {
 		user14Pro.setPhone("281-223-4499");
 		user14.setProfile(user14Pro);
 		user14.setCompany(company1);
+		user14.setAdmin(true);
 		user14.setTeam(team3);
 		user14.setStatus("PENDING");
 
