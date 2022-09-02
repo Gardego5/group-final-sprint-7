@@ -353,6 +353,7 @@ public class Seeder implements CommandLineRunner {
 		PresidentProfile.setPhone("898-65-99876");
 		President.setProfile(PresidentProfile);
 		President.setCompany(company3);
+		President.setAdmin(true);
 		President.setTeam(staffTeam);
 		President.setStatus("JOINED");
 
@@ -616,7 +617,7 @@ public class Seeder implements CommandLineRunner {
 		staffAnnouncement1.setCompanyMakingAnnouncement(company3);
 		staffAnnouncement1.setTitle("Be Sure to Hydrate!");
 		staffAnnouncement1.setMessage(
-				"Due to the air conditioner currently being out of service, except it to be hot in the office! We'll have several fans running during the day, but please take care of yourselves and drink plenty of water and bring an extra water bottle when you come to work this week! Don't worry, we expect to get the air conditioner repaired or replaced on Saturday! Keep up the good work! ");
+				"Due to the air conditioner currently being out of service, expect it to be hot in the office! We'll have several fans running during the day, but please take care of yourselves and drink plenty of water and bring an extra water bottle when you come to work this week! Don't worry, we expect to get the air conditioner repaired or replaced on Saturday! Keep up the good work! ");
 		staffAnnouncement1.setTimePosted(Timestamp.valueOf(LocalDateTime.now()));
 
 		Announcement staffAnnouncement2 = new Announcement();
