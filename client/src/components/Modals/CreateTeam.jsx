@@ -21,7 +21,7 @@ import { createTeam } from "../../utils/requests";
 const CreateTeam = ({ members, update }) => {
   const [modalOpen, setModalOpen] = useState(false);
   const [pickedMembers, setPickedMembers] = useState([]);
-  const [newMembers, setNewMembers] = useState();
+  const [newMembers, setNewMembers] = useState([]);
   const company = useSelector(getCompany);
 
   const toggle = () => {
@@ -40,6 +40,8 @@ const CreateTeam = ({ members, update }) => {
     };
     createTeam(postTeamData);
     setTimeout(update, 100);
+    setPickedMembers([]);
+    setNewMembers([]);
     setModalOpen(false);
   };
 
