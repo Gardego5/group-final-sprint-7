@@ -12,6 +12,10 @@ const BasicButton = styled.button`
   box-shadow: 0 0.25rem 0.25rem #0006;
   display: grid;
   place-content: center;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+  position: relative;
   &:active {
     transform: translateY(0.25rem);
     box-shadow: none;

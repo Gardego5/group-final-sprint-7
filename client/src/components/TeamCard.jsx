@@ -64,7 +64,6 @@ const TeamCard = ({ name, projectCount, teams, teamId }) => {
   const [allMembers, setAllMembers] = useState();
   const [disabled, setDisabled] = useState(true);
 
-  console.log("teams in Team Card", teams);
   useEffect(() => {
     const tempTeam = teams?.filter((t) => t.id === teamId)[0];
     const tempMembers = tempTeam?.members;
@@ -72,9 +71,6 @@ const TeamCard = ({ name, projectCount, teams, teamId }) => {
     setSingleTeam(tempTeam);
   }, []);
   useEffect(() => {
-    // if (allMembers || projectCount > 0) {
-    //   setDisabled(false)
-    // }
     if (allMembers) {
       setDisabled(false);
     }
@@ -105,7 +101,7 @@ const TeamCard = ({ name, projectCount, teams, teamId }) => {
       <h3>Members</h3>
       <div className="team-members">
         {allMembers?.map((user, idx) => (
-          <ViewUser initialUser={user} abbreviate={true} key={idx} />
+          <ViewUser user={user} abbreviate key={idx} />
         ))}
       </div>
     </StyledTeamCard>

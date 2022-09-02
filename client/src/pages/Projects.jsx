@@ -5,7 +5,7 @@ import styled from "styled-components";
 import NavBar from "../components/NavBar";
 import Project from "../components/Project";
 import { getAllProjects, getAllProjectsByTeamId } from "../utils/requests";
-import { getAdmin, getTeam } from "../reducers/rootReducer";
+import { getAdmin, getCompany, getTeam } from "../reducers/rootReducer";
 
 const StyledProjects = styled.div`
   display: flex;
@@ -20,6 +20,7 @@ const StyledProjects = styled.div`
 
 const Projects = () => {
   const team = useSelector(getTeam);
+  const company = useSelector(getCompany);
   const isAdmin = useSelector(getAdmin);
 
   const [projects, updateProjects] = useState([]);
@@ -30,10 +31,14 @@ const Projects = () => {
       : await getAllProjectsByTeamId(team.id);
 
     updateProjects(
-      DBprojects
-      .reverse()
-      .map(
-        ({ name, timePosted, description, id, teamOnProject }) => ({
+      DBprojects.filter(
+        (project) => project?.teamOnProject?.teamCompany?.id === company?.id
+      )
+        .sort(
+          (a, b) =>
+            new Date(b.timePosted).getTime() - new Date(a.timePosted).getTime()
+        )
+        .map(({ name, timePosted, description, id, teamOnProject }) => ({
           id,
           name,
           description,
@@ -43,14 +48,13 @@ const Projects = () => {
             (new Date().getTime() - new Date(timePosted).getTime()) /
               (1000 * 60 * 60 * 24)
           ),
-        })
-      )
+        }))
     );
   };
 
   useEffect(() => {
     handleGetProjects();
-  }, []);
+  }, [team, company]);
 
   return (
     <Fragment>

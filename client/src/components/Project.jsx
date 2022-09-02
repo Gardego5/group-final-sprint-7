@@ -55,9 +55,6 @@ const Project = ({
 }) => {
   const isAdmin = useSelector(getAdmin);
   const dispatch = useDispatch();
-  const [redirect, setRedirect] = useState("");
-
-
 
   return name !== undefined &&
     editedDaysAgo !== undefined &&
@@ -105,10 +102,14 @@ const Project = ({
   ) : (
     <StyledProject>
       <CreateProject updatePage={updatePage} buttonText="New" />
-      <BasicButton w="250px" onClick={() => {
-        dispatch(setTeam(""));
-        window.location.reload();
-      }}>View All Company Projects</BasicButton>
+      <BasicButton
+        w="250px"
+        onClick={() => {
+          dispatch(setTeam(""));
+        }}
+      >
+        View All Company Projects
+      </BasicButton>
     </StyledProject>
   );
 };

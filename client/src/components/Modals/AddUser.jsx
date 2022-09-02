@@ -11,19 +11,18 @@ import {
   StyledForm,
   StyledCloseButton,
 } from "./Modals.module";
-import styled from "styled-components";
 
+import BasicButton from "../ModalComponents/BasicButton";
 import { addUser } from "../../utils/requests";
 import { getCompany } from "../../reducers/rootReducer";
-import UserRegistry from "../../pages/UserRegistry";
 
 // const ErrorMessage = styled.p`
 //   color: red;
 // `;
 
-const AddUser = ({ increaseUsers }) => {
+const AddUser = ({ update }) => {
   const [modalOpen, setModalOpen] = useState(false);
-  const [adminVal, setAdminVal] = useState(null);
+  const [adminVal, setAdminVal] = useState("");
 
   const dispatch = useDispatch();
   const toggle = () => setModalOpen(!modalOpen);
@@ -53,7 +52,7 @@ const AddUser = ({ increaseUsers }) => {
     console.log(values);
     addUser(user);
     setModalOpen(false);
-    increaseUsers();
+    update();
   };
 
   const validateUserForm = (values) => {
@@ -92,14 +91,11 @@ const AddUser = ({ increaseUsers }) => {
 
   return (
     <>
-      <Button outline onClick={() => setModalOpen(true)}>
-        {" "}
+      <BasicButton w="auto" onClick={() => setModalOpen(true)}>
         Add User
-      </Button>
+      </BasicButton>
       <StyledModal isOpen={modalOpen} toggle={toggle}>
-        {" "}
         <StyledModalHeader>
-          {" "}
           Add User
           <StyledCloseButton color="danger" onClick={() => setModalOpen(false)}>
             X
@@ -232,7 +228,7 @@ const AddUser = ({ increaseUsers }) => {
               <StyledButton
                 type="submit"
                 color="primary"
-                disabled={adminVal === null}
+                disabled={adminVal === ""}
               >
                 Submit
               </StyledButton>

@@ -9,6 +9,20 @@ import {
 import BasicButton from "../ModalComponents/BasicButton";
 import styled from "styled-components";
 
+const StyledUserButton = styled(BasicButton)`
+  ${({ admin }) =>
+    admin
+      ? `::after {
+    content: "*";
+    position: absolute;
+    left: 0.25rem;
+    height: 100%
+    font-size: 0.5rem;
+    color: #0b2d45;
+  }`
+      : ""}
+`;
+
 const StyledUserInfo = styled.div`
   display: flex;
   flex-direction: column;
@@ -37,34 +51,41 @@ const StyledUserInfo = styled.div`
   p.info-field {
     border-bottom: 1px solid #deb992;
     text-align: center;
+    height: 1.5rem;
   }
 `;
 
-const ViewUser = ({ initialUser, abbreviate }) => {
+const ViewUser = ({
+  user: {
+    username,
+    profile: { firstName, lastName, email, phone },
+    status,
+    active,
+    admin,
+  },
+  abbreviate,
+}) => {
   const [modalOpen, setModalOpen] = useState(false);
-  const [user, setUser] = useState(initialUser);
+
+  const fields = [
+    { value: username, label: "username" },
+    [
+      { value: firstName, label: "first name" },
+      { value: lastName, label: "last name" },
+    ],
+    { value: email, label: "email" },
+    { value: phone, label: "phone" },
+    [
+      { value: status, label: "status" },
+      { value: active ? "Yes" : "No", label: "active" },
+      { value: admin ? "Yes" : "No", label: "admin" },
+    ],
+  ];
 
   const toggle = () => setModalOpen(!modalOpen);
 
   const displayName = (a) =>
-    `${user?.profile?.firstName} ${
-      a ? `${user?.profile?.lastName[0]}.` : user?.profile?.lastName
-    }`;
-
-  const fields = [
-    { value: user?.username, label: "username" },
-    [
-      { value: user?.profile?.firstName, label: "first name" },
-      { value: user?.profile?.lastName, label: "last name" },
-    ],
-    { value: user?.profile?.email, label: "email" },
-    { value: user?.profile?.phone, label: "phone" },
-    [
-      { value: user?.status, label: "status" },
-      { value: user?.active ? "Yes" : "No", label: "active" },
-      { value: user?.admin ? "Yes" : "No", label: "admin" },
-    ],
-  ];
+    `${firstName} ${lastName ? (a ? `${lastName[0]}.` : lastName) : ""}`;
 
   const genGroup = (group, idx) =>
     Array.isArray(group) ? (
@@ -78,9 +99,14 @@ const ViewUser = ({ initialUser, abbreviate }) => {
 
   return (
     <>
-      <BasicButton onClick={() => setModalOpen(true)} w="auto">
+      <StyledUserButton
+        admin={admin}
+        onClick={() => setModalOpen(true)}
+        w="auto"
+        bg={!active ? "#a7a7a7" : undefined}
+      >
         {displayName(abbreviate)}
-      </BasicButton>
+      </StyledUserButton>
       <StyledModal isOpen={modalOpen} toggle={toggle}>
         <StyledModalHeader>
           {displayName()}

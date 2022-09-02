@@ -57,26 +57,21 @@ const UserCell = styled.td`
 `;
 
 const UserRegistry = () => {
-  const setCompany = useSelector(getCompany);
-  const [userList, setUserList] = useState([]);
-  const [addedUsers, setAddedUsers] = useState(0);
+  const { id: companyId } = useSelector(getCompany);
+  const [users, setUsers] = useState([]);
 
   //Calls the GET method for all users by company id and saves to setUserList
   const getUsers = async () => {
-    const allUsers = await getAllUsersFromCompany(setCompany.id);
-    setUserList(allUsers);
+    setUsers(await getAllUsersFromCompany(companyId));
   };
 
   // useEffect hook to load all users by company from database
   useEffect(() => {
     getUsers();
     // eslint-disable-next-line
-  }, [addedUsers]);
+  }, [users]);
 
   //Adds the new user to the userList
-  const increaseUsers = () => {
-    setAddedUsers(addedUsers + 1);
-  };
 
   //verify the data in userList
   //   console.log(userList);
@@ -84,7 +79,7 @@ const UserRegistry = () => {
   //Sets headers and accessors in table
   const columns = useMemo(() => Columns, []);
   //Sets where the table takes the data from
-  const data = useMemo(() => userList);
+  const data = useMemo(() => users);
 
   const tableInstance = useTable({
     columns,
@@ -129,10 +124,7 @@ const UserRegistry = () => {
             })}
           </UserBody>
         </UserTable>
-        <AddUser
-          addedUsers={addedUsers}
-          increaseUsers={increaseUsers}
-        ></AddUser>
+        <AddUser update={getUsers} />
       </Container>
     </Fragment>
   );
