@@ -69,7 +69,7 @@ const TeamCard = ({ name, projectCount, teams, teamId }) => {
     const tempMembers = tempTeam?.members;
     setAllMembers(tempMembers);
     setSingleTeam(tempTeam);
-  }, []);
+  }, [teams]);
   useEffect(() => {
     if (allMembers) {
       setDisabled(false);

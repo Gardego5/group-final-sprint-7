@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { FormGroup, Label } from "reactstrap";
 import { Formik } from "formik";
 import {
@@ -18,36 +18,37 @@ import {
 import { getCompany } from "./../../reducers/rootReducer";
 import { createTeam } from "../../utils/requests";
 
-const CreateTeam = ({ members, getNewTeams }) => {
+const CreateTeam = ({ members, update }) => {
   const [modalOpen, setModalOpen] = useState(false);
   const [pickedMembers, setPickedMembers] = useState([]);
   const [newMembers, setNewMembers] = useState();
   const company = useSelector(getCompany);
 
-  const toggle = () => setModalOpen(!modalOpen);
+  const toggle = () => {
+    setModalOpen(!modalOpen);
+  };
 
   const handleSubmit = (values) => {
     // pass the [values] to extract everything submited to the form
-    const postMembers = []
-    pickedMembers.map(member => postMembers.push(member.username))
+    const postMembers = [];
+    pickedMembers.map((member) => postMembers.push(member.username));
     const postTeamData = {
       teamName: values.teamName,
       teamDescription: values.description,
       companyID: company.id,
       usernames: postMembers,
     };
-    createTeam(postTeamData)
-    getNewTeams()
-    setModalOpen(false)
+    createTeam(postTeamData);
+    setTimeout(update, 1);
+    setModalOpen(false);
   };
-  
+
   useEffect(() => {
     setNewMembers([...members]);
   }, [members]);
 
   const removeMember = (member) => {
-    const tempList = pickedMembers.filter((user) => user != member);
-    setPickedMembers(tempList);
+    setPickedMembers(pickedMembers.filter((user) => user !== member));
     setNewMembers([...newMembers, member]);
   };
 
@@ -115,10 +116,7 @@ const CreateTeam = ({ members, getNewTeams }) => {
                 >
                   <option>Pick A Member</option>
                   {newMembers?.map((user) => (
-                    <option
-                      key={user.username}
-                      value={user.username}
-                    >
+                    <option key={user.username} value={user.username}>
                       {user.profile.firstName}
                     </option>
                   ))}
