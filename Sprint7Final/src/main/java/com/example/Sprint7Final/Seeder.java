@@ -57,9 +57,15 @@ public class Seeder implements CommandLineRunner {
 		team5.setTeamCompany(company2);
 		team5.setTeamDescription("Team 5 is the best!");
 
+		Team team6 = new Team();
+		team6.setTeamName("Stranger Team");
+		team6.setTeamCompany(company2);
+		team6.setTeamDescription("Hawkins rules!");
+
 		teamRepository.saveAndFlush(team3);
 		teamRepository.saveAndFlush(team4);
 		teamRepository.saveAndFlush(team5);
+		teamRepository.saveAndFlush(team6);
 
 		// --- User 1 ---
 		// Credentials
@@ -224,15 +230,578 @@ public class Seeder implements CommandLineRunner {
 		user8.setTeam(team4);
 		user8.setStatus("PENDING");
 
+		// --- User 9 ---
+		// Credentials
+		Credentials user9Cred = new Credentials();
+		user9Cred.setUsername("DiddyKong");
+		user9Cred.setPassword("bananas2");
+
+		User user9 = new User();
+		user9.setCredentials(user9Cred);
+
+		// Profile
+		Profile user9Pro = new Profile();
+		user9Pro.setFirstName("Diddy");
+		user9Pro.setLastName("Kong");
+		user9Pro.setEmail("nintendo@email.com");
+		user9Pro.setPhone("111-555-7899");
+		user9.setProfile(user9Pro);
+		user9.setCompany(company1);
+		user9.setTeam(team4);
+		user9.setStatus("PENDING");
+
+		// --- User 10 ---
+		// Credentials
+		Credentials user10Cred = new Credentials();
+		user10Cred.setUsername("DixieKong");
+		user10Cred.setPassword("bananas3");
+
+		User user10 = new User();
+		user10.setCredentials(user10Cred);
+
+		// Profile
+		Profile user10Pro = new Profile();
+		user10Pro.setFirstName("Dixie");
+		user10Pro.setLastName("Kong");
+		user10Pro.setEmail("nintendo4@email.com");
+		user10Pro.setPhone("211-987-7899");
+		user10.setProfile(user10Pro);
+		user10.setCompany(company1);
+		user10.setTeam(team4);
+		user10.setStatus("PENDING");
+
+		// --- User 11 ---
+		// Credentials
+		Credentials user11Cred = new Credentials();
+		user11Cred.setUsername("Link");
+		user11Cred.setPassword("triforceCourage");
+
+		User user11 = new User();
+		user11.setCredentials(user11Cred);
+
+		// Profile
+		Profile user11Pro = new Profile();
+		user11Pro.setFirstName("Link");
+		user11Pro.setEmail("Hyrule@hylian.com");
+		user11Pro.setPhone("heeeyaaah");
+		user11.setProfile(user11Pro);
+		user11.setCompany(company1);
+		user11.setTeam(team4);
+		user11.setStatus("PENDING");
+
+		// --- User 12 ---
+		// Credentials
+		Credentials user12Cred = new Credentials();
+		user12Cred.setUsername("Zelda");
+		user12Cred.setPassword("iheartLink");
+
+		User user12 = new User();
+		user12.setCredentials(user12Cred);
+
+		// Profile
+		Profile user12Pro = new Profile();
+		user12Pro.setFirstName("Princess");
+		user12Pro.setLastName("Zelda");
+		user12Pro.setEmail("princess4life@hyrulecastle.com");
+		user12Pro.setPhone("181-922-3399");
+		user12.setProfile(user12Pro);
+		user12.setCompany(company1);
+		user12.setTeam(team4);
+		user12.setStatus("PENDING");
+
+		// --- User 13 ---
+		// Credentials
+		Credentials user13Cred = new Credentials();
+		user13Cred.setUsername("Majora");
+		user13Cred.setPassword("masks23");
+
+		User user13 = new User();
+		user13.setCredentials(user13Cred);
+
+		// Profile
+		Profile user13Pro = new Profile();
+		user13Pro.setFirstName("Skull");
+		user13Pro.setLastName("Kid");
+		user13Pro.setEmail("theMoonisComing@email.com");
+		user13Pro.setPhone("181-978-1123");
+		user13.setProfile(user13Pro);
+		user13.setCompany(company1);
+		user13.setTeam(team4);
+		user13.setStatus("PENDING");
+		
+		// --- User 14 ---
+		// Credentials
+		Credentials user14Cred = new Credentials();
+		user14Cred.setUsername("Ganon");
+		user14Cred.setPassword("ihateLink");
+
+		User user14 = new User();
+		user14.setCredentials(user14Cred);
+
+		// Profile
+		Profile user14Pro = new Profile();
+		user14Pro.setFirstName("Ganon");
+		user14Pro.setLastName("Dorf");
+		user14Pro.setEmail("hyruleWillBeMine@gerudovalley.com");
+		user14Pro.setPhone("281-223-4499");
+		user14.setProfile(user14Pro);
+		user14.setCompany(company1);
+		user14.setTeam(team4);
+		user14.setStatus("PENDING");
+
+		// --- User 15 ---
+		// Credentials
+		Credentials user15Cred = new Credentials();
+		user15Cred.setUsername("TLannister");
+		user15Cred.setPassword("andIKnowThings");
+
+		User user15 = new User();
+		user15.setCredentials(user15Cred);
+
+		// Profile
+		Profile user15Pro = new Profile();
+		user15Pro.setFirstName("Tyrion");
+		user15Pro.setLastName("Lannister");
+		user15Pro.setEmail("pDinklage@email.com");
+		user15Pro.setPhone("181-900-0099");
+		user15.setProfile(user15Pro);
+		user15.setCompany(company1);
+		user15.setTeam(team4);
+		user15.setStatus("PENDING");
+
+		// --- User 16 ---
+		// Credentials
+		Credentials user16Cred = new Credentials();
+		user16Cred.setUsername("Reek");
+		user16Cred.setPassword("myNameIsReek");
+
+		User user16 = new User();
+		user16.setCredentials(user16Cred);
+
+		// Profile
+		Profile user16Pro = new Profile();
+		user16Pro.setFirstName("Theon");
+		user16Pro.setLastName("Grayjoy");
+		user16Pro.setEmail("houseStark@email.com");
+		user16Pro.setPhone("444-222-7899");
+		user16.setProfile(user16Pro);
+		user16.setCompany(company1);
+		user16.setTeam(team4);
+		user16.setStatus("PENDING");
+
+		// --- User 17 ---
+		// Credentials
+		Credentials user17Cred = new Credentials();
+		user17Cred.setUsername("PVenkman");
+		user17Cred.setPassword("aintAfraidOfNoGhost");
+
+		User user17 = new User();
+		user17.setCredentials(user17Cred);
+
+		// Profile
+		Profile user17Pro = new Profile();
+		user17Pro.setFirstName("Peter");
+		user17Pro.setLastName("Venkman");
+		user17Pro.setEmail("parapsychologyRocks@email.com");
+		user17Pro.setPhone("221-887-4477");
+		user17.setProfile(user17Pro);
+		user17.setCompany(company1);
+		user17.setTeam(team4);
+		user17.setStatus("PENDING");
+
+		// --- User 18 ---
+		// Credentials
+		Credentials user18Cred = new Credentials();
+		user18Cred.setUsername("LudwigBeethoven");
+		user18Cred.setPassword("bananas3");
+
+		User user18 = new User();
+		user18.setCredentials(user18Cred);
+
+		// Profile
+		Profile user18Pro = new Profile();
+		user18Pro.setFirstName("Ludwig");
+		user18Pro.setLastName("van Beethoven");
+		user18Pro.setEmail("symphonyNo5@email.com");
+		user18Pro.setPhone("181-978-7222");
+		user18.setProfile(user18Pro);
+		user18.setCompany(company1);
+		user18.setTeam(team4);
+		user18.setStatus("PENDING");
+
+		// --- User 19 ---
+		// Credentials
+		Credentials user19Cred = new Credentials();
+		user19Cred.setUsername("Poseidon");
+		user19Cred.setPassword("myLadyIsTheSea");
+
+		User user19 = new User();
+		user19.setCredentials(user19Cred);
+
+		// Profile
+		Profile user19Pro = new Profile();
+		user19Pro.setFirstName("Poseidon");
+		user19Pro.setEmail("atlanticIsLife@email.com");
+		user19Pro.setPhone("556-344-2211");
+		user19.setProfile(user19Pro);
+		user19.setCompany(company1);
+		user19.setTeam(team4);
+		user19.setStatus("PENDING");
+
+		// --- User 20 ---
+		// Credentials
+		Credentials user20Cred = new Credentials();
+		user20Cred.setUsername("Variant");
+		user20Cred.setPassword("NoobMaster96");
+
+		User user20 = new User();
+		user20.setCredentials(user20Cred);
+
+		// Profile
+		Profile user20Pro = new Profile();
+		user20Pro.setFirstName("Loki");
+		user20Pro.setLastName("Laufeyson-Odinson");
+		user20Pro.setEmail("godOfMischief@email.com");
+		user20Pro.setPhone("333-112-3345");
+		user20.setProfile(user20Pro);
+		user20.setCompany(company1);
+		user20.setTeam(team4);
+		user20.setStatus("PENDING");
+
+		// --- User 21 ---
+		// Credentials
+		Credentials user21Cred = new Credentials();
+		user21Cred.setUsername("Cortana");
+		user21Cred.setPassword("cheifsgurl");
+
+		User user21 = new User();
+		user21.setCredentials(user21Cred);
+
+		// Profile
+		Profile user21Pro = new Profile();
+		user21Pro.setFirstName("Cortana");
+		user21Pro.setLastName("Halsey");
+		user21Pro.setEmail("CortanaHalsey117@unsc.gov");
+		user21Pro.setPhone("166-555-7339");
+		user21.setProfile(user21Pro);
+		user21.setCompany(company1);
+		user21.setTeam(team4);
+		user21.setStatus("PENDING");
+
+		// --- User 22 ---
+		// Credentials
+		Credentials user22Cred = new Credentials();
+		user22Cred.setUsername("PointBreak");
+		user22Cred.setPassword("mjolnir");
+
+		User user22 = new User();
+		user22.setCredentials(user22Cred);
+
+		// Profile
+		Profile user22Pro = new Profile();
+		user22Pro.setFirstName("Thor");
+		user22Pro.setLastName("Odinson");
+		user22Pro.setEmail("ilovejane@email.com");
+		user22Pro.setPhone("181-978-7899");
+		user22.setProfile(user22Pro);
+		user22.setCompany(company1);
+		user22.setTeam(team4);
+		user22.setStatus("PENDING");
+
+		// --- User 23 ---
+		// Credentials
+		Credentials user23Cred = new Credentials();
+		user23Cred.setUsername("JackSkel");
+		user23Cred.setPassword("pumpkins222");
+
+		User user23 = new User();
+		user23.setCredentials(user23Cred);
+
+		// Profile
+		Profile user23Pro = new Profile();
+		user23Pro.setFirstName("Jack");
+		user23Pro.setLastName("SKellington");
+		user23Pro.setEmail("thisisholloween@email.com");
+		user23Pro.setPhone("339-020-2221");
+		user23.setProfile(user23Pro);
+		user23.setCompany(company1);
+		user23.setTeam(team4);
+		user23.setStatus("PENDING");
+
+		// --- User 24 ---
+		// Credentials
+		Credentials user24Cred = new Credentials();
+		user24Cred.setUsername("CorrodedCoffin");
+		user24Cred.setPassword("sickLicks666");
+
+		User user24 = new User();
+		user24.setCredentials(user24Cred);
+
+		// Profile
+		Profile user24Pro = new Profile();
+		user24Pro.setFirstName("Eddie");
+		user24Pro.setLastName("Munson");
+		user24Pro.setEmail("iloveMusic@email.com");
+		user24Pro.setPhone("344-544-1122");
+		user24.setProfile(user24Pro);
+		user24.setCompany(company2);
+		user24.setTeam(team6);
+		user24.setStatus("PENDING");
+
+		// --- User 25 ---
+		// Credentials
+		Credentials user25Cred = new Credentials();
+		user25Cred.setUsername("dustyBunny");
+		user25Cred.setPassword("susie222");
+
+		User user25 = new User();
+		user25.setCredentials(user25Cred);
+
+		// Profile
+		Profile user25Pro = new Profile();
+		user25Pro.setFirstName("Dustin");
+		user25Pro.setLastName("Henderson");
+		user25Pro.setEmail("demidogSlayer@email.com");
+		user25Pro.setPhone("221-378-7899");
+		user25.setProfile(user25Pro);
+		user25.setCompany(company2);
+		user25.setTeam(team6);
+		user25.setStatus("PENDING");
+
+		// --- User 26 ---
+		// Credentials
+		Credentials user26Cred = new Credentials();
+		user26Cred.setUsername("MikeWheeler");
+		user26Cred.setPassword("mike114ever");
+
+		User user26 = new User();
+		user26.setCredentials(user26Cred);
+
+		// Profile
+		Profile user26Pro = new Profile();
+		user26Pro.setFirstName("Mike");
+		user26Pro.setLastName("Wheeler");
+		user26Pro.setEmail("mwheeler11@email.com");
+		user26Pro.setPhone("181-978-7899");
+		user26.setProfile(user26Pro);
+		user26.setCompany(company2);
+		user26.setTeam(team6);
+		user26.setStatus("PENDING");
+
+		// --- User 27 ---
+		// Credentials
+		Credentials user27Cred = new Credentials();
+		user27Cred.setUsername("NancyWheeler");
+		user27Cred.setPassword("steve81");
+
+		User user27 = new User();
+		user27.setCredentials(user27Cred);
+
+		// Profile
+		Profile user27Pro = new Profile();
+		user27Pro.setFirstName("Nancy");
+		user27Pro.setLastName("Wheeler");
+		user27Pro.setEmail("futureReporter@email.com");
+		user27Pro.setPhone("281-938-0099");
+		user27.setProfile(user27Pro);
+		user27.setCompany(company2);
+		user27.setTeam(team6);
+		user27.setStatus("PENDING");
+
+		// --- User 28 ---
+		// Credentials
+		Credentials user28Cred = new Credentials();
+		user28Cred.setUsername("WillTheWise");
+		user28Cred.setPassword("shouldistayorshouldigo");
+
+		User user28 = new User();
+		user28.setCredentials(user28Cred);
+
+		// Profile
+		Profile user28Pro = new Profile();
+		user28Pro.setFirstName("Will");
+		user28Pro.setLastName("Byers");
+		user28Pro.setEmail("willthewise45@email.com");
+		user28Pro.setPhone("181-972-7829");
+		user28.setProfile(user28Pro);
+		user28.setCompany(company2);
+		user28.setTeam(team6);
+		user28.setStatus("PENDING");
+
+		// --- User 29 ---
+		// Credentials
+		Credentials user29Cred = new Credentials();
+		user29Cred.setUsername("JohnathanB81");
+		user29Cred.setPassword("NancyDrew");
+
+		User user29 = new User();
+		user29.setCredentials(user29Cred);
+
+		// Profile
+		Profile user29Pro = new Profile();
+		user29Pro.setFirstName("Johnathan");
+		user29Pro.setLastName("Byers");
+		user29Pro.setEmail("johnByers897@email.com");
+		user29Pro.setPhone("181-972-7829");
+		user29.setProfile(user29Pro);
+		user29.setCompany(company2);
+		user29.setTeam(team6);
+		user29.setStatus("PENDING");
+
+		// --- User 30 ---
+		// Credentials
+		Credentials user30Cred = new Credentials();
+		user30Cred.setUsername("LucasSinc");
+		user30Cred.setPassword("varsityTeam1");
+
+		User user30 = new User();
+		user30.setCredentials(user30Cred);
+
+		// Profile
+		Profile user30Pro = new Profile();
+		user30Pro.setFirstName("Lucas");
+		user30Pro.setLastName("Sinclair");
+		user30Pro.setEmail("lSinclair999@email.com");
+		user30Pro.setPhone("555-344-3321");
+		user30.setProfile(user30Pro);
+		user30.setCompany(company2);
+		user30.setTeam(team6);
+		user30.setStatus("PENDING");
+
+		// --- User 31 ---
+		// Credentials
+		Credentials user31Cred = new Credentials();
+		user31Cred.setUsername("JimHopper1941");
+		user31Cred.setPassword("password1941");
+
+		User user31 = new User();
+		user31.setCredentials(user31Cred);
+
+		// Profile
+		Profile user31Pro = new Profile();
+		user31Pro.setFirstName("Jim");
+		user31Pro.setLastName("Hopper");
+		user31Pro.setEmail("jimHopper1941@email.com");
+		user31Pro.setPhone("911");
+		user31.setProfile(user31Pro);
+		user31.setCompany(company2);
+		user31.setTeam(team6);
+		user31.setStatus("PENDING");
+
+		// --- User 32 ---
+		// Credentials
+		Credentials user32Cred = new Credentials();
+		user32Cred.setUsername("Eleven");
+		user32Cred.setPassword("papaLies");
+
+		User user32 = new User();
+		user32.setCredentials(user32Cred);
+
+		// Profile
+		Profile user32Pro = new Profile();
+		user32Pro.setFirstName("Jane");
+		user32Pro.setLastName("Hopper");
+		user32Pro.setEmail("eleven11@email.com");
+		user32Pro.setPhone("744-228-7229");
+		user32.setProfile(user32Pro);
+		user32.setCompany(company2);
+		user32.setTeam(team6);
+		user32.setStatus("PENDING");
+
+		// --- User 33 ---
+		// Credentials
+		Credentials user33Cred = new Credentials();
+		user33Cred.setUsername("MaxSk8");
+		user33Cred.setPassword("madmax");
+
+		User user33 = new User();
+		user33.setCredentials(user33Cred);
+
+		// Profile
+		Profile user33Pro = new Profile();
+		user33Pro.setFirstName("Max");
+		user33Pro.setLastName("Mayfield");
+		user33Pro.setEmail("skateMax@email.com");
+		user33Pro.setPhone("888-978-7899");
+		user33.setProfile(user33Pro);
+		user33.setCompany(company2);
+		user33.setTeam(team6);
+		user33.setStatus("PENDING");
+
+		// --- User 34 ---
+		// Credentials
+		Credentials user34Cred = new Credentials();
+		user34Cred.setUsername("TheHair");
+		user34Cred.setPassword("nancy83");
+
+		User user34 = new User();
+		user34.setCredentials(user34Cred);
+
+		// Profile
+		Profile user34Pro = new Profile();
+		user34Pro.setFirstName("Steve");
+		user34Pro.setLastName("Harington");
+		user34Pro.setEmail("sHarington83@email.com");
+		user34Pro.setPhone("888-978-1009");
+		user34.setProfile(user34Pro);
+		user34.setCompany(company2);
+		user34.setTeam(team6);
+		user34.setStatus("PENDING");
+
+		// --- User 35 ---
+		// Credentials
+		Credentials user35Cred = new Credentials();
+		user35Cred.setUsername("Robin222");
+		user35Cred.setPassword("vickie");
+
+		User user35 = new User();
+		user35.setCredentials(user35Cred);
+
+		// Profile
+		Profile user35Pro = new Profile();
+		user35Pro.setFirstName("Robin");
+		user35Pro.setLastName("Buckley");
+		user35Pro.setEmail("RobinB222@email.com");
+		user35Pro.setPhone("877-978-5321");
+		user35.setProfile(user35Pro);
+		user35.setCompany(company2);
+		user35.setTeam(team6);
+		user35.setStatus("PENDING");
+
 		userRepository.saveAndFlush(user1);
 		userRepository.saveAndFlush(user2);
 		userRepository.saveAndFlush(user3);
-		userRepository.saveAndFlush(user4);
 		userRepository.saveAndFlush(user4);
 		userRepository.saveAndFlush(user5);
 		userRepository.saveAndFlush(user6);
 		userRepository.saveAndFlush(user7);
 		userRepository.saveAndFlush(user8);
+		userRepository.saveAndFlush(user9);
+		userRepository.saveAndFlush(user10);
+		userRepository.saveAndFlush(user11);
+		userRepository.saveAndFlush(user12);
+		userRepository.saveAndFlush(user13);
+		userRepository.saveAndFlush(user14);
+		userRepository.saveAndFlush(user15);
+		userRepository.saveAndFlush(user16);
+		userRepository.saveAndFlush(user17);
+		userRepository.saveAndFlush(user18);
+		userRepository.saveAndFlush(user19);
+		userRepository.saveAndFlush(user20);
+		userRepository.saveAndFlush(user21);
+		userRepository.saveAndFlush(user22);
+		userRepository.saveAndFlush(user23);
+		userRepository.saveAndFlush(user24);
+		userRepository.saveAndFlush(user25);
+		userRepository.saveAndFlush(user27);
+		userRepository.saveAndFlush(user28);
+		userRepository.saveAndFlush(user29);
+		userRepository.saveAndFlush(user30);
+		userRepository.saveAndFlush(user31);
+		userRepository.saveAndFlush(user32);
+		userRepository.saveAndFlush(user33);
+		userRepository.saveAndFlush(user34);
+		userRepository.saveAndFlush(user35);
 
 		// --Team 1 ---
 		List<User> team1Users = new ArrayList<>();
@@ -353,6 +922,7 @@ public class Seeder implements CommandLineRunner {
 		PresidentProfile.setPhone("898-65-99876");
 		President.setProfile(PresidentProfile);
 		President.setCompany(company3);
+		President.setAdmin(true);
 		President.setTeam(staffTeam);
 		President.setStatus("JOINED");
 
@@ -589,7 +1159,7 @@ public class Seeder implements CommandLineRunner {
 		Project office1Project = new Project();
 		office1Project.setName("Office Renovation Planning");
 		office1Project.setDescription(
-				"Discuss plans for improving the office environment. Suggestions are a new air conditioner (old one is broken), a new refrigerator (old one is too small), and more seating for visitorsF");
+				"Discuss plans for improving the office environment. Suggestions are a new air conditioner (old one is broken), a new refrigerator (old one is too small), and more seating for visitors");
 		office1Project.setActive(true);
 		office1Project.setTeamOnProject(staffTeam);
 		projectRepository.saveAndFlush(office1Project);
@@ -597,7 +1167,7 @@ public class Seeder implements CommandLineRunner {
 		Project promo1Project = new Project();
 		promo1Project.setName("Shopping Mall Promotion");
 		promo1Project.setDescription(
-				"Greet fans at the Atre Shopping Mall and pose for photos and shake fans' hands and sign autographs");
+				"Greet fans at the Atre Shopping Mall, pose for photos, shake fans' hands, and sign autographs");
 		promo1Project.setActive(true);
 		promo1Project.setTeamOnProject(idolTeam);
 		projectRepository.saveAndFlush(promo1Project);
@@ -616,7 +1186,7 @@ public class Seeder implements CommandLineRunner {
 		staffAnnouncement1.setCompanyMakingAnnouncement(company3);
 		staffAnnouncement1.setTitle("Be Sure to Hydrate!");
 		staffAnnouncement1.setMessage(
-				"Due to the air conditioner currently being out of service, except it to be hot in the office! We'll have several fans running during the day, but please take care of yourselves and drink plenty of water and bring an extra water bottle when you come to work this week! Don't worry, we expect to get the air conditioner repaired or replaced on Saturday! Keep up the good work! ");
+				"Due to the air conditioner currently being out of service, expect it to be hot in the office! We'll have several fans running during the day, but please take care of yourselves and drink plenty of water and bring an extra water bottle when you come to work this week! Don't worry, we expect to get the air conditioner repaired or replaced on Saturday! Keep up the good work!");
 		staffAnnouncement1.setTimePosted(Timestamp.valueOf(LocalDateTime.now()));
 
 		Announcement staffAnnouncement2 = new Announcement();
@@ -624,7 +1194,7 @@ public class Seeder implements CommandLineRunner {
 		staffAnnouncement2.setCompanyMakingAnnouncement(company3);
 		staffAnnouncement2.setTitle("Beach Concert Next Month!");
 		staffAnnouncement2.setMessage(
-				"I hope everyone's training is going well for the beach concert next month! We expect a lot of people to show up, so put in that extra effort and reach out to your Producer, Otonashi-kun or Aoba-kun if you have anything you need to discuss!  ");
+				"I hope everyone's training is going well for the beach concert next month! We expect a lot of people to show up, so put in that extra effort and reach out to your Producer, Otonashi-kun or Aoba-kun if you have anything you need to discuss.");
 		staffAnnouncement2.setTimePosted(Timestamp.valueOf(LocalDateTime.now()));
 
 		Announcement staffAnnouncement3 = new Announcement();
