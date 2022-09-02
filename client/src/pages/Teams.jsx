@@ -43,10 +43,11 @@ const Teams = () => {
   const [myNewUsersData, setMyNewData] = useState();
   const [myNewTeams, setMyNewTeams] = useState(defaultTeams);
 
+  const [teams, updateTeams] = useState(defaultTeams);
+
   const handleGetUsers = async () => {
     const allUsers = await getAllUsersFromCompany(company.id);
     updateAllNewUsers(allUsers);
-
   };
 
   const getNewTeams = () =>
@@ -69,6 +70,7 @@ const Teams = () => {
       name: list.teamName,
       projectCount: list.numberOfProjects,
       members: list.members,
+      id: list.id
     }));
     setMyNewTeams(solutionTeams);
   }, [myNewUsersData]);
@@ -78,21 +80,49 @@ const Teams = () => {
     getAllUsersAgain();
   }, [teamCount]);
 
+  useEffect(() => {
+    //map thru all the users.
+    const filteredUsers = allUsers.filter((user) => user.team);
+    setMembers(filteredUsers);
+
+    let reducedTeams = filteredUsers.reduce((fullList, currentUser) => {
+      let index = fullList.length - 1;
+      if (
+        fullList.length &&
+        fullList[index][0].team.id === currentUser.team.id
+      ) {
+        fullList[index].push(currentUser);
+      } else {
+        fullList.push([currentUser]);
+      }
+      return fullList;
+    }, []);
+
+    const solutionTeams = reducedTeams.map((list, index) => ({
+      team: list[0].team,
+      members: list,
+      id: list[0].team.id,
+    }));
+    updateTeams(solutionTeams);
+  }, [allUsers]);
+console.log(myNewTeams);
   return (
     <>
       <NavBar />
       <StyledTeams>
         <h1>Teams</h1>
         <div id="teams">
-          {myNewTeams?.map(({ name, projectCount, members, id }, idx) => (
-            <TeamCard
-              name={name}
-              projectCount={projectCount}
-              members={members}
-              key={idx}
-              teamId={id}
-            />
-          ))}
+          {myNewTeams
+            ?.map(({ name, projectCount, members, id }, idx) => (
+              <TeamCard
+                name={name}
+                projectCount={projectCount}
+                members={members}
+                key={idx}
+                teams={teams}
+                teamId={id}
+              />
+            ))}
           <CreateTeam members={members} getNewTeams={getNewTeams} />
         </div>
       </StyledTeams>

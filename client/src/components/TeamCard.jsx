@@ -57,9 +57,11 @@ const StyledTeamCard = styled.div`
   }
 `;
 
-const TeamCard = ({ name, projectCount, members, team }) => {
+const TeamCard = ({ name, projectCount, teams, teamId }) => {
   const dispatch = useDispatch();
   const [redirect, setRedirect] = useState("");
+
+  const {team, members} = teams.filter(t => t.id === teamId)[0]
 
   return redirect ? (
     redirect
@@ -81,7 +83,7 @@ const TeamCard = ({ name, projectCount, members, team }) => {
       </div>
       <h3>Members</h3>
       <div className="team-members">
-        {members.map((user, idx) => (
+        {members?.map((user, idx) => (
           <ViewUser initialUser={user} abbreviate={true} key={idx} />
         ))}
       </div>
