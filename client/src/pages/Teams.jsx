@@ -53,7 +53,7 @@ const Teams = () => {
   const getNewTeams = () =>
     setTimeout(function () {
       setNewTeams(teamCount + 1);
-    }, 2000);
+    }, 300);
 
   const getAllUsersAgain = async () => {
     const newUsersAndProjects = await getAllTeamsAndProjectCountByCompany(
