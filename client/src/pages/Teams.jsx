@@ -103,9 +103,10 @@ const Teams = () => {
       members: list,
       id: list[0].team.id,
     }));
+    
     updateTeams(solutionTeams);
   }, [allUsers]);
-console.log(myNewTeams);
+
   return (
     <>
       <NavBar />
