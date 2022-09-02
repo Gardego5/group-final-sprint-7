@@ -18,10 +18,9 @@ import {
   StyledCloseButton,
 } from "./Modals.module";
 
-const CreateAnnouncement = (props) => {
+const CreateAnnouncement = ({ companyId, username, update }) => {
   /* ---------------------------------- State --------------------------------- */
   const [modalOpen, setModalOpen] = useState(false);
-  const [announcement, setAnnouncement] = useState({});
   const [title, setTitle] = useState("");
   const [message, setMessage] = useState("");
 
@@ -31,22 +30,10 @@ const CreateAnnouncement = (props) => {
   const toggle = () => setModalOpen(!modalOpen);
 
   // function to create a new announcement
-  const handleSubmit = () => {
-    const newAnnouncement = {
-      title: title,
-      message: message,
-      companyId: props.companyId,
-      username: props.username,
-    };
-    setAnnouncement(newAnnouncement);
-
-    // call to post a new announcement to database
-    createNewAnnouncement(newAnnouncement)
-      // after it succesfully saves return to announcements page
-      .then((res) => {
-        window.location = "/announcements";
-      })
-      .catch((err) => console.log(err));
+  const handleSubmit = async () => {
+    await createNewAnnouncement({ title, message, companyId, username });
+    update();
+    setModalOpen(false);
   };
 
   return (
